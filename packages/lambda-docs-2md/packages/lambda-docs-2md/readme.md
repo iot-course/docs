@@ -1,5 +1,5 @@
-# Scalable Iot Products 🤖→☁️→📱 
-*with Serverless, GraphQL, and React*
+# Course Outline 🤖 ☁️ 📱
+
 
 
 ## Prereqs 🛑
