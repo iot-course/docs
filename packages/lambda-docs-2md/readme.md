@@ -1,7 +1,5 @@
 # Course Outline
 
-
-
 ## Prereqs 🛑
 - Intermediate React experience
 - Intermediate Node JS experience
@@ -107,7 +105,7 @@ Definition of an IoT Product:
     Scenario: User is <insert: 'unregistered', 'registered', 'logged in', 'logged out', 'upgraded to'> and  
 
       # repeat this block for every interaction on the mockup
-      When user <insert: 'presses', 'types', 'swipes'> ...
+      When user <insert: 'presses', 'types', 'swipes', 'hovers'> ...
       Then user <insert: 'sees', 'hears', 'senses vibration'>...
       # use only for redirection and/or to display a custom error ui
       When the user does not get result, they should <insert: 'sees', 'hears', 'senses vibration'> ...
@@ -115,7 +113,7 @@ Definition of an IoT Product:
 
 
       # next interaction
-      When user <insert: 'presses', 'types", 'swipes'> ...
+      When user <insert: 'presses', 'types", 'swipes', 'hovers'> ...
       ...      
 ```
 
