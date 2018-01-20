@@ -1,4 +1,6 @@
-# Scalable Iot Products with Serverless, GraphQL, and React
+# Scalable Iot Products 🤖→☁️→📱 
+*with Serverless, GraphQL, and React*
+
 
 ## Prereqs 🛑
 - Intermediate React experience
@@ -28,7 +30,9 @@
 
 ## You won't learn...
 - To create industrial IoT products using cellular networks
-- PCB design, embedded C, or swift
+- Embedded C or swift
+- Analog circuits, electronics, digital signals processing
+
 
 
 ### References, APIs, and Specifications
@@ -136,3 +140,5 @@ Definition of an IoT Product:
 ## 5. Feature: Notification System 🔔
 
 ## 6. Feature: WebShop💰
+
+>see the [wiki](https://github.com/iot-course/org/wiki) for more info
