@@ -133,7 +133,7 @@ Definition of an IoT Product:
 
 ## 3. Building the Infrastructure 👷‍
 
-## 4. Feature: Onboarding 🚉
+## 4. Feature: User Onboarding 🚉
 
 ## 5. Feature: Notification System 🔔
 
