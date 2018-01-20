@@ -1,4 +1,4 @@
-# Course Outline 🤖 ☁️ 📱
+# Course Outline
 
 
 
