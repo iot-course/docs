@@ -4,7 +4,9 @@
     "baseConfig": {
       "extends": [ "airbnb" ]
     },
+    "plugins":["iot-course"],
     "rules": {
       "semi": 2
+
     }
 }
