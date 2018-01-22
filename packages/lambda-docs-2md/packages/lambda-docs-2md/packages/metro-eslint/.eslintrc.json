@@ -1,41 +1,10 @@
 {
-  "extends": "airbnb",
-  "plugins": [
-    "iot-course"
-  ],
-  "env": {
-    "browser": true,
-    "jest": true
-  },
-  "rules": {
-    "strict": "off",
-    "semi": [
-      "warn",
-      "never"
-    ],
-    "arrow-parens": [
-      "error",
-      "as-needed"
-    ],
-    "key-spacing": "off",
-    "padded-blocks": "off",
-    "react/require-default-props": "off",
-    "jsx-a11y/anchor-is-valid": "off",
-    "react/jsx-closing-tag-location": "off",
-    "react/jsx-filename-extension": "off",
-    "react/jsx-wrap-multilines": "off",
-    "import/no-unresolved": [
-      2,
-      {
-        "ignore": [
-          "^react-native"
-        ]
-      }
-    ],
-    "import/no-extraneous-dependencies": "off",
-    "import/extensions": {
-      "react-native": "always"
+    "useEslintrc": false,
+    "envs": ["browser", "jest"],
+    "baseConfig": {
+      "extends": [ "airbnb" ]
     },
-    "iot-course/arrow-expressions": "warn"
-  }
+    "rules": {
+      "semi": 2
+    }
 }
