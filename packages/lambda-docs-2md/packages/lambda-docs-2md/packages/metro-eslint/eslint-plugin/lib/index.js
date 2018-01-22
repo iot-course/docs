@@ -1,6 +1,6 @@
 /**
- * @fileoverview eslint lint rules for Scalable IoT course
- * @author Joe
+ * @fileoverview rules for your org
+ * @author wordyallenc
  */
 "use strict";
 
@@ -17,6 +17,3 @@ var requireIndex = require("requireindex");
 
 // import all rules in lib/rules
 module.exports.rules = requireIndex(__dirname + "/rules");
-
-
-
