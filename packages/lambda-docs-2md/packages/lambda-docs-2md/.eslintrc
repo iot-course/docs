@@ -4,9 +4,9 @@
   "extends": "airbnb",
   "plugins": ["iot-course"],
   "rules": {
-      semi: 2
+      "semi": 2
 
-      
+
     }
 
 }
