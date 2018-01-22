@@ -1,13 +1,6 @@
 {
   "name": "eslint-plugin-iot-course",
-  "version": "0.0.0",
-  "description": "eslint lint rules for Scalable IoT course",
-  "keywords": [
-    "eslint",
-    "eslintplugin",
-    "eslint-plugin"
-  ],
-  "author": "Joe",
+  "version": "0.0.1",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha tests --recursive"
