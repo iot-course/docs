@@ -1,6 +1,6 @@
 # eslint-plugin-iot-course
 
-eslint lint rules for Scalable IoT course
+eslint lint rules for the Scalable IoT course
 
 ## Installation
 
@@ -27,7 +27,7 @@ Add `iot-course` to the plugins section of your `.eslintrc` configuration file. 
     "plugins": [
         "iot-course"
     ]
-}
+}``
 ```
 
 
@@ -44,8 +44,3 @@ Then configure the rules you want to use under the rules section.
 ## Supported Rules
 
 * Fill in provided rules here
-
-
-
-
-
