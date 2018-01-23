@@ -6,16 +6,16 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @flow
+ * 
  * @format
  */
 
 'use strict';
 
-function createModuleIdFactory(): (path: string) => number {
-  const fileToIdMap: Map<string, number> = new Map();
+function createModuleIdFactory() {
+  const fileToIdMap = new Map();
   let nextId = 0;
-  return (path: string) => {
+  return path => {
     let id = fileToIdMap.get(path);
     if (typeof id !== 'number') {
       id = nextId++;
