@@ -16,7 +16,7 @@
   			"error",
   			"as-needed"
   		],
-      " jsx-quotes": "off",
+      "jsx-quotes": "off",
   		"key-spacing": "off",
   		"padded-blocks": "off",
   		"react/require-default-props": "off",
