@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @flow
+ * 
  * @format
  */
 
@@ -14,7 +14,7 @@
 
 const babel = require('babel-core');
 
-import type {Ast, BabelSourceMap} from 'babel-core';
+
 
 const t = babel.types;
 
@@ -29,8 +29,8 @@ const Conditional = {
         path.remove();
       }
     }
-  },
-};
+  } };
+
 
 const plugin = {
   visitor: {
@@ -43,8 +43,8 @@ const plugin = {
             path.replaceWith(t.valueToNode(result.value));
           }
         }
-      },
-    },
+      } },
+
     ConditionalExpression: Conditional,
     IfStatement: Conditional,
     LogicalExpression: {
@@ -59,27 +59,27 @@ const plugin = {
             path.replaceWith(value ? node.right : left);
           }
         }
-      },
-    },
+      } },
+
     UnaryExpression: {
       exit(path) {
         const node = path.node;
         if (node.operator === '!' && t.isLiteral(node.argument)) {
           path.replaceWith(t.valueToNode(!node.argument.value));
         }
-      },
-    },
-  },
-};
+      } } } };
+
+
+
 
 function constantFolding(
-  filename: string,
-  transformResult: {
-    ast: Ast,
-    code?: ?string,
-    map: ?BabelSourceMap,
-  },
-) {
+filename,
+transformResult)
+
+
+
+
+{
   return babel.transformFromAst(transformResult.ast, transformResult.code, {
     filename,
     plugins: [plugin],
@@ -88,8 +88,8 @@ function constantFolding(
     sourceFileName: filename,
     babelrc: false,
     compact: true,
-    retainLines: true,
-  });
+    retainLines: true });
+
 }
 
 constantFolding.plugin = plugin;
