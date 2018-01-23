@@ -7,33 +7,33 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  * @format
- * @flow
+ * 
  */
 
-'use strict';
+'use strict';var _require =
 
-const {traverse} = require('babel-core');
+require('babel-core');const traverse = _require.traverse;
 const prettyPrint = require('babel-generator').default;
 
-import type {TransformResultDependency} from '../types.flow';
 
-type Context = {
-  oldToNewIndex: Map<number, number>,
-  dependencies: Array<TransformResultDependency>,
-};
 
-type Dependencies = $ReadOnlyArray<TransformResultDependency>;
+
+
+
+
+
+
 
 function optimizeDependencies(
-  ast: Ast,
-  dependencies: Dependencies,
-  dependencyMapName: string,
-): Array<TransformResultDependency> {
+ast,
+dependencies,
+dependencyMapName)
+{
   const visited = new WeakSet();
-  const context = {oldToNewIndex: new Map(), dependencies: []};
+  const context = { oldToNewIndex: new Map(), dependencies: [] };
   const visitor = {
-    CallExpression(path) {
-      const {node} = path;
+    CallExpression(path) {const
+      node = path.node;
       if (visited.has(node)) {
         return;
       }
@@ -42,8 +42,8 @@ function optimizeDependencies(
         visited.add(node);
       }
     },
-    MemberExpression(path, state) {
-      const {node} = path;
+    MemberExpression(path, state) {const
+      node = path.node;
       if (visited.has(node)) {
         return;
       }
@@ -51,8 +51,8 @@ function optimizeDependencies(
         processDepMapAccess(context, node, dependencies);
         visited.add(node);
       }
-    },
-  };
+    } };
+
   traverse(ast, visitor);
   return context.dependencies;
 }
@@ -64,25 +64,25 @@ function isRequireCall(callee) {
 function processRequireCall(node) {
   if (node.arguments.length != 2) {
     throw new InvalidRequireCallError(
-      'Post-transform calls to require() expect 2 arguments, the first ' +
-        'of which has the shape `_dependencyMapName[123]`, ' +
-        `but this was found: \`${prettyPrint(node).code}\``,
-    );
+    'Post-transform calls to require() expect 2 arguments, the first ' +
+    'of which has the shape `_dependencyMapName[123]`, ' +
+    `but this was found: \`${prettyPrint(node).code}\``);
+
   }
   node.arguments = [node.arguments[0]];
   return node;
 }
 
-function isDepMapAccess(node, depMapName: string): boolean {
+function isDepMapAccess(node, depMapName) {
   return (
     node.computed &&
     node.object.type === 'Identifier' &&
     node.object.name === depMapName &&
-    node.property.type === 'NumericLiteral'
-  );
+    node.property.type === 'NumericLiteral');
+
 }
 
-function processDepMapAccess(context: Context, node, deps: Dependencies): void {
+function processDepMapAccess(context, node, deps) {
   const index = node.property.value;
   const newIx = translateDependencyIndex(context, deps, index);
   if (newIx !== node.property.value) {
@@ -91,10 +91,10 @@ function processDepMapAccess(context: Context, node, deps: Dependencies): void {
 }
 
 function translateDependencyIndex(
-  context: Context,
-  deps: Dependencies,
-  index: number,
-): number {
+context,
+deps,
+index)
+{
   let newIndex = context.oldToNewIndex.get(index);
   if (newIndex != null) {
     return newIndex;
@@ -102,10 +102,10 @@ function translateDependencyIndex(
   const dep = deps[index];
   if (dep == null) {
     throw new Error(
-      `${index} is not a known module index. Existing mappings: ${deps
-        .map((n, i) => `${i} => ${n.name}`)
-        .join(', ')}`,
-    );
+    `${index} is not a known module index. Existing mappings: ${deps.
+    map((n, i) => `${i} => ${n.name}`).
+    join(', ')}`);
+
   }
   newIndex = context.dependencies.push(dep) - 1;
   context.oldToNewIndex.set(index, newIndex);
@@ -115,8 +115,8 @@ function translateDependencyIndex(
 class InvalidRequireCallError extends Error {
   constructor(message) {
     super(message);
-  }
-}
+  }}
+
 optimizeDependencies.InvalidRequireCallError = InvalidRequireCallError;
 
 module.exports = optimizeDependencies;
