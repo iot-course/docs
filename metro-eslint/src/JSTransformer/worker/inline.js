@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @flow
+ * 
  * @format
  */
 
@@ -16,37 +16,37 @@ const babel = require('babel-core');
 const inlinePlatform = require('./inline-platform');
 const invariant = require('fbjs/lib/invariant');
 
-import type {Ast} from 'babel-core';
-import type {BabelSourceMap} from 'babel-core';
+
+
 const t = babel.types;
 
-const env = {name: 'env'};
-const nodeEnv = {name: 'NODE_ENV'};
-const processId = {name: 'process'};
+const env = { name: 'env' };
+const nodeEnv = { name: 'NODE_ENV' };
+const processId = { name: 'process' };
 
-const dev = {name: '__DEV__'};
+const dev = { name: '__DEV__' };
 
 const isGlobal = binding => !binding;
 
 const isFlowDeclared = binding => t.isDeclareVariable(binding.path);
 
 const isGlobalOrFlowDeclared = binding =>
-  isGlobal(binding) || isFlowDeclared(binding);
+isGlobal(binding) || isFlowDeclared(binding);
 
 const isLeftHandSideOfAssignmentExpression = (node, parent) =>
-  t.isAssignmentExpression(parent) && parent.left === node;
+t.isAssignmentExpression(parent) && parent.left === node;
 
 const isProcessEnvNodeEnv = (node, scope) =>
-  t.isIdentifier(node.property, nodeEnv) &&
-  t.isMemberExpression(node.object) &&
-  t.isIdentifier(node.object.property, env) &&
-  t.isIdentifier(node.object.object, processId) &&
-  isGlobal(scope.getBinding(processId.name));
+t.isIdentifier(node.property, nodeEnv) &&
+t.isMemberExpression(node.object) &&
+t.isIdentifier(node.object.property, env) &&
+t.isIdentifier(node.object.object, processId) &&
+isGlobal(scope.getBinding(processId.name));
 
 const isDev = (node, parent, scope) =>
-  t.isIdentifier(node, dev) &&
-  isGlobalOrFlowDeclared(scope.getBinding(dev.name)) &&
-  !t.isMemberExpression(parent);
+t.isIdentifier(node, dev) &&
+isGlobalOrFlowDeclared(scope.getBinding(dev.name)) &&
+!t.isMemberExpression(parent);
 
 function findProperty(objectExpression, key, fallback) {
   const property = objectExpression.properties.find(p => p.key.name === key);
@@ -70,8 +70,8 @@ const inlinePlugin = {
           path.replaceWith(t.stringLiteral(opts.platform));
         } else if (isProcessEnvNodeEnv(node, scope)) {
           path.replaceWith(
-            t.stringLiteral(opts.dev ? 'development' : 'production'),
-          );
+          t.stringLiteral(opts.dev ? 'development' : 'production'));
+
         }
       }
     },
@@ -83,36 +83,36 @@ const inlinePlugin = {
 
       if (inlinePlatform.isPlatformSelectNode(node, scope, opts.isWrapped)) {
         const fallback = () =>
-          findProperty(arg, 'default', () => t.identifier('undefined'));
-        const replacement = t.isObjectExpression(arg)
-          ? findProperty(arg, opts.platform, fallback)
-          : node;
+        findProperty(arg, 'default', () => t.identifier('undefined'));
+        const replacement = t.isObjectExpression(arg) ?
+        findProperty(arg, opts.platform, fallback) :
+        node;
 
         path.replaceWith(replacement);
       } else if (
-        inlinePlatform.isPlatformOSSelect(node, scope, opts.isWrapped)
-      ) {
+      inlinePlatform.isPlatformOSSelect(node, scope, opts.isWrapped))
+      {
         path.replaceWith(
-          inlinePlatform.getReplacementForPlatformOSSelect(node, opts.platform),
-        );
+        inlinePlatform.getReplacementForPlatformOSSelect(node, opts.platform));
+
       }
-    },
-  },
-};
+    } } };
+
+
 
 const plugin = () => inlinePlugin;
 
-type AstResult = {
-  ast: Ast,
-  code: ?string,
-  map: ?BabelSourceMap,
-};
+
+
+
+
+
 
 function inline(
-  filename: string,
-  transformResult: {ast?: ?Ast, code: string, map: ?BabelSourceMap},
-  options: {+dev: boolean, +platform: ?string},
-): AstResult {
+filename,
+transformResult,
+options)
+{
   const code = transformResult.code;
   const babelOptions = {
     filename,
@@ -122,15 +122,15 @@ function inline(
     sourceFileName: filename,
     code: false,
     babelrc: false,
-    compact: true,
-  };
+    compact: true };
 
-  const result = transformResult.ast
-    ? babel.transformFromAst(transformResult.ast, code, babelOptions)
-    : babel.transform(code, babelOptions);
-  const {ast} = result;
+
+  const result = transformResult.ast ?
+  babel.transformFromAst(transformResult.ast, code, babelOptions) :
+  babel.transform(code, babelOptions);const
+  ast = result.ast;
   invariant(ast != null, 'Missing AST in babel transform results.');
-  return {ast, code: result.code, map: result.map};
+  return { ast, code: result.code, map: result.map };
 }
 
 inline.plugin = inlinePlugin;

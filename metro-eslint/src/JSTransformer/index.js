@@ -6,60 +6,60 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @flow
+ * 
  * @format
  */
 
-'use strict';
+'use strict';function _asyncToGenerator(fn) {return function () {var gen = fn.apply(this, arguments);return new Promise(function (resolve, reject) {function step(key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {return Promise.resolve(value).then(function (value) {step("next", value);}, function (err) {step("throw", err);});}}return step("next");});};}var _require =
 
-const {Logger} = require('metro-core');
+require('metro-core');const Logger = _require.Logger;
 
 const debug = require('debug')('Metro:JStransformer');
 const Worker = require('jest-worker').default;
 
-import type {BabelSourceMap} from 'babel-core';
-import type {Options, TransformedCode} from './worker';
-import type {LocalPath} from '../node-haste/lib/toLocalPath';
-import type {ResultWithMap} from './worker/minify';
-import type {DynamicRequiresBehavior} from '../ModuleGraph/worker/collectDependencies';
 
-import typeof {minify as Minify, transform as Transform} from './worker';
 
-type WorkerInterface = Worker & {
-  minify: Minify,
-  transform: Transform,
-};
 
-type Reporters = {
-  +stdoutChunk: (chunk: string) => mixed,
-  +stderrChunk: (chunk: string) => mixed,
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = class Transformer {
-  _worker: WorkerInterface;
-  _transformModulePath: string;
-  _dynamicDepsInPackages: DynamicRequiresBehavior;
 
-  constructor(options: {|
-    +maxWorkers: number,
-    +reporters: Reporters,
-    +transformModulePath: string,
-    +dynamicDepsInPackages: DynamicRequiresBehavior,
-    +workerPath: ?string,
-  |}) {
+
+
+
+  constructor(options)
+
+
+
+
+
+  {
     this._transformModulePath = options.transformModulePath;
-    this._dynamicDepsInPackages = options.dynamicDepsInPackages;
-    const {workerPath = require.resolve('./worker')} = options;
+    this._dynamicDepsInPackages = options.dynamicDepsInPackages;var _options$workerPath =
+    options.workerPath;const workerPath = _options$workerPath === undefined ? require.resolve('./worker') : _options$workerPath;
 
     if (options.maxWorkers > 1) {
       this._worker = this._makeFarm(
-        workerPath,
-        this._computeWorkerKey,
-        ['minify', 'transform'],
-        options.maxWorkers,
-      );
+      workerPath,
+      this._computeWorkerKey,
+      ['minify', 'transform'],
+      options.maxWorkers);const
 
-      const {reporters} = options;
+
+      reporters = options.reporters;
       this._worker.getStdout().on('data', chunk => {
         reporters.stdoutChunk(chunk.toString('utf8'));
       });
@@ -79,53 +79,53 @@ module.exports = class Transformer {
     }
   }
 
-  async minify(
-    filename: string,
-    code: string,
-    sourceMap: BabelSourceMap,
-  ): Promise<ResultWithMap> {
-    return await this._worker.minify(filename, code, sourceMap);
+  minify(
+  filename,
+  code,
+  sourceMap)
+  {var _this = this;return _asyncToGenerator(function* () {
+      return yield _this._worker.minify(filename, code, sourceMap);})();
   }
 
-  async transformFile(
-    filename: string,
-    localPath: LocalPath,
-    code: string,
-    isScript: boolean,
-    options: Options,
-    assetExts: $ReadOnlyArray<string>,
-    assetRegistryPath: string,
-  ): Promise<TransformedCode> {
-    try {
-      debug('Started ransforming file', filename);
+  transformFile(
+  filename,
+  localPath,
+  code,
+  isScript,
+  options,
+  assetExts,
+  assetRegistryPath)
+  {var _this2 = this;return _asyncToGenerator(function* () {
+      try {
+        debug('Started ransforming file', filename);
 
-      const data = await this._worker.transform(
+        const data = yield _this2._worker.transform(
         filename,
         localPath,
         code,
-        this._transformModulePath,
+        _this2._transformModulePath,
         isScript,
         options,
         assetExts,
         assetRegistryPath,
-        this._dynamicDepsInPackages,
-      );
+        _this2._dynamicDepsInPackages);
 
-      debug('Done transforming file', filename);
 
-      Logger.log(data.transformFileStartLogEntry);
-      Logger.log(data.transformFileEndLogEntry);
+        debug('Done transforming file', filename);
 
-      return data.result;
-    } catch (err) {
-      debug('Failed transformFile file', filename);
+        Logger.log(data.transformFileStartLogEntry);
+        Logger.log(data.transformFileEndLogEntry);
 
-      if (err.loc) {
-        throw this._formatBabelError(err, filename);
-      } else {
-        throw this._formatGenericError(err, filename);
-      }
-    }
+        return data.result;
+      } catch (err) {
+        debug('Failed transformFile file', filename);
+
+        if (err.loc) {
+          throw _this2._formatBabelError(err, filename);
+        } else {
+          throw _this2._formatGenericError(err, filename);
+        }
+      }})();
   }
 
   _makeFarm(workerPath, computeWorkerKey, exposedMethods, maxWorkers) {
@@ -134,21 +134,21 @@ module.exports = class Transformer {
     // free to add more cases to the RegExp. A whitelist is preferred, to
     // guarantee robustness when upgrading node, etc.
     const execArgv = process.execArgv.filter(
-      arg =>
-        /^--stack[_-]trace[_-]limit=[0-9]+$/.test(arg) ||
-        /^--heap[_-]growing[_-]percent=[0-9]+$/.test(arg) ||
-        /^--max[_-]old[_-]space[_-]size=[0-9]+$/.test(arg),
-    );
+    arg =>
+    /^--stack[_-]trace[_-]limit=[0-9]+$/.test(arg) ||
+    /^--heap[_-]growing[_-]percent=[0-9]+$/.test(arg) ||
+    /^--max[_-]old[_-]space[_-]size=[0-9]+$/.test(arg));
+
 
     return new Worker(workerPath, {
       computeWorkerKey,
       exposedMethods,
-      forkOptions: {execArgv},
-      maxWorkers,
-    });
+      forkOptions: { execArgv },
+      maxWorkers });
+
   }
 
-  _computeWorkerKey(method: string, filename: string): ?string {
+  _computeWorkerKey(method, filename) {
     // Only when transforming a file we want to stick to the same worker; and
     // we'll shard by file path. If not; we return null, which tells the worker
     // to pick the first available one.
@@ -163,18 +163,18 @@ module.exports = class Transformer {
     const error = new TransformError(`${filename}: ${err.message}`);
 
     return Object.assign(error, {
-      stack: (err.stack || '')
-        .split('\n')
-        .slice(0, -1)
-        .join('\n'),
-      lineNumber: 0,
-    });
+      stack: (err.stack || '').
+      split('\n').
+      slice(0, -1).
+      join('\n'),
+      lineNumber: 0 });
+
   }
 
   _formatBabelError(err, filename) {
     const error = new TransformError(
-      `${err.type || 'Error'} in ${filename}: ${err.message}`,
-    );
+    `${err.type || 'Error'} in ${filename}: ${err.message}`);
+
 
     // $FlowFixMe: extending an error.
     return Object.assign(error, {
@@ -182,16 +182,15 @@ module.exports = class Transformer {
       snippet: err.codeFrame,
       lineNumber: err.loc.line,
       column: err.loc.column,
-      filename,
-    });
-  }
-};
+      filename });
+
+  }};
+
 
 class TransformError extends SyntaxError {
-  type: string = 'TransformError';
 
-  constructor(message: string) {
-    super(message);
+
+  constructor(message) {
+    super(message);this.type = 'TransformError';
     Error.captureStackTrace && Error.captureStackTrace(this, TransformError);
-  }
-}
+  }}
