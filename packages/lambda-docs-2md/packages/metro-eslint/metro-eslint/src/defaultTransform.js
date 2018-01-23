@@ -6,31 +6,31 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @flow
+ * 
  * @format
  */
 'use strict';
 
 const babel = require('babel-core');
 
-import type {TransformOptions} from './JSTransformer/worker';
-import type {Plugins as BabelPlugins} from 'babel-core';
 
-type Params = {
-  filename: string,
-  options: TransformOptions,
-  plugins?: BabelPlugins,
-  src: string,
-};
 
-module.exports.transform = ({filename, options, plugins, src}: Params) => {
+
+
+
+
+
+
+
+
+module.exports.transform = (_ref) => {let filename = _ref.filename,options = _ref.options,plugins = _ref.plugins,src = _ref.src;
   const OLD_BABEL_ENV = process.env.BABEL_ENV;
   process.env.BABEL_ENV = options.dev ? 'development' : 'production';
 
-  try {
-    const {ast} = babel.transform(src, {filename, code: false, plugins});
+  try {var _babel$transform =
+    babel.transform(src, { filename, code: false, plugins });const ast = _babel$transform.ast;
 
-    return {ast};
+    return { ast };
   } finally {
     process.env.BABEL_ENV = OLD_BABEL_ENV;
   }

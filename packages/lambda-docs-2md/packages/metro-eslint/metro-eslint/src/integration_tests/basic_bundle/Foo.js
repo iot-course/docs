@@ -7,11 +7,11 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  * @format
- * @flow
+ * 
  */
 
 'use strict';
 
 const asset = require('./test.png');
 
-module.exports = {type: 'foo', asset};
+module.exports = { type: 'foo', asset };

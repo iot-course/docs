@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @flow
+ * 
  * @format
  */
 'use strict';
@@ -14,14 +14,14 @@
 const EventEmitter = require('eventemitter3');
 
 /**
- * The Hot Module Reloading Client connects to metro via Websockets, to receive
- * updates from it and propagate them to the runtime to reflect the changes.
- */
+                                                * The Hot Module Reloading Client connects to metro via Websockets, to receive
+                                                * updates from it and propagate them to the runtime to reflect the changes.
+                                                */
 class HMRClient extends EventEmitter {
-  _wsClient: ?WebSocket;
-  _url: string;
 
-  constructor(url: string) {
+
+
+  constructor(url) {
     super();
 
     this._url = url;
@@ -51,21 +51,21 @@ class HMRClient extends EventEmitter {
           this.emit('update-start');
           break;
 
-        case 'update':
-          const {modules, sourceMappingURLs, sourceURLs} = data.body;
+        case 'update':var _data$body =
+          data.body;const modules = _data$body.modules,sourceMappingURLs = _data$body.sourceMappingURLs,sourceURLs = _data$body.sourceURLs;
 
           this.emit('update');
 
-          modules.forEach(({id, code}, i) => {
+          modules.forEach((_ref, i) => {let id = _ref.id,code = _ref.code;
             code += '\n\n' + sourceMappingURLs[i];
 
             // on JSC we need to inject from native for sourcemaps to work
             // (Safari doesn't support `sourceMappingURL` nor any variant when
             // evaluating code) but on Chrome we can simply use eval
             const injectFunction =
-              typeof global.nativeInjectHMRUpdate === 'function'
-                ? global.nativeInjectHMRUpdate
-                : eval; // eslint-disable-line no-eval
+            typeof global.nativeInjectHMRUpdate === 'function' ?
+            global.nativeInjectHMRUpdate :
+            eval; // eslint-disable-line no-eval
 
             injectFunction(code, sourceURLs[i]);
           });
@@ -78,13 +78,13 @@ class HMRClient extends EventEmitter {
         case 'error':
           this.emit('error', {
             type: data.body.type,
-            message: data.body.message,
-          });
+            message: data.body.message });
+
           break;
 
         default:
-          this.emit('error', {type: 'unknown-message', message: data});
-      }
+          this.emit('error', { type: 'unknown-message', message: data });}
+
     };
   }
 
@@ -96,7 +96,7 @@ class HMRClient extends EventEmitter {
     this._wsClient.close();
 
     this._wsClient = undefined;
-  }
-}
+  }}
+
 
 module.exports = HMRClient;
