@@ -20,6 +20,6 @@ exports.fn = () => {
   return f;
 };
 
-const generateOptions = {concise: true};
+const generateOptions = { concise: true };
 exports.codeFromAst = ast => generate(ast, generateOptions).code;
 exports.comparableCode = code => code.trim().replace(/\s\s+/g, ' ');

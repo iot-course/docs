@@ -7,11 +7,11 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  * @format
- * @flow
+ * 
  */
 
 'use strict';
 
 const Foo = require('./Foo');
 
-module.exports = {type: 'bar', foo: Foo.type};
+module.exports = { type: 'bar', foo: Foo.type };
