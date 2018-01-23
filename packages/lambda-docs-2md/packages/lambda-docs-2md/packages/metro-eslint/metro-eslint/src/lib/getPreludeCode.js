@@ -6,19 +6,19 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @flow
+ * 
  * @format
  */
 
 'use strict';
 
-function getPreludeCode({isDev}: {|+isDev: boolean|}): string {
+function getPreludeCode(_ref) {let isDev = _ref.isDev;
   return (
     `var __DEV__=${String(isDev)},` +
     '__BUNDLE_START_TIME__=this.nativePerformanceNow?nativePerformanceNow():Date.now(),' +
     'process=this.process||{};process.env=process.env||{};' +
-    `process.env.NODE_ENV='${isDev ? 'development' : 'production'}';`
-  );
+    `process.env.NODE_ENV='${isDev ? 'development' : 'production'}';`);
+
 }
 
 module.exports = getPreludeCode;
