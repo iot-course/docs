@@ -6,11 +6,11 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @flow
+ * 
  * @format
  */
 
-'use strict';
+'use strict';var _extends = Object.assign || function (target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i];for (var key in source) {if (Object.prototype.hasOwnProperty.call(source, key)) {target[key] = source[key];}}}return target;};function _asyncToGenerator(fn) {return function () {var gen = fn.apply(this, arguments);return new Promise(function (resolve, reject) {function step(key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {return Promise.resolve(value).then(function (value) {step("next", value);}, function (err) {step("throw", err);});}}return step("next");});};}
 
 const DependencyGraph = require('../node-haste/DependencyGraph');
 const Transformer = require('../JSTransformer');
@@ -18,103 +18,103 @@ const Transformer = require('../JSTransformer');
 const assert = require('assert');
 const defaults = require('../defaults');
 const fs = require('fs');
-const getTransformCacheKeyFn = require('../lib/getTransformCacheKeyFn');
+const getTransformCacheKeyFn = require('../lib/getTransformCacheKeyFn');var _require =
 
-const {
-  toSegmentTuple,
-  fromRawMappings,
-  toBabelSegments,
-} = require('metro-source-map');
 
-import type {PostProcessModules} from '../DeltaBundler';
-import type {Options as JSTransformerOptions} from '../JSTransformer/worker';
-import type {DynamicRequiresBehavior} from '../ModuleGraph/worker/collectDependencies';
-import type {GlobalTransformCache} from '../lib/GlobalTransformCache';
-import type {TransformCache} from '../lib/TransformCaching';
-import type {Reporter} from '../lib/reporting';
-import type {HasteImpl} from '../node-haste/Module';
-import type {BabelSourceMap} from 'babel-core';
-import type {
-  MetroSourceMapSegmentTuple,
-  MetroSourceMap,
-} from 'metro-source-map';
 
-export type BundlingOptions = {|
-  +preloadedModules: ?{[string]: true} | false,
-  +ramGroups: ?Array<string>,
-  +transformer: JSTransformerOptions,
-|};
 
-type TransformOptions = {|
-  +inlineRequires: {+blacklist: {[string]: true}} | boolean,
-|};
 
-export type ExtraTransformOptions = {
-  +preloadedModules?: {[path: string]: true} | false,
-  +ramGroups?: Array<string>,
-  +transform?: TransformOptions,
-};
+require('metro-source-map');const toSegmentTuple = _require.toSegmentTuple,fromRawMappings = _require.fromRawMappings,toBabelSegments = _require.toBabelSegments;
 
-export type GetTransformOptionsOpts = {|
-  dev: boolean,
-  hot: boolean,
-  platform: ?string,
-|};
 
-export type GetTransformOptions = (
-  entryPoints: $ReadOnlyArray<string>,
-  options: GetTransformOptionsOpts,
-  getDependenciesOf: (string) => Promise<Array<string>>,
-) => Promise<ExtraTransformOptions>;
 
-export type PostMinifyProcess = ({
-  code: string,
-  map: ?BabelSourceMap,
-}) => {code: string, map: ?BabelSourceMap};
 
-export type PostProcessBundleSourcemap = ({
-  code: Buffer | string,
-  map: MetroSourceMap,
-  outFileName: string,
-}) => {code: Buffer | string, map: MetroSourceMap | string};
 
-export type Options = {|
-  +assetExts: Array<string>,
-  +assetRegistryPath: string,
-  +blacklistRE?: RegExp,
-  +cacheVersion: string,
-  +dynamicDepsInPackages: DynamicRequiresBehavior,
-  +enableBabelRCLookup: boolean,
-  +extraNodeModules: {},
-  +getPolyfills: ({platform: ?string}) => $ReadOnlyArray<string>,
-  +getTransformOptions?: GetTransformOptions,
-  +globalTransformCache: ?GlobalTransformCache,
-  +hasteImpl?: HasteImpl,
-  +maxWorkers: number,
-  +platforms: Array<string>,
-  +polyfillModuleNames: Array<string>,
-  +postMinifyProcess: PostMinifyProcess,
-  +postProcessBundleSourcemap: PostProcessBundleSourcemap,
-  +postProcessModules?: PostProcessModules,
-  +projectRoots: $ReadOnlyArray<string>,
-  +providesModuleNodeModules?: Array<string>,
-  +reporter: Reporter,
-  +resetCache: boolean,
-  +sourceExts: Array<string>,
-  +transformCache: TransformCache,
-  +transformModulePath: string,
-  +watch: boolean,
-  +workerPath: ?string,
-|};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class Bundler {
-  _opts: Options;
-  _transformer: Transformer;
-  _depGraphPromise: Promise<DependencyGraph>;
-  _projectRoots: $ReadOnlyArray<string>;
-  _getTransformOptions: void | GetTransformOptions;
 
-  constructor(opts: Options) {
+
+
+
+
+
+  constructor(opts) {
     this._opts = opts;
 
     opts.projectRoots.forEach(verifyRootExists);
@@ -123,14 +123,14 @@ class Bundler {
       maxWorkers: opts.maxWorkers,
       reporters: {
         stdoutChunk: chunk =>
-          opts.reporter.update({type: 'worker_stdout_chunk', chunk}),
+        opts.reporter.update({ type: 'worker_stdout_chunk', chunk }),
         stderrChunk: chunk =>
-          opts.reporter.update({type: 'worker_stderr_chunk', chunk}),
-      },
+        opts.reporter.update({ type: 'worker_stderr_chunk', chunk }) },
+
       transformModulePath: opts.transformModulePath,
       dynamicDepsInPackages: opts.dynamicDepsInPackages,
-      workerPath: opts.workerPath || undefined,
-    });
+      workerPath: opts.workerPath || undefined });
+
 
     this._depGraphPromise = DependencyGraph.load({
       assetExts: opts.assetExts,
@@ -142,8 +142,8 @@ class Bundler {
         cacheVersion: opts.cacheVersion,
         dynamicDepsInPackages: opts.dynamicDepsInPackages,
         projectRoots: opts.projectRoots,
-        transformModulePath: opts.transformModulePath,
-      }),
+        transformModulePath: opts.transformModulePath }),
+
       globalTransformCache: opts.globalTransformCache,
       hasteImpl: opts.hasteImpl,
       maxWorkers: opts.maxWorkers,
@@ -151,130 +151,130 @@ class Bundler {
       polyfillModuleNames: opts.polyfillModuleNames,
       projectRoots: opts.projectRoots,
       providesModuleNodeModules:
-        opts.providesModuleNodeModules || defaults.providesModuleNodeModules,
+      opts.providesModuleNodeModules || defaults.providesModuleNodeModules,
       reporter: opts.reporter,
       resetCache: opts.resetCache,
       sourceExts: opts.sourceExts,
       transformCode: (module, code, transformCodeOptions) =>
-        this._transformer.transformFile(
-          module.path,
-          module.localPath,
-          code,
-          module.isPolyfill(),
-          transformCodeOptions,
-          this._opts.assetExts,
-          this._opts.assetRegistryPath,
-        ),
+      this._transformer.transformFile(
+      module.path,
+      module.localPath,
+      code,
+      module.isPolyfill(),
+      transformCodeOptions,
+      this._opts.assetExts,
+      this._opts.assetRegistryPath),
+
       transformCache: opts.transformCache,
-      watch: opts.watch,
-    });
+      watch: opts.watch });
+
 
     this._projectRoots = opts.projectRoots;
     this._getTransformOptions = opts.getTransformOptions;
   }
 
-  getOptions(): Options {
+  getOptions() {
     return this._opts;
   }
 
-  async end() {
-    this._transformer.kill();
-    await this._depGraphPromise.then(dependencyGraph =>
-      dependencyGraph.getWatcher().end(),
-    );
+  end() {var _this = this;return _asyncToGenerator(function* () {
+      _this._transformer.kill();
+      yield _this._depGraphPromise.then(function (dependencyGraph) {return (
+          dependencyGraph.getWatcher().end());});})();
+
   }
 
   /**
-   * Returns the transform options related to a specific entry file, by calling
-   * the config parameter getTransformOptions().
-   */
-  async getTransformOptionsForEntryFile(
-    entryFile: string,
-    options: {dev: boolean, platform: ?string},
-    getDependencies: string => Promise<Array<string>>,
-  ): Promise<TransformOptions> {
-    if (!this._getTransformOptions) {
-      return {
-        inlineRequires: false,
-      };
-    }
+     * Returns the transform options related to a specific entry file, by calling
+     * the config parameter getTransformOptions().
+     */
+  getTransformOptionsForEntryFile(
+  entryFile,
+  options,
+  getDependencies)
+  {var _this2 = this;return _asyncToGenerator(function* () {
+      if (!_this2._getTransformOptions) {
+        return {
+          inlineRequires: false };
 
-    const {transform} = await this._getTransformOptions(
+      }var _ref =
+
+      yield _this2._getTransformOptions(
       [entryFile],
-      {dev: options.dev, hot: true, platform: options.platform},
-      getDependencies,
-    );
+      { dev: options.dev, hot: true, platform: options.platform },
+      getDependencies);const transform = _ref.transform;
 
-    return transform || {inlineRequires: false};
+
+      return transform || { inlineRequires: false };})();
   }
 
   /**
-   * Returns the options needed to create a RAM bundle.
-   */
-  async getRamOptions(
-    entryFile: string,
-    options: {dev: boolean, platform: ?string},
-    getDependencies: string => Promise<Array<string>>,
-  ): Promise<{|
-    +preloadedModules: {[string]: true},
-    +ramGroups: Array<string>,
-  |}> {
-    if (!this._getTransformOptions) {
-      return {
-        preloadedModules: {},
-        ramGroups: [],
-      };
-    }
+     * Returns the options needed to create a RAM bundle.
+     */
+  getRamOptions(
+  entryFile,
+  options,
+  getDependencies)
 
-    const {preloadedModules, ramGroups} = await this._getTransformOptions(
+
+
+  {var _this3 = this;return _asyncToGenerator(function* () {
+      if (!_this3._getTransformOptions) {
+        return {
+          preloadedModules: {},
+          ramGroups: [] };
+
+      }var _ref2 =
+
+      yield _this3._getTransformOptions(
       [entryFile],
-      {dev: options.dev, hot: true, platform: options.platform},
-      getDependencies,
-    );
+      { dev: options.dev, hot: true, platform: options.platform },
+      getDependencies);const preloadedModules = _ref2.preloadedModules,ramGroups = _ref2.ramGroups;
 
-    return {
-      preloadedModules: preloadedModules || {},
-      ramGroups: ramGroups || [],
-    };
+
+      return {
+        preloadedModules: preloadedModules || {},
+        ramGroups: ramGroups || [] };})();
+
   }
 
   /*
-   * Helper method to return the global transform options that are kept in the
-   * Bundler.
-   */
-  getGlobalTransformOptions(): {
-    enableBabelRCLookup: boolean,
-    projectRoot: string,
-  } {
+     * Helper method to return the global transform options that are kept in the
+     * Bundler.
+     */
+  getGlobalTransformOptions()
+
+
+  {
     return {
       enableBabelRCLookup: this._opts.enableBabelRCLookup,
-      projectRoot: this._projectRoots[0],
-    };
+      projectRoot: this._projectRoots[0] };
+
   }
 
-  getDependencyGraph(): Promise<DependencyGraph> {
+  getDependencyGraph() {
     return this._depGraphPromise;
   }
 
-  async minifyModule(
-    path: string,
-    code: string,
-    map: Array<MetroSourceMapSegmentTuple>,
-  ): Promise<{code: string, map: Array<MetroSourceMapSegmentTuple>}> {
-    const sourceMap = fromRawMappings([{code, source: code, map, path}]).toMap(
+  minifyModule(
+  path,
+  code,
+  map)
+  {var _this4 = this;return _asyncToGenerator(function* () {
+      const sourceMap = fromRawMappings([{ code, source: code, map, path }]).toMap(
       undefined,
-      {},
-    );
+      {});
 
-    const minified = await this._transformer.minify(path, code, sourceMap);
-    const result = await this._opts.postMinifyProcess({...minified});
 
-    return {
-      code: result.code,
-      map: result.map ? toBabelSegments(result.map).map(toSegmentTuple) : [],
-    };
-  }
-}
+      const minified = yield _this4._transformer.minify(path, code, sourceMap);
+      const result = yield _this4._opts.postMinifyProcess(_extends({}, minified));
+
+      return {
+        code: result.code,
+        map: result.map ? toBabelSegments(result.map).map(toSegmentTuple) : [] };})();
+
+  }}
+
 
 function verifyRootExists(root) {
   // Verify that the root exists.

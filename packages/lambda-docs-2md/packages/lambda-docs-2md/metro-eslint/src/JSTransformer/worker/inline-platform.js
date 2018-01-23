@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @flow
+ * 
  * @format
  */
 
@@ -18,89 +18,89 @@ const t = babel.types;
 const importMap = new Map([['ReactNative', 'react-native']]);
 
 const isPlatformNode = (
-  node: Object,
-  scope: Object,
-  isWrappedModule: boolean,
-) =>
-  isPlatformOS(node, scope, isWrappedModule) ||
-  isReactPlatformOS(node, scope, isWrappedModule) ||
-  isPlatformOSOS(node, scope, isWrappedModule);
+node,
+scope,
+isWrappedModule) =>
+
+isPlatformOS(node, scope, isWrappedModule) ||
+isReactPlatformOS(node, scope, isWrappedModule) ||
+isPlatformOSOS(node, scope, isWrappedModule);
 
 const isPlatformSelectNode = (
-  node: Object,
-  scope: Object,
-  isWrappedModule: boolean,
-) =>
-  isPlatformSelect(node, scope, isWrappedModule) ||
-  isReactPlatformSelect(node, scope, isWrappedModule);
+node,
+scope,
+isWrappedModule) =>
+
+isPlatformSelect(node, scope, isWrappedModule) ||
+isReactPlatformSelect(node, scope, isWrappedModule);
 
 const isPlatformOS = (node, scope, isWrappedModule) =>
-  t.isIdentifier(node.property, {name: 'OS'}) &&
-  isImportOrGlobal(node.object, scope, [{name: 'Platform'}], isWrappedModule);
+t.isIdentifier(node.property, { name: 'OS' }) &&
+isImportOrGlobal(node.object, scope, [{ name: 'Platform' }], isWrappedModule);
 
 const isReactPlatformOS = (node, scope, isWrappedModule) =>
-  t.isIdentifier(node.property, {name: 'OS'}) &&
-  t.isMemberExpression(node.object) &&
-  t.isIdentifier(node.object.property, {name: 'Platform'}) &&
-  isImportOrGlobal(
-    node.object.object,
-    scope,
-    [{name: 'React'}, {name: 'ReactNative'}],
-    isWrappedModule,
-  );
+t.isIdentifier(node.property, { name: 'OS' }) &&
+t.isMemberExpression(node.object) &&
+t.isIdentifier(node.object.property, { name: 'Platform' }) &&
+isImportOrGlobal(
+node.object.object,
+scope,
+[{ name: 'React' }, { name: 'ReactNative' }],
+isWrappedModule);
+
 
 const isPlatformOSOS = (node, scope, isWrappedModule) =>
-  t.isIdentifier(node.property, {name: 'OS'}) &&
-  isImportOrGlobal(node.object, scope, [{name: 'PlatformOS'}], isWrappedModule);
+t.isIdentifier(node.property, { name: 'OS' }) &&
+isImportOrGlobal(node.object, scope, [{ name: 'PlatformOS' }], isWrappedModule);
 
 const isPlatformSelect = (node, scope, isWrappedModule) =>
-  t.isMemberExpression(node.callee) &&
-  t.isIdentifier(node.callee.object, {name: 'Platform'}) &&
-  t.isIdentifier(node.callee.property, {name: 'select'}) &&
-  isImportOrGlobal(
-    node.callee.object,
-    scope,
-    [{name: 'Platform'}],
-    isWrappedModule,
-  );
+t.isMemberExpression(node.callee) &&
+t.isIdentifier(node.callee.object, { name: 'Platform' }) &&
+t.isIdentifier(node.callee.property, { name: 'select' }) &&
+isImportOrGlobal(
+node.callee.object,
+scope,
+[{ name: 'Platform' }],
+isWrappedModule);
+
 
 const isReactPlatformSelect = (node, scope, isWrappedModule) =>
-  t.isMemberExpression(node.callee) &&
-  t.isIdentifier(node.callee.property, {name: 'select'}) &&
-  t.isMemberExpression(node.callee.object) &&
-  t.isIdentifier(node.callee.object.property, {name: 'Platform'}) &&
-  isImportOrGlobal(
-    node.callee.object.object,
-    scope,
-    [{name: 'React'}, {name: 'ReactNative'}],
-    isWrappedModule,
-  );
+t.isMemberExpression(node.callee) &&
+t.isIdentifier(node.callee.property, { name: 'select' }) &&
+t.isMemberExpression(node.callee.object) &&
+t.isIdentifier(node.callee.object.property, { name: 'Platform' }) &&
+isImportOrGlobal(
+node.callee.object.object,
+scope,
+[{ name: 'React' }, { name: 'ReactNative' }],
+isWrappedModule);
+
 
 const isPlatformOSSelect = (
-  node: Object,
-  scope: Object,
-  isWrappedModule: boolean,
-) =>
-  t.isMemberExpression(node.callee) &&
-  t.isIdentifier(node.callee.object, {name: 'PlatformOS'}) &&
-  t.isIdentifier(node.callee.property, {name: 'select'}) &&
-  isImportOrGlobal(
-    node.callee.object,
-    scope,
-    [{name: 'PlatformOS'}],
-    isWrappedModule,
-  );
+node,
+scope,
+isWrappedModule) =>
 
-const getReplacementForPlatformOSSelect = (node: Object, platform: string) => {
+t.isMemberExpression(node.callee) &&
+t.isIdentifier(node.callee.object, { name: 'PlatformOS' }) &&
+t.isIdentifier(node.callee.property, { name: 'select' }) &&
+isImportOrGlobal(
+node.callee.object,
+scope,
+[{ name: 'PlatformOS' }],
+isWrappedModule);
+
+
+const getReplacementForPlatformOSSelect = (node, platform) => {
   const matchingProperty = node.arguments[0].properties.find(
-    p => p.key.name === platform,
-  );
+  p => p.key.name === platform);
+
 
   if (!matchingProperty) {
     throw new Error(
-      'No matching property was found for PlatformOS.select:\n' +
-        JSON.stringify(node),
-    );
+    'No matching property was found for PlatformOS.select:\n' +
+    JSON.stringify(node));
+
   }
   return matchingProperty.value;
 };
@@ -108,43 +108,42 @@ const getReplacementForPlatformOSSelect = (node: Object, platform: string) => {
 const isGlobal = binding => !binding;
 
 const isRequireCall = (node, dependencyId, scope) =>
-  t.isCallExpression(node) &&
-  t.isIdentifier(node.callee, {name: 'require'}) &&
-  checkRequireArgs(node.arguments, dependencyId);
+t.isCallExpression(node) &&
+t.isIdentifier(node.callee, { name: 'require' }) &&
+checkRequireArgs(node.arguments, dependencyId);
 
 const isImport = (node, scope, patterns) =>
-  patterns.some(pattern => {
-    const importName = importMap.get(pattern.name) || pattern.name;
-    return isRequireCall(node, importName, scope);
-  });
+patterns.some(pattern => {
+  const importName = importMap.get(pattern.name) || pattern.name;
+  return isRequireCall(node, importName, scope);
+});
 
 const isImportOrGlobal = (node, scope, patterns, isWrappedModule) => {
   const identifier = patterns.find(pattern => t.isIdentifier(node, pattern));
   return (
-    (identifier &&
-      isToplevelBinding(scope.getBinding(identifier.name), isWrappedModule)) ||
-    isImport(node, scope, patterns)
-  );
+    identifier &&
+    isToplevelBinding(scope.getBinding(identifier.name), isWrappedModule) ||
+    isImport(node, scope, patterns));
+
 };
 
 const checkRequireArgs = (args, dependencyId) => {
   const pattern = t.stringLiteral(dependencyId);
   return (
     t.isStringLiteral(args[0], pattern) ||
-    (t.isMemberExpression(args[0]) &&
-      t.isNumericLiteral(args[0].property) &&
-      t.isStringLiteral(args[1], pattern))
-  );
+    t.isMemberExpression(args[0]) &&
+    t.isNumericLiteral(args[0].property) &&
+    t.isStringLiteral(args[1], pattern));
+
 };
 
 const isToplevelBinding = (binding, isWrappedModule) =>
-  isGlobal(binding) ||
-  !binding.scope.parent ||
-  (isWrappedModule && !binding.scope.parent.parent);
+isGlobal(binding) ||
+!binding.scope.parent ||
+isWrappedModule && !binding.scope.parent.parent;
 
 module.exports = {
   isPlatformNode,
   isPlatformSelectNode,
   isPlatformOSSelect,
-  getReplacementForPlatformOSSelect,
-};
+  getReplacementForPlatformOSSelect };

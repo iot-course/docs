@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @flow
+ * 
  * @format
  */
 
@@ -14,12 +14,12 @@
 
 const path = require('path');
 
-import type {MetroSourceMap} from 'metro-source-map';
+
 
 function relativizeSourceMapInternal(
-  sourceMap: MetroSourceMap,
-  sourcesRoot: string,
-) {
+sourceMap,
+sourcesRoot)
+{
   if (sourceMap.mappings === undefined) {
     for (let i = 0; i < sourceMap.sections.length; i++) {
       relativizeSourceMapInternal(sourceMap.sections[i].map, sourcesRoot);
@@ -32,9 +32,9 @@ function relativizeSourceMapInternal(
 }
 
 function relativizeSourceMap(
-  sourceMap: MetroSourceMap,
-  sourcesRoot?: string,
-): MetroSourceMap {
+sourceMap,
+sourcesRoot)
+{
   if (!sourcesRoot) {
     return sourceMap;
   }
