@@ -1,0 +1,19 @@
+{
+  "name": "lambda-docs-2md",
+  "version": "0.0.3",
+  "dependencies": {
+    "doctrine": "^2.1.0",
+    "json2md": "^1.6.1",
+    "mkdirp": "^0.5.1"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^22.1.4",
+    "markdownlint": "^0.7.0"
+  },
+  "bin": {
+    "lambda-docs-2md": "./index.js"
+  }
+}
