@@ -24,6 +24,7 @@
   		"react/jsx-closing-tag-location": "off",
   		"react/jsx-filename-extension": "off",
   		"react/jsx-wrap-multilines": "off",
+  		"jsx-a11y/accessible-emoji": "off",
   		"import/no-unresolved": [
   			2,
   			{
