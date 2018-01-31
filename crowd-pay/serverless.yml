@@ -1,0 +1,61 @@
+service: crowd-pay
+
+plugins:
+  - serverless-dynamodb-local
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        Fn::GetAtt:
+          - IssueTable
+          - Arn
+
+functions:
+  authorize:
+    handler: lib/authorize.handler
+    package:
+      include:
+        - lib/authorize.js
+    environment:
+      ghAccessToken: ${file(configs/vars.yml):ghAccessToken}
+    events:
+     - http:
+         path: authorize
+         method: any
+         cors: true
+  pay:
+    handler: lib/pay.handler
+    package:
+      include:
+        - lib/pay.js
+    events:
+     - http:
+         path: pay
+         method: any
+         cors: true
+
+resources:
+  Resources:
+    # DyanmoDB
+    IssueTable: ${file(configs/dynamodb.yml):IssueTable}
+
+package:
+  individually: true
+  exclude:
+    - node_modules/**
+    - package.json
+    - readme.md
+    - yarn.lock
+    - .git/**
+    - test.js
+    - lib/**
