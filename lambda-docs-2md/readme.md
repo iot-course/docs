@@ -61,3 +61,7 @@ In `package.json`
   "lambdaDocs": "lambda-docs-2md ./services"
 }
 ```
+
+
+TODO
+- [ ] ability to add multiple main `@external` and/or `@callback` and render by type

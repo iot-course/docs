@@ -81,7 +81,7 @@ Definition of an IoT Product:
 
 ## 1. Tooling 🛠
 
-1. Documentation
+### Documentation
   - static
     - high-level diagrams
     - gitflows
@@ -94,33 +94,48 @@ Definition of an IoT Product:
     - graph-*I*-QL
     - storybook
 
-3. Continuous Integration
-  - git flows
+### Continuous Integration Workflow
 
-  - BDD Template
+1. Assign yourself a feature
 
-```feature
-  Feature: <insert simple feature verb statement, such as, 'On Boarding',  'Purchasing', 'Upgrading Account'>
+  ![](https://i.gyazo.com/45a66ad4a84ddd7884b7f1367bef770b.gif)
 
-    Scenario: User is <insert: 'unregistered', 'registered', 'logged in', 'logged out', 'upgraded to'> and  
+2. Move the card to the `In Progress` column
 
-      # repeat this block for every interaction on the mockup
-      When user <insert: 'presses', 'types', 'swipes', 'hovers'> ...
-      Then user <insert: 'sees', 'hears', 'senses vibration'>...
-      # use only for redirection and/or to display a custom error ui
-      When the user does not get result, they should <insert: 'sees', 'hears', 'senses vibration'> ...
-      Then user <insert: 'sees', 'hears', 'senses vibration'>...
+    ![](https://i.gyazo.com/ea2a2a3aa37ecadd2f1d83e6e3adc8c3.gif)
 
+3. Copy `Feature:...` and `Scenario:...` headings, along with any relevant `When`/`Then`  rules for the repository
 
-      # next interaction
-      When user <insert: 'presses', 'types", 'swipes', 'hovers'> ...
-      ...      
+4. Create and checkout feature branch
+```
+$ git checkout -b my-new-feature-branch master
 ```
 
+5. Create a `.feature` file in `./tests` repo and paste the feature info
 
+6. Write tests and feature code
 
+7. Push
+```
+$ git push origin my-new-feature-branch
+```
 
-  - kanban
+8. Merge
+```
+$ git checkout master
+$ git pull origin master
+$ git merge --no-ff my-feature-branch
+```
+
+9. Delete
+```
+ $ git branch -D my-feature-branch
+ $ git push origin --delete my-feature-branch
+```
+
+10. Close issue and it will automatically move it to the `Done` column on the kanban board
+
+  ![](https://i.gyazo.com/9e9635db0aee20a2cf664290f3a3b64b.gif)
 
 ## 2. Scope and  System Design 🔎
 
