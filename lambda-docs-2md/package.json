@@ -1,6 +1,6 @@
 {
   "name": "lambda-docs-2md",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "dependencies": {
     "doctrine": "^2.1.0",
     "json2md": "^1.6.1",

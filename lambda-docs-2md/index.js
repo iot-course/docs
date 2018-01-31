@@ -49,7 +49,7 @@ const lambdaDocs2md = lambdaPath => {
       }
     ]
 
-    return json2md(formattedMD) + '<br/> \n';
+    return '\n' + json2md(formattedMD) + '<br/> \n';
   }).join('')
 
 

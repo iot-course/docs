@@ -1,3 +1,4 @@
+
 ## `http ⇒ λ getKeys ⇒ cb`
 
 
@@ -15,6 +16,7 @@ arg / param | type | path
 `endpointAddress` | `String` | `aws.iot.describeEndpoint()`
 `Credentials` | `Object` | `aws.sts.assumeRole()`
 <br/> 
+
 ## `s3 ⇒ λ transcodeVideo ⇒ elasticTranscoder`
 
 
