@@ -9,6 +9,6 @@
   "dependencies": {
     "aws-sdk": "^2.188.0",
     "jest": "^22.1.4",
-    "lambda-docs-2md": "^0.0.3"
+    "lambda-docs-2md": "^0.0.4"
   }
 }

@@ -1,3 +1,4 @@
+
 ## `http ⇒ λ authorize ⇒ request`
 
 
@@ -18,7 +19,8 @@ arg / param | type | path
 `id` | `Number` | ` JSON.parse(event.body).issue`
 `labels` | `Array` | ` JSON.parse(event.body).issue`
 `ghAccessToken` | `Array` | ` process.env`
-<br/>
+<br/> 
+
 ## `http ⇒ λ pay ⇒ request`
 
 
@@ -34,4 +36,4 @@ request(payPalAccessToken, ghEmail)
 arg / param | type | path
 --- | --- | ---
 `body` | `string` | `JSON.parse(event.body)`
-<br/>
+<br/> 
