@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "test:lint": "NODE_ENV=local eslint  ./lib/** &&  jest",
+    "db": "nohup sls dynamodb start --migrate &",
+    "genDocs": "lambda-docs-2md ./lib"
+  },
+  "devDependencies": {
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-iot-course": "^0.0.1",
+    "serverless-dynamodb-local": "^0.2.27"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.188.0",
+    "jest": "^22.1.4",
+    "lambda-docs-2md": "^0.0.4"
+  }
+}

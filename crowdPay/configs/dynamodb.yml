@@ -2,12 +2,12 @@ IssueTable:
   Type: AWS::DynamoDB::Table
   Properties:
     AttributeDefinitions:
-      - AttributeName: id
+      - AttributeName: number
         AttributeType: N
     KeySchema:
-      - AttributeName: id
+      - AttributeName: number
         KeyType: HASH
     ProvisionedThroughput:
       ReadCapacityUnits: 1
       WriteCapacityUnits: 1
-    TableName: issues-${self:service}-dev
+    TableName: issue-${self:service}-dev

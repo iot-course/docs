@@ -21,29 +21,18 @@ provider:
           - Arn
 
 functions:
-  authorize:
-    handler: lib/authorize.handler
+  issueEvent:
+    handler: lib/issueEvent.handler
     package:
       include:
-        - lib/authorize.js
+        - lib/issueEvent.js
     environment:
       ghAccessToken: ${file(configs/vars.yml):ghAccessToken}
     events:
      - http:
-         path: authorize
+         path: issue-event
          method: any
          cors: true
-  pay:
-    handler: lib/pay.handler
-    package:
-      include:
-        - lib/pay.js
-    events:
-     - http:
-         path: pay
-         method: any
-         cors: true
-
 resources:
   Resources:
     # DyanmoDB
