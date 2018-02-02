@@ -18,6 +18,7 @@
   			"as-needed"
   		],
       "no-console": "off",
+      "no-trailing-space": "off",
       "no-return-assign": "off",
       "jsx-quotes": "off",
   		"key-spacing": "off",
