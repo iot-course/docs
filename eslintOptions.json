@@ -18,6 +18,7 @@
   			"as-needed"
   		],
       "no-unused-expressions": "off",
+      "indent": "off",
       "function-paren-newline": "off",
       "comma-dangle": "warn",
       "no-console": "warn",
