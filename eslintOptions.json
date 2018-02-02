@@ -17,7 +17,7 @@
   			"error",
   			"as-needed"
   		],
-
+      "function-paren-newline": "off",
       "comma-dangle": "warn",
       "no-console": "off",
       "space-in-parens": "off",
