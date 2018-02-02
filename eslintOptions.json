@@ -2,7 +2,7 @@
 {
     "emitWarning": true,
     "useEslintrc": false,
-    "envs": ["browser", "jest"],
+    "envs": ["browser", "jest", "node"],
     "baseConfig": {
       "extends": [ "airbnb" ]
     },
