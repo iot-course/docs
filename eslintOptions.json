@@ -19,6 +19,7 @@
   		],
 
       "no-console": "off",
+      "space-in-parens": "off",
       "object-curly-newline": "off",
       "no-trailing-space": "off",
       "no-return-assign": "off",
