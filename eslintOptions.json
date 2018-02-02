@@ -17,6 +17,7 @@
   			"error",
   			"as-needed"
   		],
+      "no-console": "off",
       "jsx-quotes": "off",
   		"key-spacing": "off",
   		"padded-blocks": "off",
