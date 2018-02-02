@@ -18,6 +18,7 @@
   			"as-needed"
   		],
 
+      "comma-dangle": "warn",
       "no-console": "off",
       "space-in-parens": "off",
       "object-curly-newline": "off",
