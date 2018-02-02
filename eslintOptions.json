@@ -17,7 +17,9 @@
   			"error",
   			"as-needed"
   		],
+
       "no-console": "off",
+      "object-curly-newline": "off",
       "no-trailing-space": "off",
       "no-return-assign": "off",
       "jsx-quotes": "off",
