@@ -1,12 +1,12 @@
 
-# ![](https://goo.gl/jzSq3J)
+![](https://goo.gl/jzSq3J)
 
 
 > *This repo has **2** main parts*
 
 </br>
 
-- **[Organizational Wiki](https://github.com/iot-course/org/wiki):**
+**I. [Organizational Wiki](https://github.com/iot-course/org/wiki):**
 
   - 📄 &nbsp; [Course Outline](https://github.com/iot-course/org/wiki)
   - 🏗   &nbsp; [System Diagram](https://github.com/iot-course/org/wiki/System-Diagram)
@@ -16,7 +16,7 @@
 
 </br>
 
-- **[Monorepo of *custom* developer support  packages](https://github.com/iot-course/org/tree/master/packages):**
+**II. [Monorepo of *custom* developer support  packages](https://github.com/iot-course/org/tree/master/packages):**
   -  👨‍👩‍👧‍👦 💵 &nbsp; [¢rowdPay ](https://github.com/iot-course/org/tree/master/crowdPay):  Automating payments based on agile points
 
   - 🚇📝 &nbsp; [metro-eslint](https://github.com/iot-course/org/tree/master/metro-eslint): React-Native bundler that takes linting options
