@@ -1,5 +1,5 @@
 
-# ![](https://goo.gl/jzSq3J)
+# <img src='https://goo.gl/jzSq3J' />
 
 
 > *This repo has **2** main parts*
