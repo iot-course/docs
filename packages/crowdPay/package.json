@@ -1,6 +1,6 @@
 {
   "name": "crowdPay",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "test:lint": "NODE_ENV=local eslint  ./lib/** &&  jest",
     "db": "nohup sls dynamodb start --migrate &",
@@ -16,6 +16,6 @@
   "dependencies": {
     "aws-sdk": "^2.188.0",
     "jest": "^22.1.4",
-    "lambda-docs-2md": "^0.0.1"
+    "lambda-docs-2md": "^0.0.2"
   }
 }

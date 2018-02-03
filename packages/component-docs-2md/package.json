@@ -1,6 +1,6 @@
 {
 	"name": "component-docs-2md",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"dependencies": {
 		"jest": "^22.1.4",
 		"json2md": "^1.6.1",
