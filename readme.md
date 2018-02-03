@@ -1,5 +1,5 @@
 
-<a style='cursor: default;'>![](https://goo.gl/jzSq3J)</a>
+<a style='cursor: default;'><img style='cursor: default;' src='https://goo.gl/jzSq3J' /></a>
 > *This repo has **2** main parts*
 
 </br>
