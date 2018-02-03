@@ -13,7 +13,7 @@
 
 </br>
 
-## [II. Monorepo of *custom* developer support  packages](https://github.com/iot-course/org/tree/master/packages)
+## [II. Monorepo of custom developer support  packages](https://github.com/iot-course/org/tree/master/packages)
   -  👨‍👩‍👧‍👦 💵 &nbsp; [¢rowdPay ](https://github.com/iot-course/org/tree/master/packages/crowdPay):  Automating payments based on agile points
 
   - 🚇📝 &nbsp; [metro-eslint](https://github.com/iot-course/org/tree/master/packages/metro-eslint): React-Native bundler that takes linting options
