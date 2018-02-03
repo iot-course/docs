@@ -1,4 +1,4 @@
-# <img pointer='none' src=https://goo.gl/jzSq3J) />
+# <img cursor='none' src=https://goo.gl/jzSq3J) />
 
 > *This repo has **2** main parts*
 
