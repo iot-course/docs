@@ -14,17 +14,17 @@
 </br>
 
 ## [Monorepo of *custom* developer support  packages](https://github.com/iot-course/org/tree/master/packages)
-  -  👨‍👩‍👧‍👦 💵 &nbsp; [¢rowdPay ](https://github.com/iot-course/org/tree/master/crowdPay):  Automating payments based on agile points
+  -  👨‍👩‍👧‍👦 💵 &nbsp; [¢rowdPay ](https://github.com/iot-course/org/tree/master/packages/crowdPay):  Automating payments based on agile points
 
-  - 🚇📝 &nbsp; [metro-eslint](https://github.com/iot-course/org/tree/master/metro-eslint): React-Native bundler that takes linting options
+  - 🚇📝 &nbsp; [metro-eslint](https://github.com/iot-course/org/tree/master/packages/metro-eslint): React-Native bundler that takes linting options
 
   - λ ⬇️ &nbsp; [lambda-docs-2md]():  Documentation generator for your aws lambdas
 
   - ⚛️ ⬇️ &nbsp; [component-docs-2md](): Documentation generator for your react components
 
-  - 🍎🤖 &nbsp; [ta-bot](https://github.com/iot-course/org/tree/master/ta-bot): Automating general repetitive tasks
+  - 🍎🤖 &nbsp; [ta-bot](https://github.com/iot-course/org/tree/master/packages/ta-bot): Automating general repetitive tasks
 
-  - 🥒 &nbsp; [stucumber_m](https://github.com/iot-course/org/tree/master/metro-eslint): A slightly modified version of [this package](https://github.com/stewartml/stucumber) for our purposes
+  - 🥒 &nbsp; [stucumber_m](https://github.com/iot-course/org/tree/master/packages/metro-eslint): A slightly modified version of [this package](https://github.com/stewartml/stucumber) for our purposes
 
 </br></br>
 
