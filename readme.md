@@ -24,6 +24,8 @@
 
   - 🍎🤖 &nbsp; [ta-bot](https://github.com/iot-course/org/tree/master/packages/ta-bot): Automating general repetitive tasks
 
+  - 🥒 &nbsp; [eslint-plugin-iot-course](https://github.com/iot-course/org/tree/master/packages/metro-eslint): A slightly modified version of [this package](https://github.com/stewartml/stucumber) for our purposes
+
   - 🥒 &nbsp; [stucumber_m](https://github.com/iot-course/org/tree/master/packages/metro-eslint): A slightly modified version of [this package](https://github.com/stewartml/stucumber) for our purposes
 
 </br></br>
