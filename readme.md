@@ -6,7 +6,7 @@
 
 </br>
 
-- ** [Organizational Wiki](https://github.com/iot-course/org/wiki):**
+- **[Organizational Wiki](https://github.com/iot-course/org/wiki):**
 
   - 📄 &nbsp; [Course Outline](https://github.com/iot-course/org/wiki)
   - 🏗   &nbsp; [Sytem Diagram](https://github.com/iot-course/org/wiki/System Diagram)
