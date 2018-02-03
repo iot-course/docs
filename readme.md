@@ -29,7 +29,7 @@
 
 </br></br>
 
-  > **Note:** &nbsp; *All product features submitted on other repos are coordinated with issues on this repo.*
+  > **Note:** &nbsp; *All product features submitted on other repos are coordinated with [issues](https://github.com/iot-course/org/issues) on this repo.*
 
 </br>
 
