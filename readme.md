@@ -1,8 +1,9 @@
 
 ![](https://goo.gl/jzSq3J)
 
+</br>
 
-> *This repo has **2** main parts*
+*This repo has **2** main parts*
 
 </br>
 
