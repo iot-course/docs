@@ -1,0 +1,8 @@
+{
+	"scripts":{
+		"push": "git add -A && git commit -m \"$msg\" && git push"
+	},
+	"devDependencies": {
+		"lerna": "^2.8.0"
+	}
+}
