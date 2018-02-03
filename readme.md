@@ -3,7 +3,7 @@
 
 </br>
 
-## [Organizational Wiki](https://github.com/iot-course/org/wiki)
+## [I. Organizational Wiki](https://github.com/iot-course/org/wiki)
 
   - 📄 &nbsp; [Course Outline](https://github.com/iot-course/org/wiki)
   - 🏗   &nbsp; [System Diagram](https://github.com/iot-course/org/wiki/System-Diagram)
@@ -13,7 +13,7 @@
 
 </br>
 
-## [Monorepo of *custom* developer support  packages](https://github.com/iot-course/org/tree/master/packages)
+## [II. Monorepo of *custom* developer support  packages](https://github.com/iot-course/org/tree/master/packages)
   -  👨‍👩‍👧‍👦 💵 &nbsp; [¢rowdPay ](https://github.com/iot-course/org/tree/master/packages/crowdPay):  Automating payments based on agile points
 
   - 🚇📝 &nbsp; [metro-eslint](https://github.com/iot-course/org/tree/master/packages/metro-eslint): React-Native bundler that takes linting options
@@ -24,7 +24,7 @@
 
   - 🍎🤖 &nbsp; [ta-bot](https://github.com/iot-course/org/tree/master/packages/ta-bot): Automating general repetitive tasks
 
-  - 📝 &nbsp; [eslint-plugin-iot-course](https://github.com/iot-course/org/tree/master/packages/metro-eslint): A slightly modified version of [this package](https://github.com/stewartml/stucumber) for our purposes
+  - 📝 &nbsp; [eslint-plugin-iot-course](https://github.com/iot-course/org/tree/master/packages/metro-eslint): Organizational eslint rules
 
   - 🥒 &nbsp; [stucumber_m](https://github.com/iot-course/org/tree/master/packages/metro-eslint): A slightly modified version of [this package](https://github.com/stewartml/stucumber) for our purposes
 
