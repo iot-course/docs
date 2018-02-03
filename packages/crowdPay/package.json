@@ -1,6 +1,6 @@
 {
-  "name": "crowdPay",
-  "version": "0.0.2",
+  "name": "crowdpay",
+  "version": "0.0.3",
   "scripts": {
     "test:lint": "NODE_ENV=local eslint  ./lib/** &&  jest",
     "db": "nohup sls dynamodb start --migrate &",
