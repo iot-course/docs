@@ -36,4 +36,4 @@
 </br>
 
 ---
-&emsp;&nbsp;<img height='25px' src='https://goo.gl/3j4tQU'/> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; [![](https://goo.gl/u8iNwp)](https://iot-engineering.life)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; [![](https://goo.gl/Dx4R7q)](https://twitter.com)
+&emsp;&nbsp;<img height='25px' src='https://goo.gl/3j4tQU'/> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; [![](https://goo.gl/u8iNwp)](https://iot-engineering.life)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; [![](https://goo.gl/Dx4R7q)](https://twitter.com)
