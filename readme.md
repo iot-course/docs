@@ -28,12 +28,11 @@
 
   - 🥒 &nbsp; [stucumber_m](https://github.com/iot-course/org/tree/master/packages/metro-eslint): A slightly modified version of [this package](https://github.com/stewartml/stucumber) for our purposes
 
-# &emsp;
-</br>
+
+</br></br>
 
 **Note:** &nbsp; *All product features submitted on other repos are coordinated with [issues](https://github.com/iot-course/org/issues) on this repo.*
 
-</br>
 
 ---
 &emsp;&nbsp;<img height='25px' src='https://goo.gl/3j4tQU'/> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; [![](https://goo.gl/u8iNwp)](https://iot-engineering.life)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; [![](https://goo.gl/Dx4R7q)](https://twitter.com)
