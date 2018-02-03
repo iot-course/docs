@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-iot-course",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha tests --recursive"
