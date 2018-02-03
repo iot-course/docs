@@ -14,6 +14,7 @@
   - 🚉 &nbsp; [Developer Onboarding](https://github.com/iot-course/org/wiki/Developer-OnBoarding)
   - 🎬 &nbsp; [Product Manager Onboarding](https://github.com/iot-course/org/wiki/Product-Manager-OnBoarding)
 
+</br>
 
 - **[Monorepo of *custom* developer support  packages](https://github.com/iot-course/org/tree/master/packages):**
   -  👨‍👩‍👧‍👦 💵 &nbsp; [¢rowdPay ](https://github.com/iot-course/org/tree/master/crowdPay):  Automating payments based on agile points
@@ -29,6 +30,7 @@
   - 🥒 &nbsp; [stucumber_m](https://github.com/iot-course/org/tree/master/metro-eslint): A slightly modified version of [this package](https://github.com/stewartml/stucumber) for our purposes
 
 </br>
+
   >**Note:** &nbsp; *All product features submitted on other repos are coordinated with issues and the corresponding project board on this repo.*
 
 </br>
