@@ -5,7 +5,7 @@
 
 ## [I. Organizational Wiki](https://github.com/iot-course/org/wiki)
 
-  - 📄 &nbsp; [Course Info](https://github.com/iot-course/org/wiki)
+  - 📄 &nbsp; [Course Info](https://github.com/iot-course/org/wiki/Course-Info)
   - 🏗   &nbsp; [System Diagram](https://github.com/iot-course/org/wiki/System-Diagram)
   - 💅  &nbsp; [Code Style Guide](https://github.com/iot-course/org/wiki/Code-Style-Guide)
   - 🚉 &nbsp; [Developer Onboarding](https://github.com/iot-course/org/wiki/Developer-OnBoarding)
