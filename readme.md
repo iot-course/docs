@@ -1,4 +1,5 @@
-![](https://goo.gl/jzSq3J)
+![](https://goo.gl/kY9cRs)
+</br>
 > *This repo has **2** main parts*
 
 </br>
