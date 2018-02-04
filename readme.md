@@ -2,9 +2,9 @@
 
 </br>
 
+> *This repo has **2** main parts*
 
-# What's in this repo?
-<!-- </br> -->
+</br>
 
 ## [I. Organizational Wiki](https://github.com/iot-course/org/wiki)
 
