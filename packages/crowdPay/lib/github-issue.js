@@ -9,16 +9,19 @@
  * @arg { Array }  ghAccessToken -  process.env
  */
 
-const PM = 'TA-Bot'
-const DOLLARS_PER_POINT = 0.01
 
-const {request} = require('https')
-const {DynamoDB: { DocumentClient }} = require("aws-sdk")
-const {NODE_ENV, ghAccessToken} = process.env
+const { request } = require('https')
+const { DynamoDB: { DocumentClient } } = require('aws-sdk')
+
+
+const { NODE_ENV, ghAccessToken } = process.env
+const PM = 'TA-Bot'
+// const DOLLARS_PER_POINT = 0.01
+
 
 const docClient = new DocumentClient(
   NODE_ENV === 'local'
-  ? { region: "us-east-1", endpoint: "http://localhost:8000"}
+  ? { region: 'us-east-1', endpoint: 'http://localhost:8000' }
   : null
 )
 

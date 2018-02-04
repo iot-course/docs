@@ -1,8 +1,16 @@
-service: crowd-pay
+service: crowdpay
+
+package:
+  individually: true   # comment out during developemnt
+  exclude:
+    - ./**
 
 plugins:
+  - serverless-webpack
   - serverless-dynamodb-local
-
+custom:
+  webpackIncludeModules: true
+  
 provider:
   name: aws
   runtime: nodejs6.10
@@ -21,11 +29,11 @@ provider:
           - Arn
 
 functions:
-  issueEvent:
-    handler: lib/issueEvent.handler
+  github-issue:
+    handler: lib/github-issue.handler
     package:
       include:
-        - lib/issueEvent.js
+        - lib/github-issue.js
     environment:
       ghAccessToken: ${file(configs/vars.yml):ghAccessToken}
     events:
@@ -37,14 +45,3 @@ resources:
   Resources:
     # DyanmoDB
     IssueTable: ${file(configs/dynamodb.yml):IssueTable}
-
-package:
-  individually: true
-  exclude:
-    - node_modules/**
-    - package.json
-    - readme.md
-    - yarn.lock
-    - .git/**
-    - test.js
-    - lib/**

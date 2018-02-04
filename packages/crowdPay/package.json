@@ -3,20 +3,35 @@
   "version": "0.0.4",
   "private": true,
   "scripts": {
-    "test:lint": "NODE_ENV=local eslint  ./lib/** &&  jest",
-    "db": "nohup sls dynamodb start --migrate &",
-    "genDocs": "lambda-docs-2md ./lib"
+    "dev": "NODE_ENV=local sls invoke local -f $fn  -p tests/events/$fn.json  --watch",
+    "test": "jest",
+    "docs": "lambda-docs-2md ./lib",
+    "push": "git add -A && git commit -m \"$msg\" && git push"
   },
   "devDependencies": {
+    "aws-sdk": "^2.188.0",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "eslint": "^4.16.0",
-    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-loader": "^1.9.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-iot-course": "^0.0.1",
-    "serverless-dynamodb-local": "^0.2.27"
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1",
+    "jest": "^22.1.4",
+    "lambda-docs-2md": "^0.0.4",
+    "serverless": "^1.26.0",
+    "serverless-dynamodb-local": "^0.2.27",
+    "serverless-webpack": "^4.2.0",
+    "sync-request": "^5.0.0",
+    "webpack": "^3.10.0",
+    "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.188.0",
-    "jest": "^22.1.4",
-    "lambda-docs-2md": "^0.0.2"
+    "graphql": "^0.12.3"
   }
 }

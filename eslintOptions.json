@@ -20,7 +20,7 @@
       "no-unused-expressions": "off",
       "indent": "off",
       "function-paren-newline": "off",
-      "comma-dangle": "warn",
+      "comma-dangle": "off",
       "no-console": "warn",
       "space-in-parens": "off",
       "object-curly-newline": "off",
