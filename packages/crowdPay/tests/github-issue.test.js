@@ -41,8 +41,10 @@ describe(
 
 })
 
-// describe(`Assignee gets paid after all criteria is valid`, () =>{
-//
+describe(`Assignee gets paid after all criteria is valid`, () =>{
+
+  test('breaking', ()=> expect(1).toBe(2))
+
 //   test('Assignee closes issue that IS ready to be closed', ()=>{
 //
 //     const event = { body: JSON.stringify({
@@ -71,4 +73,4 @@ describe(
     //   })
     // })
 
-  // })
+  })
