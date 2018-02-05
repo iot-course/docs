@@ -1,6 +1,7 @@
 {
 	"scripts": {
 		"push": "git add -A && git commit -m \"$msg\" && git push",
+		"bootstrap": "lerna bootstrap",
 		"test": "lerna run test"
 	},
 	"devDependencies": {
