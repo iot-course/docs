@@ -1,6 +1,6 @@
 {
   "name": "crowdpay",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=local sls invoke local -f $fn  -p tests/events/$fn.json  --watch",
