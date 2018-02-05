@@ -1,8 +1,11 @@
 const {writeFile} = require('fs')
-const {ghAccessToken} = require('../.env.json')
+const { ghAccessToken } = process.env
 
-//environment variables
-process.env.ghAccessToken= ghAccessToken
+if (!ghAccessToken){
+  const {ghAccessToken} = require('../.env.json')
+  process.env.ghAccessToken = ghAccessToken
+}
+
 
 
 // testing helper functions
