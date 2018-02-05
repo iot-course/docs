@@ -1,5 +1,7 @@
 ![](https://goo.gl/jzSq3J)
 
+![](https://img.shields.io/badge/code%20style-airbnb-yellow.svg) ![](https://img.shields.io/npm/v/npm.svg)
+
 > *This repo has **2** main parts*
 
 </br>
