@@ -1,60 +1,74 @@
-const {handler: issueEvent} = require('../lib/issueEvent')
-const {createEvent} = require('./utils')
+const { handler: githubIssueEvent } = require('../lib/github-issue')
 
-const defaultIssue = { body: JSON.stringify({
-  sender:{
-    login: 'TA-Bot'
-  },
-  issue:{
-    number:1,
-    labels:[
-      {name: '1'}
-    ]
-  },
-  action:'labeled'
-
-})}
+const { get, request } = require('https')
 
 
+describe(
+  `Correct Gihhub user is auhorized
+  to make label/point changes`, () =>{
 
-createEvent('issueEvent.json', defaultIssue)
+
+  test(`Unauthorized user changes label and
+    a few seconds later the change is reverted`, () =>{
 
 
-// describe(`Correct Gihhub user is auhorized
-//   to make label/point changes`, () =>{
+    const event = { body: JSON.stringify({
+      sender:{ login: 'wordyallen' },
+      issue:{ number:1, labels:[ {name: '8'} ] },
+      action:'labeled'
+    })}
+
+    githubIssueEvent(event, null, (err, {statusCode}) =>{
+      expect(statusCode).toBe(200)
+    })
+
+  })
+
+  test(`Authorized user changes label and
+    a few seconds later his changes persist`, () =>{
+
+      const event = { body: JSON.stringify({
+        sender:{ login: 'TA-Bot' },
+        issue:{ number:1, labels:[ { name: '2' } ] },
+        action:'labeled'
+      })}
+
+      githubIssueEvent(event, null, (err, {statusCode}) =>
+        expect(statusCode).toBe(200)
+      )
+
+    })
+
+})
+
+// describe(`Assignee gets paid after all criteria is valid`, () =>{
 //
+//   test('Assignee closes issue that IS ready to be closed', ()=>{
 //
-//   test(`Unauthorized user changes label and
-//     a few seconds later the change is reverted`, () =>
-//       expect(1).toBe(2)
-//   )
+//     const event = { body: JSON.stringify({
+//       sender:{ login: 'wordyallen' },
+//       issue:{ assignee:'wordyallen' ,number:1, labels:[ { name: '2' } ] },
+//       action:'closed'
+//     })}
 //
-//   test(`Authorized user changes label and
-//     a few seconds later his changes persist`, () =>
-//       expect(1).toBe(2)
-//   )
+//     githubIssueEvent(event, null, (err, {statusCode})=>{
+//       expect(statusCode).toBe(200)
+//     })
 //
-// })
+//   })
 
+    // test('Assignee closes issue that is NOT ready to be closed and is going to reopen', ()=>{
+    //
+    //   const event = { body: JSON.stringify({
+    //     sender:{ login: 'TA-Bot' },
+    //     issue:{ assignee:'wordyallen' ,number:1, labels:[ { name: '2' } ] },
+    //     action:'closed'
+    //   })}
+    //
+    //
+    //   githubIssueEvent(event, null, (err, {statusCode})=>{
+    //     expect(statusCode).toBe(202)
+    //   })
+    // })
 
-
-
-
-
-// test('check for unauthorized relabeling and PUT back old values', () =>
-//   authorize(authorizeEvent, null, (err, data)=>
-//     expect(data).toBeTruthy()
-//   )
-// )
-//
-//
-// test("Check for close", () =>
-//     expect(pay() ).toBeTruthy()
-// )
-//
-// test("Pay when close", () =>
-//   expect(pay() ).toBeTruthy()
-// )
-// test("Do NOT pay twice", () =>
-//   expect(pay() ).toBeTruthy()
-// )
+  // })

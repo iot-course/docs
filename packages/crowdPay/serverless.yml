@@ -1,18 +1,16 @@
 service: crowdpay
 
 package:
-  individually: true   # comment out during developemnt
+  # individually: true   # comment out during developemnt
   exclude:
     - ./**
 
 plugins:
   - serverless-webpack
   - serverless-dynamodb-local
-custom:
-  webpackIncludeModules: true
-  
+
 provider:
-  name: aws
+  name: awsyarn
   runtime: nodejs6.10
   iamRoleStatements:
     - Effect: Allow
@@ -35,10 +33,10 @@ functions:
       include:
         - lib/github-issue.js
     environment:
-      ghAccessToken: ${file(configs/vars.yml):ghAccessToken}
+      ghAccessToken: ${file(.env.json):ghAccessToken}
     events:
      - http:
-         path: issue-event
+         path: github-issue
          method: any
          cors: true
 resources:

@@ -1,76 +1,120 @@
 /**
 * Authorizes github point/label changes and reverts back if unauthorized
  * @summary http ⇒ λ authorize ⇒ request
- * @external  request(options(ghAccessToken, number),...)
- * @param { String }  action -  JSON.parse(event.body)
- * @param { String }  login -  JSON.parse(event.body).sender
+ * @external authLabelClose ? pay(assignee, cb) : reopen(cb)
+ * @external authLabelChange ? saveIssue(Item, cb) : patchIssue(number, cb)
+ * @param { String }  assignee -  JSON.parse(event.body).issue
+ * @param { Object }  Item -  JSON.parse(event.body)
  * @param { Number }  number -  JSON.parse(event.body).issue
- * @param { Array }  labels -  JSON.parse(event.body).issue
- * @arg { Array }  ghAccessToken -  process.env
  */
 
 
+// deps
 const { request } = require('https')
 const { DynamoDB: { DocumentClient } } = require('aws-sdk')
 
 
+// consts
 const { NODE_ENV, ghAccessToken } = process.env
 const PM = 'TA-Bot'
 // const DOLLARS_PER_POINT = 0.01
 
 
+// db Config
 const docClient = new DocumentClient(
   NODE_ENV === 'local'
   ? { region: 'us-east-1', endpoint: 'http://localhost:8000' }
   : null
 )
 
-exports.handler = (e, _, cb) => {
 
-  const { sender: { login}, issue: { number, labels}, action } = JSON.parse(e.body)
-  const Item = { number, action, issue: { number, labels }, sender: { login } }
+// helpers
+const asyncRequest = (path, method = 'get', writeBody) => new Promise( (resolve, reject) => {
 
-  labels.length === 1 &&
-  (login === PM) &&
-  (action === "labeled" || action === "unlabeled" || action === "edited")
-    ? saveIssue(Item, cb)
-    : patchIssue(number, cb)
+  const options = {
+    headers:{
+      'User-Agent': 'Crowd Pay',
+      Authorization: `token ${ghAccessToken}`
+    },
+    hostname: 'api.github.com',
+    method,
+    path,
+  }
+
+  const req = request(options, res => {
+    if (method === 'get') {
+      let readBody = ''
+      res.on('data', d => readBody += d)
+      res.on('end', () => resolve(JSON.parse(readBody) ) )
+      res.on('error', err => reject(err) )
+    } else {
+      resolve(res)
+    }
+  })
+  method !== 'get' && req.write(JSON.stringify(writeBody))
+  req.on('error', err => reject(err) )
+  req.end()
+
+})
+.then( data => [null, data])
+.catch( err => [err])
+
+// main funcs
+const saveIssue = (Item, cb) => {
+  console.log('--saving')
+    docClient.put({
+    TableName: 'issue-crowdpay-dev',
+    ReturnValues: 'ALL_OLD',
+    Item
+  }).promise()
+  .then( () => cb(null, { statusCode: 200 }))
+  .catch(err => cb(err))
+}
+
+const patchIssue = async (number, cb) => {
+
+
+  const { Item: { issue: { labels } } } = await docClient.get({
+    TableName: 'issue-crowdpay-dev',
+    Key: { number },
+  }).promise()
+
+  const [err, { statusCode }] = await asyncRequest(`/repos/iot-course/org/issues/${number}`, 'patch', { labels })
+
+  statusCode ? cb(null, { statusCode }) : cb(err)
 
 }
 
-const saveIssue = (Item, cb) => docClient.put({
-  TableName: 'issue-crowd-pay-dev',
-  ReturnValues: 'ALL_OLD',
-  Item
-}).promise()
-.then(data => cb(null, {statusCode: 200}))
-.catch(err => cb(err))
+const reopen = cb => {
+  console.log('reopen-----')
+  cb()
+}
 
 
-const patchIssue = (number, cb) => {
-  const options = {
-    method: 'patch',
-    hostname: 'api.github.com',
-    path: `/repos/iot-course/org/issues/${number}`,
-    headers: {
-      'User-Agent': 'Crowd Pay',
-      Authorization: `token ${ghAccessToken}`
-    }
-  }
+const pay = async (assignee, cb) => {
 
-  const req = request(options, ({statusCode}) => cb(null, {statusCode}))
+  const [err, { email, statusCode }] = await asyncRequest(`/users/${assignee}`)
+  email ? cb(null, { statusCode }) : cb(err)
 
-  docClient.get({TableName: 'issue-crowd-pay-dev', Key: {
-      number
-    }}).promise().then(({
-    Item: {
-      issue: {
-        labels
-      }
-    }
-  }) => {
-    req.write(JSON.stringify({labels}))
-    req.end()
-  }).catch(err => cb(err))
+}
+
+exports.handler = async (e, _, cb) => {
+
+  const { sender: { login }, issue: { number, labels, assignee }, action } = JSON.parse(e.body)
+  const Item = { number, action, issue: { number, labels }, sender: { login } }
+
+  const labelChange = (action === 'labeled' || action === 'unlabeled' || action === 'edited' )
+  const authLabelChange = labels.length === 1 && login === PM
+  const authLabelClose = action === 'closed' && assignee === login
+
+
+  labelChange
+    ? authLabelChange
+      ? saveIssue(Item, cb)
+      : patchIssue(number, cb)
+    : authLabelClose
+      ? pay(assignee, cb)
+      : reopen(cb)
+
 
 }

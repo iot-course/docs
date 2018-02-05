@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=local sls invoke local -f $fn  -p tests/events/$fn.json  --watch",
-    "test": "jest",
+    "test": "NODE_ENV=local node -r ./tests/utils.js node_modules/.bin/jest ",
     "docs": "lambda-docs-2md ./lib",
     "push": "git add -A && git commit -m \"$msg\" && git push"
   },
@@ -15,6 +15,7 @@
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "dotenv": "^5.0.0",
     "eslint": "^4.16.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-loader": "^1.9.0",
@@ -31,7 +32,5 @@
     "webpack": "^3.10.0",
     "webpack-node-externals": "^1.6.0"
   },
-  "dependencies": {
-    "graphql": "^0.12.3"
-  }
+  "dependencies": {}
 }
