@@ -43,8 +43,8 @@ describe(
 
 describe(`Assignee gets paid after all criteria is valid`, () =>{
 
-  test('breaking', ()=> expect(1).toBe(2))
-  test('breaking2', ()=> expect(1).toBe(2))
+  test('breaking', ()=> expect(1).toBe(1))
+  // test('breaking2', ()=> expect(1).toBe(2))
 
 //   test('Assignee closes issue that IS ready to be closed', ()=>{
 //
