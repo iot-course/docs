@@ -1,6 +1,6 @@
 {
   "name": "crowdpay",
-  "version": "0.0.4",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=local sls invoke local -f $fn  -p tests/events/$fn.json  --watch",
@@ -31,6 +31,5 @@
     "sync-request": "^5.0.0",
     "webpack": "^3.10.0",
     "webpack-node-externals": "^1.6.0"
-  },
-  "dependencies": {}
+  }
 }

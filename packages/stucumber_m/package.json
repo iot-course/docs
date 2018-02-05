@@ -1,11 +1,11 @@
 {
   "name": "stucumber_m",
-  "version": "0.0.2",
-  "description": "A Gherkin parser and Cucumber-like implementation for JavaScript",
+  "version": "0.0.1",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "scripts": {
-    "test": "jest --config=jest.config.json --no-cache"
+    "test": "jest --config=jest.config.json --no-cache",
+    "prepublish": "grunt --force"
   },
   "author": "Stewart MacKenzie-Leigh",
   "license": "ISC",
@@ -22,20 +22,6 @@
     "ts-jest": "^21.2.4",
     "typescript": "^2.6.2"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/stewartml/stucumber.git"
-  },
-  "keywords": [
-    "cucumber",
-    "gherkin",
-    "test",
-    "testing"
-  ],
-  "bugs": {
-    "url": "https://github.com/stewartml/stucumber/issues"
-  },
-  "homepage": "https://github.com/stewartml/stucumber#readme",
   "dependencies": {
     "source-map": "^0.6.1"
   }
