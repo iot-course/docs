@@ -3,6 +3,8 @@ jobs:
   build:
     docker:
       - image: circleci/node:8.9
+    environment:
+      ghAccessToken: ${file(packages/crowdPay/.env.json):ghAccessToken}
 
     working_directory: ~/repo
 
