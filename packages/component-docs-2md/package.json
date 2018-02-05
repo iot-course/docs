@@ -1,5 +1,8 @@
 {
 	"name": "component-docs-2md",
+	"scripts":{
+		"test": "jest"
+	},
 	"version": "0.0.2",
 	"dependencies": {
 		"jest": "^22.1.4",

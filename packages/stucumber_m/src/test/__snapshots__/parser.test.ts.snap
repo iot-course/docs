@@ -1,0 +1,443 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parser should parse a feature with a background 1`] = `
+Object {
+  "annotations": Array [],
+  "background": Array [
+    Object {
+      "data": Array [],
+      "location": Object {
+        "column": 10,
+        "line": 3,
+        "offset": 49,
+      },
+      "value": "a thing",
+    },
+    Object {
+      "data": Array [],
+      "location": Object {
+        "column": 9,
+        "line": 4,
+        "offset": 66,
+      },
+      "value": "I do a thing",
+    },
+    Object {
+      "data": Array [],
+      "location": Object {
+        "column": 9,
+        "line": 5,
+        "offset": 88,
+      },
+      "value": "something happens",
+    },
+  ],
+  "name": Object {
+    "location": Object {
+      "column": 9,
+      "line": 1,
+      "offset": 8,
+    },
+    "value": "background steps",
+  },
+  "ruleDeclarations": Array [],
+  "scenarios": Array [
+    Object {
+      "annotations": Array [],
+      "name": Object {
+        "location": Object {
+          "column": 12,
+          "line": 7,
+          "offset": 119,
+        },
+        "value": "this is a test",
+      },
+      "rules": Array [
+        Object {
+          "data": Array [],
+          "location": Object {
+            "column": 10,
+            "line": 8,
+            "offset": 144,
+          },
+          "value": "something",
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Parser should parse a feature with no newline at the end of the file 1`] = `
+Object {
+  "annotations": Array [],
+  "background": null,
+  "name": Object {
+    "location": Object {
+      "column": 9,
+      "line": 1,
+      "offset": 8,
+    },
+    "value": "background steps",
+  },
+  "ruleDeclarations": Array [],
+  "scenarios": Array [
+    Object {
+      "annotations": Array [],
+      "name": Object {
+        "location": Object {
+          "column": 12,
+          "line": 3,
+          "offset": 38,
+        },
+        "value": "this is a test",
+      },
+      "rules": Array [
+        Object {
+          "data": Array [],
+          "location": Object {
+            "column": 10,
+            "line": 4,
+            "offset": 63,
+          },
+          "value": "something",
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Parser should parse a scenario outline 1`] = `
+Object {
+  "annotations": Array [],
+  "background": null,
+  "name": Object {
+    "location": Object {
+      "column": 9,
+      "line": 1,
+      "offset": 8,
+    },
+    "value": "foo",
+  },
+  "ruleDeclarations": Array [],
+  "scenarios": Array [
+    Object {
+      "annotations": Array [],
+      "name": Object {
+        "location": Object {
+          "column": 20,
+          "line": 2,
+          "offset": 32,
+        },
+        "value": "this is a scenario outline",
+      },
+      "rules": Array [
+        Object {
+          "location": Object {
+            "column": 10,
+            "line": 3,
+            "offset": 69,
+          },
+          "value": "that I have abc",
+        },
+        Object {
+          "location": Object {
+            "column": 9,
+            "line": 4,
+            "offset": 98,
+          },
+          "value": "I 1 2",
+        },
+        Object {
+          "location": Object {
+            "column": 9,
+            "line": 5,
+            "offset": 116,
+          },
+          "value": "I -£*%",
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Parser should parse a scenario with annotations 1`] = `
+Object {
+  "annotations": Array [
+    Object {
+      "arguments": Array [],
+      "name": "annotation1",
+    },
+  ],
+  "background": null,
+  "name": Object {
+    "location": Object {
+      "column": 9,
+      "line": 2,
+      "offset": 21,
+    },
+    "value": "foo",
+  },
+  "ruleDeclarations": Array [],
+  "scenarios": Array [
+    Object {
+      "annotations": Array [
+        Object {
+          "arguments": Array [],
+          "name": "annotation2",
+        },
+        Object {
+          "arguments": Array [
+            "foo",
+            1,
+            Array [
+              true,
+              false,
+            ],
+          ],
+          "name": "annotationWithArgs",
+        },
+      ],
+      "name": Object {
+        "location": Object {
+          "column": 12,
+          "line": 5,
+          "offset": 99,
+        },
+        "value": "this is a test",
+      },
+      "rules": Array [
+        Object {
+          "data": Array [],
+          "location": Object {
+            "column": 6,
+            "line": 6,
+            "offset": 120,
+          },
+          "value": "a thing",
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Parser should parse a scenario with data tables 1`] = `
+Object {
+  "annotations": Array [],
+  "background": null,
+  "name": Object {
+    "location": Object {
+      "column": 9,
+      "line": 1,
+      "offset": 8,
+    },
+    "value": "data tables",
+  },
+  "ruleDeclarations": Array [],
+  "scenarios": Array [
+    Object {
+      "annotations": Array [],
+      "name": Object {
+        "location": Object {
+          "column": 12,
+          "line": 2,
+          "offset": 32,
+        },
+        "value": "data table",
+      },
+      "rules": Array [
+        Object {
+          "data": Array [
+            Array [
+              "datum1",
+              "datum2",
+            ],
+            Array [
+              "datum3",
+              "datum4",
+            ],
+            Array [
+              " 12 ",
+              "",
+            ],
+          ],
+          "location": Object {
+            "column": 10,
+            "line": 3,
+            "offset": 53,
+          },
+          "value": "I have data",
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Parser should parse a standard scenario 1`] = `
+Object {
+  "annotations": Array [],
+  "background": null,
+  "name": Object {
+    "location": Object {
+      "column": 9,
+      "line": 2,
+      "offset": 30,
+    },
+    "value": "foo",
+  },
+  "ruleDeclarations": Array [],
+  "scenarios": Array [
+    Object {
+      "annotations": Array [],
+      "name": Object {
+        "location": Object {
+          "column": 12,
+          "line": 8,
+          "offset": 117,
+        },
+        "value": "this is a test",
+      },
+      "rules": Array [
+        Object {
+          "data": Array [],
+          "location": Object {
+            "column": 10,
+            "line": 9,
+            "offset": 142,
+          },
+          "value": "that I am testing",
+        },
+        Object {
+          "data": Array [],
+          "location": Object {
+            "column": 8,
+            "line": 10,
+            "offset": 168,
+          },
+          "value": "I am still testing",
+        },
+        Object {
+          "data": Array [],
+          "location": Object {
+            "column": 9,
+            "line": 11,
+            "offset": 196,
+          },
+          "value": "I test",
+        },
+        Object {
+          "data": Array [],
+          "location": Object {
+            "column": 8,
+            "line": 12,
+            "offset": 211,
+          },
+          "value": "continue testing",
+        },
+        Object {
+          "data": Array [],
+          "location": Object {
+            "column": 9,
+            "line": 13,
+            "offset": 237,
+          },
+          "value": "I want to test",
+        },
+        Object {
+          "data": Array [],
+          "location": Object {
+            "column": 8,
+            "line": 14,
+            "offset": 260,
+          },
+          "value": "test",
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Parser should parse declarative rules 1`] = `
+Object {
+  "annotations": Array [],
+  "background": null,
+  "name": Object {
+    "location": Object {
+      "column": 9,
+      "line": 1,
+      "offset": 8,
+    },
+    "value": "declarative rules",
+  },
+  "ruleDeclarations": Array [
+    Object {
+      "rules": Array [
+        Object {
+          "data": Array [],
+          "location": Object {
+            "column": 6,
+            "line": 4,
+            "offset": 104,
+          },
+          "value": "I enter \\"<title>\\" in title",
+        },
+        Object {
+          "data": Array [],
+          "location": Object {
+            "column": 6,
+            "line": 5,
+            "offset": 137,
+          },
+          "value": "I enter \\"<forename>\\" in forename",
+        },
+        Object {
+          "data": Array [],
+          "location": Object {
+            "column": 6,
+            "line": 6,
+            "offset": 176,
+          },
+          "value": "I enter \\"<surname>\\" in surname",
+        },
+      ],
+      "template": Object {
+        "location": Object {
+          "column": 8,
+          "line": 3,
+          "offset": 35,
+        },
+        "value": "I enter {title:word} {forename:word} {surname:word} as my name",
+      },
+    },
+  ],
+  "scenarios": Array [
+    Object {
+      "annotations": Array [],
+      "name": Object {
+        "location": Object {
+          "column": 12,
+          "line": 8,
+          "offset": 222,
+        },
+        "value": "enter name",
+      },
+      "rules": Array [
+        Object {
+          "data": Array [],
+          "location": Object {
+            "column": 10,
+            "line": 9,
+            "offset": 243,
+          },
+          "value": "I enter Mr Arthur Dent as my name",
+        },
+      ],
+    },
+  ],
+}
+`;

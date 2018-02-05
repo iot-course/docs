@@ -15,7 +15,7 @@ module.exports = function (grunt) {
         tsconfig: {passThrough: true}
       }
     },
-    
+
     clean: ['dist']
   })
 

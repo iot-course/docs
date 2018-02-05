@@ -61,7 +61,7 @@ const asyncRequest = (path, method = 'get', writeBody) => new Promise( (resolve,
 
 // main funcs
 const saveIssue = (Item, cb) => {
-  console.log('--saving')
+  // console.log('--saving')
     docClient.put({
     TableName: 'issue-crowdpay-dev',
     ReturnValues: 'ALL_OLD',
@@ -86,7 +86,7 @@ const patchIssue = async (number, cb) => {
 }
 
 const reopen = cb => {
-  console.log('reopen-----')
+  // console.log('reopen-----')
   cb()
 }
 

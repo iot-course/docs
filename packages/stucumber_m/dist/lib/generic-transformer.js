@@ -17,18 +17,29 @@ class GenericTransformer extends transformer_1.default {
             '\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,' +
             Buffer.from(map.toString(), 'utf8').toString('base64'));
     }
+    getContext(name, annotations, includeFeature) {
+        const context = { name, annotations, meta: {} };
+        let json = JSON.stringify(context);
+        if (includeFeature) {
+            json = `${json.slice(0, -1)}, "feature": feature}`;
+        }
+        return json;
+    }
     transformFeature(filename, feature, ruleDeclarations, scenarios) {
         let chunks = [
+            `const feature = `,
+            this.getContext(feature.name.value, feature.annotations),
+            ';',
             `${this.options.beforeAllFn}(() => {`,
             ...ruleDeclarations,
-            `_cucumber.enterFeature(${JSON.stringify(feature.annotations)});
+            `_cucumber.enterFeature(feature);
       });`,
-            `${this.options.afterAllFn}(() => _cucumber.exitFeature(${JSON.stringify(feature.annotations)}));`,
+            `${this.options.afterAllFn}(() => _cucumber.exitFeature(feature));`,
             ...scenarios
         ];
         if (this.options.featureFn) {
             chunks = [
-                this.applyAttributes(this.options.featureFn, feature.annotations),
+                this.options.featureFn,
                 `(`,
                 JSON.stringify(this.options.getFeatureName(feature)),
                 `, () => {`,
@@ -49,18 +60,17 @@ class GenericTransformer extends transformer_1.default {
     }
     transformScenario(filename, feature, scenario, rules) {
         return new SourceNode(scenario.name.location.line, scenario.name.location.column, filename, [
-            this.applyAttributes(this.options.scenarioFn, scenario.annotations),
+            this.options.scenarioFn,
             `(`,
             JSON.stringify(this.options.getScenarioName(feature, scenario)),
             `, () => {`,
             `const world = _cucumber.createWorld();`,
-            `return _cucumber.enterScenario(world, `,
-            JSON.stringify([...feature.annotations, ...scenario.annotations]),
-            `)`,
+            `const scenario = `,
+            this.getContext(scenario.name.value, scenario.annotations, true),
+            `;`,
+            `return _cucumber.enterScenario(world, scenario)`,
             ...[].concat(...rules),
-            `.then(() => _cucumber.exitScenario(world, `,
-            JSON.stringify([...feature.annotations, ...scenario.annotations]),
-            `));`,
+            `.then(() => _cucumber.exitScenario(world, scenario));`,
             `});`
         ]);
     }
@@ -71,22 +81,12 @@ class GenericTransformer extends transformer_1.default {
                 `_cucumber.rule(world, `,
                 JSON.stringify(rule.value),
                 ', ',
-                rule.data ? JSON.stringify(rule.data) : 'null',
+                rule.data && rule.data.length ? JSON.stringify(rule.data) : 'null',
                 template ? ', params' : '',
                 `)`
             ]),
             `)`
         ];
-    }
-    applyAttributes(name, attributes) {
-        let attribute = '';
-        if (attributes.find((attr) => attr.name === 'skip' && attr.arguments.length === 0)) {
-            attribute = '.skip';
-        }
-        else if (attributes.find((attr) => attr.name === 'only' && attr.arguments.length === 0)) {
-            attribute = '.only';
-        }
-        return name + attribute;
     }
 }
 exports.default = GenericTransformer;

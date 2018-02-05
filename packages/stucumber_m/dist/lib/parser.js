@@ -44,7 +44,7 @@ module.exports = (function() {
         peg$c5 = ")",
         peg$c6 = { type: "literal", value: ")", description: "\")\"" },
         peg$c7 = function(attribute, args) { return { name: attribute, arguments: JSON.parse('[' + args.join('') + ']') } },
-        peg$c8 = function(attribute) { return { name: attribute } },
+        peg$c8 = function(attribute) { return { name: attribute, arguments: [] } },
         peg$c9 = function(actor) { return actor },
         peg$c10 = function(want) { return want },
         peg$c11 = function(reason) { return reason },
@@ -60,7 +60,7 @@ module.exports = (function() {
               annotations
             }));
           },
-        peg$c18 = function(rule, table) { return Object.assign({}, rule, {table}) },
+        peg$c18 = function(rule, data) { return Object.assign({}, rule, {data}) },
         peg$c19 = function(table) {
             const keys = table[0];
             const data = [];

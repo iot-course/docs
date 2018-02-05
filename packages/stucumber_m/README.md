@@ -37,6 +37,7 @@ cucumber.defineRule('I will have {int}', (world, number) => {
 });
 ```
 
+`Given`, `When`, `Then`, `And` and `*` are all synonyms, and exist only to make your code more readable.
 
 ## Documentation
 
@@ -99,6 +100,14 @@ There are 4 types that can be used as placeholders:
   * `{word}` - matches a bunch of characters up to a whitespace character (`[^\s]+`)
   * `{string}` - matches a double-quoted string and returns only the contents of the string (`"([^"]+)"`)
 
+If you give the templates names, then they are passed as an object parameter instead:
+
+```js
+cucumber.defineRule('I have numbers {a:int} and {b:int}', (world, params) => {
+  world.a = params.a;
+  world.b = params.b;
+});
+```
 
 ###  Promises
 
@@ -106,23 +115,18 @@ Any rule can return a promise and it will be awaited before processing the next 
 
 ### Annotations
 
-You can prefix any feature or scenario with any number of annotations, which consist of a keyword prefixed by an `@` symbol:
+You can prefix any feature or scenario with any number of annotations, which consist of a keyword prefixed by an `@` symbol.
+The annotations can optionally have arguments.
 
 ```gherkin
-@skip
-Feature: I don't want this test to be run
-  Scenario: a simple arithmetic test
-    Given I have numbers 3 and 4
-    When I add them
-    Then I get 7
+@someAnnotation
+Feature: annotations
+
+  @anotherAnnotation(1, "a")
+  Scenario: some scenario
+    * ...
 ```
 
-Currently there are two "special" annotations which have defined behaviour:
-
-  * `@skip` - skips the test - outputs a `describe.skip` or `it.skip` for features and scenarios respectively
-  * `@only` - only runs the annotated test - outputs a `describe.only` or `it.only` depending on the annotated item
-
-Anything else is ignored, so could be useful for metadata, e.g. recording the associated issue number.
 
 ### Hooks
 
@@ -136,7 +140,7 @@ You can register functions to handle various hooks:
 To register a handler, call `cucumber.addHook`:
 
 ```js
-cucumber.addHook(HookType.BeforeEach, (world, attributes) => {
+cucumber.addHook(HookType.BeforeFeatures, function (world, annotations) {
   // do some stuff
 })
 ```
@@ -144,10 +148,11 @@ cucumber.addHook(HookType.BeforeEach, (world, attributes) => {
 The handler functions get two parameters:
 
   * `world` - the world object returned from `createWorld` - for `BeforeAll` and `AfterAll` this is not relevant and is always `null`
-  * `attributes` - a string array of any attributes defined on the feature and/or scenario (if relevant)
+  * `annotations` - an array of any annotations defined on the feature and/or scenario (if relevant)
 
-You can use the attributes parameter to do custom setup behaviour depending on attributes set on the test.  Note that a scenario
-gets the attributes from both the feature and that scenario.
+You can use the annotations parameter to do custom setup behaviour depending on annotations set on the test.
+
+The context of the hook handling function (i.e., `this`) will be the current feature or scenario, depending on the hook type.
 
 
 ### Data tables
@@ -264,6 +269,25 @@ Scenario:
 ```
 
 The steps under `Background:` will be prepended to each scenario, and will use the same world as that scenario.
+
+### Inline rules
+
+You can define a rule in the feature file itself.  This is useful for making short rules out of repeated steps.  E.g.:
+
+```
+  Rule: I enter {title:word} {forename:word} {surname:word} as my name
+    * I enter "<title>" in title
+    * I enter "<forename>" in forename
+    * I enter "<surname>" in surname
+  
+  Scenario: enter name
+    Given I enter Mr Arthur Dent as my name
+```
+
+The rule is defined using the `Rule:` keyword, and can match arguments using the named template syntax.  These arguments
+are then substituted into the "sub" rules using the angle bracket syntax.
+
+Rules are scoped to the feature file.
 
 ## API
 

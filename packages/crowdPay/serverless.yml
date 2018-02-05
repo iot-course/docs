@@ -1,7 +1,7 @@
 service: crowdpay
 
 package:
-  # individually: true   # comment out during developemnt
+  individually: true   # comment out during developemnt
   exclude:
     - ./**
 
@@ -10,7 +10,7 @@ plugins:
   - serverless-dynamodb-local
 
 provider:
-  name: awsyarn
+  name: aws
   runtime: nodejs6.10
   iamRoleStatements:
     - Effect: Allow

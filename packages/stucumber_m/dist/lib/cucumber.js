@@ -19,15 +19,7 @@ class Cucumber {
         this.rules = [];
         this.hooks = [];
     }
-    When(match, handler) {
-        if (match instanceof RegExp) {
-            this.rules.push({ regex: match, handler });
-        }
-        else {
-            this.rules.push(this.compileTemplate(match, handler));
-        }
-    }
-    Then(match, handler) {
+    defineRule(match, handler) {
         if (match instanceof RegExp) {
             this.rules.push({ regex: match, handler });
         }
@@ -38,22 +30,29 @@ class Cucumber {
     addHook(type, handler) {
         this.hooks.push({ type, handler });
     }
-    runHook(type, world, annotations) {
+    runHook(type, world, context) {
+        const annotations = [];
+        if (context) {
+            annotations.push(...context.annotations);
+            if (context.feature) {
+                annotations.push(...context.feature.annotations);
+            }
+        }
         return Promise.all(this.hooks
             .filter(hook => hook.type === type)
-            .map(hook => hook.handler.call(this, world, annotations)));
+            .map(hook => hook.handler.call(context, world, annotations)));
     }
-    enterFeature(annotations) {
-        return this.runHook(HookType.BeforeFeatures, null, annotations);
+    enterFeature(feature) {
+        return this.runHook(HookType.BeforeFeatures, null, feature);
     }
-    enterScenario(world, annotations) {
-        return this.runHook(HookType.BeforeScenarios, world, annotations);
+    enterScenario(world, scenario) {
+        return this.runHook(HookType.BeforeScenarios, world, scenario);
     }
-    exitFeature(annotations) {
-        return this.runHook(HookType.AfterFeatures, null, annotations);
+    exitFeature(feature) {
+        return this.runHook(HookType.AfterFeatures, null, feature);
     }
-    exitScenario(world, annotations) {
-        return this.runHook(HookType.AfterScenarios, world, annotations);
+    exitScenario(world, scenario) {
+        return this.runHook(HookType.AfterScenarios, world, scenario);
     }
     compileTemplate(match, handler) {
         const converters = [];

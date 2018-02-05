@@ -1,5 +1,5 @@
 import Transformer from './transformer';
-import { Feature, Scenario, Annotation, Rule, RuleDeclaration } from './parser';
+import { Feature, Scenario, Rule, RuleDeclaration } from './parser';
 export interface GenericTransformerOptions {
     featureFn?: string;
     scenarioFn: string;
@@ -13,9 +13,9 @@ export default class GenericTransformer extends Transformer<any> {
     protected options: GenericTransformerOptions;
     constructor(options: GenericTransformerOptions);
     protected transformFile(filename: string, file: any): string;
+    private getContext(name, annotations, includeFeature?);
     protected transformFeature(filename: string, feature: Feature, ruleDeclarations: any, scenarios: any): any;
     protected transformRuleDeclaration(filename: string, feature: Feature, ruleDeclaration: RuleDeclaration, rules: any): any;
     protected transformScenario(filename: string, feature: Feature, scenario: Scenario, rules: any): any;
     protected transformRule(filename: string, feature: Feature, scenario: Scenario, rule: Rule, template?: boolean): any[];
-    protected applyAttributes(name: string, attributes: Annotation[]): string;
 }
