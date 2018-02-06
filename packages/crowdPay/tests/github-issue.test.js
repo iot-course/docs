@@ -1,6 +1,5 @@
 const { handler: githubIssueEvent } = require('../lib/github-issue')
 
-const { get, request } = require('https')
 
 
 describe(
@@ -8,8 +7,8 @@ describe(
   to make label/point changes`, () =>{
 
 
-  test(`Unauthorized user changes label and
-    a few seconds later the change is reverted`, () =>{
+  test.skip(`Unauthorized user changes label and
+    a few seconds later the change is reverted`, done =>{
 
 
     const event = { body: JSON.stringify({
@@ -21,11 +20,11 @@ describe(
     githubIssueEvent(event, null, (err, {statusCode}) =>{
       expect(statusCode).toBe(200)
     })
+    done()
 
   })
 
-  test(`Authorized user changes label and
-    a few seconds later his changes persist`, () =>{
+  test(`Save authorized label changes`, done =>{
 
       const event = { body: JSON.stringify({
         sender:{ login: 'TA-Bot' },
@@ -36,42 +35,23 @@ describe(
       githubIssueEvent(event, null, (err, {statusCode}) =>
         expect(statusCode).toBe(200)
       )
+      done()
+
+    })
+
+    test.skip('Undoes label close', done =>{
+
+      const event = { body: JSON.stringify({
+        sender:{ login: 'TA-Bot' },
+        issue:{ number:1, labels:[ { name: '2' } ] },
+        action:'closed'
+      })}
+
+      githubIssueEvent(event, null, (err, {statusCode}) =>{
+        expect(statusCode).toBe(200)
+        done()
+      })
 
     })
 
 })
-
-describe(`Assignee gets paid after all criteria is valid`, () =>{
-
-  test('rap', ()=> expect(10).toBe(10))
-  // test('breaking2', ()=> expect(1).toBe(2))
-
-//   test('Assignee closes issue that IS ready to be closed', ()=>{
-//
-//     const event = { body: JSON.stringify({
-//       sender:{ login: 'wordyallen' },
-//       issue:{ assignee:'wordyallen' ,number:1, labels:[ { name: '2' } ] },
-//       action:'closed'
-//     })}
-//
-//     githubIssueEvent(event, null, (err, {statusCode})=>{
-//       expect(statusCode).toBe(200)
-//     })
-//
-//   })
-
-    // test('Assignee closes issue that is NOT ready to be closed and is going to reopen', ()=>{
-    //
-    //   const event = { body: JSON.stringify({
-    //     sender:{ login: 'TA-Bot' },
-    //     issue:{ assignee:'wordyallen' ,number:1, labels:[ { name: '2' } ] },
-    //     action:'closed'
-    //   })}
-    //
-    //
-    //   githubIssueEvent(event, null, (err, {statusCode})=>{
-    //     expect(statusCode).toBe(202)
-    //   })
-    // })
-
-  })
