@@ -3,6 +3,6 @@
 
 > A system for automating payments based on agile points.
 
-- todo
-  - [ ] add circle ci
-  - [ ] get 
+`yarn submit` ⇒ issues pr ⇒ checks status ⇒ checks code
+ 
+  ⇒ merges ⇒ closes issue ⇒

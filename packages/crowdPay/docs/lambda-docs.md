@@ -1,39 +1,20 @@
 
-## `http ⇒ λ authorize ⇒ request`
+## `http ⇒ λ github-issue ⇒ mutliple conditional requests`
 
 
-Authorizes github point/label changes and reverts back if unauthorized
+A system of checking those authorized to changes labels
+and thereby point values and authorizing of issue closing and payment
 
 
 **Callback / External Call:**
 
 ```js
-request(options(ghAccessToken, number, id),...)
+authLabelClose ? handleLabelClose() : authLabelClose ? pay(assignee) : reopen()
 ```
 
 arg / param | type | path
 --- | --- | ---
-`action` | `String` | ` JSON.parse(event.body)`
-`login` | `String` | ` JSON.parse(event.body).sender`
+`assignee` | `String` | ` JSON.parse(event.body).issue`
+`Item` | `Object` | ` JSON.parse(event.body)`
 `number` | `Number` | ` JSON.parse(event.body).issue`
-`id` | `Number` | ` JSON.parse(event.body).issue`
-`labels` | `Array` | ` JSON.parse(event.body).issue`
-`ghAccessToken` | `Array` | ` process.env`
-<br/> 
-
-## `http ⇒ λ pay ⇒ request`
-
-
-Pays developer per points in closed feature
-
-
-**Callback / External Call:**
-
-```js
-request(payPalAccessToken, ghEmail)
-```
-
-arg / param | type | path
---- | --- | ---
-`body` | `string` | `JSON.parse(event.body)`
-<br/> 
+<br/>
