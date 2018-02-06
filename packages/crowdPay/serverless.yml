@@ -1,7 +1,7 @@
 service: crowdpay
 
 package:
-  individually: true   # comment out during developemnt
+  # individually: true   # comment out during developemnt
   exclude:
     - ./**
 
@@ -27,11 +27,9 @@ provider:
           - Arn
 
 functions:
+
   github-issue:
     handler: lib/github-issue.handler
-    package:
-      include:
-        - lib/github-issue.js
     environment:
       ghAccessToken: ${file(.env.json):ghAccessToken}
     events:
@@ -39,6 +37,17 @@ functions:
          path: github-issue
          method: any
          cors: true
+
+  github-pr:
+    handler: lib/github-pr.handler
+    environment:
+      ghAccessToken: ${file(.env.json):ghAccessToken}
+    events:
+     - http:
+         path: github-pr
+         method: any
+         cors: true
+
 resources:
   Resources:
     # DyanmoDB
