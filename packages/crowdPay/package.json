@@ -6,7 +6,7 @@
     "dev": "NODE_ENV=local sls invoke local -f $fn  -p tests/events/$fn.json --watch",
     "test": "NODE_ENV=local node -r ./tests/utils.js node_modules/.bin/jest",
     "docs": "lambda-docs-2md ./lib",
-    "push": "git add -A && git commit -m \"$msg\" && git push",
+    "push": "git add -A && git commit -m \"$msg\" && git push origin $(git rev-parse --abbrev-ref HEAD)",
     "submit": "echo 'rap'"
   },
   "devDependencies": {
