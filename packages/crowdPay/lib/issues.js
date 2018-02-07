@@ -88,7 +88,7 @@ exports.handler = async (e, _, cb) => {
 
   const labelAction = action === 'labeled' || action === 'unlabeled' || action === 'edited'
   const labelAuth = labels.length === 1 && login === PM
-  const closeAction = action === 'closed'
+  const closeAction = action === 'closed' && login !==  PM
 
 
   labelAction
