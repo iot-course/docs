@@ -10,7 +10,21 @@
     ❌ &nbsp; ⇒ closes pr  
 
 
-- todo
-  - [ ] `review requested` action on pr webhook
-  - [ ] `success` action check on status webhook
-  - [ ] `closed` action on pr webhook (merge and pay)
+
+```js
+yarn submit => pr open => pr review
+                => status succcess  => pr close =>  merge => pay
+
+```
+
+
+
+todo:
+- [ ] `open` action on a `pr` event, create a pr-review POST
+- [ ] `success`  action on a `status` event
+  - get pull number
+    - list all prs and filter by head and state
+    - check for body that matches commit message
+  - merge a pull request
+    - watch `issue` event to create close exception
+- [ ] this will create a `closed` action on `pr` and start on paypal api
