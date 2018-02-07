@@ -9,8 +9,8 @@ const closePR = async (pullNumber, head, success) => {
     {
       state: "closed",
       body: success
-        ? `${head} \n\n> Crispy Lettuce 💵 😎  \n\n- added automagically`
-        : `${head} \n\n> This Robot has deemed you unworthy 🤖 💥 😭 \n\n- added automagically`
+        ? `${head} \n\n> Crispy Lettuce 💵 😎 (added automagically)`
+        : `${head} \n\n> This Robot has deemed you unworthy 🤖 💥 😭 (added automagically)`
     }
   )
 }
