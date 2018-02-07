@@ -10,7 +10,7 @@ const closePR = async (pullNumber, head, success) => {
       state: "closed",
       body: success
         ? `${head} \nCrispy Lettuce 💵 😎 `
-        : `${head} \nThis Robot has deemed you unworthy 🤖 💥 😭`
+        : `${head} \n\nThis Robot has deemed you unworthy 🤖 💥 😭 — added automagically`
     }
   )
 }
@@ -43,7 +43,6 @@ exports.handler = async (e, _, cb) => {
     branches: [{ name:head }]
   } = JSON.parse(e.body)
 
-  console.log({ state, message })
 
   if (state === 'success' && !message.startsWith("Merge")) {
     const pullNumber = await getPullNumber(head, message)
