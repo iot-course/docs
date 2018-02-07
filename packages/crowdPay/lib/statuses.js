@@ -2,7 +2,7 @@ const { asyncRequest } = require('./utils')
 
 
 const getPullNumber = async (head, message) => {
-  const { err, data } = await asyncRequest(`/repos/org/iot/course/pulls?state=open&head=iot-course${head}`)
+  const { err, data } = await asyncRequest(`/repos/iot-course/org/pulls?state=open&head=${head}`)
   data && console.log({ data: data })
   err && console.log({ err:err.message })
 }
