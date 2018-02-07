@@ -2,10 +2,10 @@ exports.handler = (e, _, cb) => {
 
 /* eslint-disable camelcase */
   const {
-    action
+    state
   } = JSON.parse(e.body)
 /* eslint-enable */
 
-  console.log('actions', action)
+  console.log('state', state)
   cb(null, {statusCode: 200})
 }
