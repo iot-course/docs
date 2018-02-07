@@ -1,16 +1,5 @@
 const { asyncRequest } = require('./utils')
 
-
-const deleteBranch = async (head) => {
-  const { err, data } = await asyncRequest(
-    `/repos/iot-course/org/git/refs/heads/${head}`,
-    'delete',
-  )
-  data && console.log({ data }, '-----data')
-  err && console.log({ err }, '---err')
-}
-
-
 const closePR = async pullNumber => {
   const { data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}`,
@@ -29,16 +18,7 @@ const mergePR = async (pullNumber, head) => {
     { commit_message: 'This robot has deemed you a worthy humanoid.' }
   )
 
-
-  console.log({mergeStatus: statusCode })
-
-  const { err, data } = await asyncRequest(
-    `/repos/iot-course/org/git/refs/heads/${head}`,
-    'delete',
-  )
-  data && console.log({ data }, '-----data')
-  err && console.log({ err }, '---err')
-  
+  statusCode === 200 && closePR(pullNumber)
 }
 
 const getPullNumber = async (head, message) => {
