@@ -10,6 +10,7 @@
     ❌ &nbsp; ⇒ closes pr  
 
 
+- todo review
 
 - todo status
   - [ ] create a `status` webhook
@@ -21,7 +22,8 @@
   - [ ] merge pull request (merge button)
   - [ ] create a close issue exception
 
-- todo pay
+- todo pr: review and pay
   - [ ] create `pull request` webhook
   - [ ] check for authorized closes by correct user
+  - [ ] check for new created prs and  issue a pr review with the lines of code check
   - [ ] start on the paypal api....
