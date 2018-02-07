@@ -18,7 +18,6 @@ yarn submit => pr open => pr review
 ```
 
 
-
 todo:
 - [ ] `open` action on a `pr` event, create a pr-review POST
 - [ ] `success`  action on a `status` event
