@@ -22,14 +22,13 @@ const closePR = async pullNumber => {
 
 const mergePR = async (pullNumber, head) => {
 
-  const { data } = await asyncRequest(
+  const { data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}/merge`,
     'put',
     { commit_message: 'This robot has deemed you a worthy humanoid.' }
   )
-  console.log({ data })
 
-  // merged && deleteBranch(head)
+  statusCode===200 && deleteBranch(head)
 }
 
 const getPullNumber = async (head, message) => {
@@ -38,7 +37,7 @@ const getPullNumber = async (head, message) => {
 
   return number
     ? number
-    : console.error('could not match pr body to commit msg');
+    : console.log('could not match pr body to commit msg');
 }
 
 exports.handler = async (e, _, cb) => {
@@ -49,7 +48,7 @@ exports.handler = async (e, _, cb) => {
     branches: [{ name:head }]
   } = JSON.parse(e.body)
 
-
+  console.log({ state })
 
   if (state === 'success') {
     const pullNumber = await getPullNumber(head, message)
