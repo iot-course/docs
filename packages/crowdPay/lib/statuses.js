@@ -13,7 +13,7 @@ const mergePR = async pullNumber => {
   const { data } = await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}/merge`,
     'put',
-    { commit_message: 'This robot has deemed you a worthy humanoid' }
+    { commit_message: 'This robot has deemed you a worthy humanoid.' }
   )
   console.log({ data })
 }
@@ -36,10 +36,17 @@ exports.handler = async (e, _, cb) => {
   } = JSON.parse(e.body)
 
   console.log({state})
+  
+  if (state === 'success') {
+    const pullNumber = await getPullNumber(head, message)
+    pullNumber && mergePR(pullNumber)
+  }
 
-  const pullNumber = await getPullNumber(head, message)
-  state === 'success' && pullNumber && mergePR(pullNumber)
-  state === 'failure' && closePR(pullNumber)
+  if(state === 'failure'){
+    closePR(pullNumber)
+  }
+
+
   cb(null, { statusCode: 200 })
 
 }
