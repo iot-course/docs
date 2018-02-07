@@ -1,7 +1,7 @@
 const { asyncRequest } = require('./utils')
 
 
-const closePR = async (pullNumber, message, success) => {
+const closePR = async (pullNumber, head, success) => {
 
   const { data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}`,
@@ -9,13 +9,13 @@ const closePR = async (pullNumber, message, success) => {
     {
       state: "closed",
       body: success
-        ? message +'\n >Crispy Lettuce 💵 😎 \n\n--added by TA-Bot'
-        : message + '\n>This Robot has deemed you unworthy 🤖 💥 😭 \n\n--added by TA-Bot'
+        ? `${head} \nCrispy Lettuce 💵 😎 `
+        : `${head} \nThis Robot has deemed you unworthy 🤖 💥 😭`
     }
   )
 }
 
-const mergePR = async (pullNumber, head, ) => {
+const mergePR = async (pullNumber, head) => {
 
   const { data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}/merge`,
@@ -23,7 +23,7 @@ const mergePR = async (pullNumber, head, ) => {
     {commit_message: 'all gravy'}
   )
 
-  statusCode === 200 && closePR(pullNumber, message, true)
+  statusCode === 200 && closePR(pullNumber, head, true )
 }
 
 const getPullNumber = async (head, message) => {
@@ -47,11 +47,11 @@ exports.handler = async (e, _, cb) => {
 
   if (state === 'success' && !message.startsWith("Merge")) {
     const pullNumber = await getPullNumber(head, message)
-    pullNumber && mergePR(pullNumber, head, message)
+    pullNumber && mergePR(pullNumber, head)
   }
 
   if(state === 'failure'){
-    closePR(pullNumber, message)
+    closePR(pullNumber, head)
   }
 
 
