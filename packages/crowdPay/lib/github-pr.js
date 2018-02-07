@@ -18,10 +18,10 @@ exports.handler = (e, _, cb) => {
   const getStatus = async ()  => {
     const {err, data} = await asyncRequest(`/repos/iot-course/org/statuses/${sha}`)
       console.log( data[0]['state'], '---should be later')
-      data ? cb(null, { statusCode: 90000 } ) : cb(err)
+      data ? cb(null, { statusCode: 200 } ) : cb(err)
   }
 
-  setTimeout( getStatus , 2000)
+  setTimeout( getStatus , 9000)
 }
 
 
