@@ -14,7 +14,6 @@ const mergePR = async pullNumber => {
     `/repos/iot-course/org/pulls/${pullNumber}/merge`,
     'put',
   )
-
   console.log({ err, data })
 }
 
