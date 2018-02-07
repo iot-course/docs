@@ -5,13 +5,23 @@
 
 - Wrokflow: `yarn submit` ⇒ creates pr ⇒ checks status ⇒ checks code
 
-    ✅ &nbsp; ⇒ merges pr ⇒ authorizes payment ⇒ closes issue
+    ✅ &nbsp; ⇒ merges pr ⇒  closes issue ⇒  authorizes payment
 
     ❌ &nbsp; ⇒ closes pr  
 
 
 
-- todo
-  - [ ] authorize closing via api only
-  - [ ]  `yarn submit` to issue a pr
-  - [ ] hook for close
+- todo status
+  - [ ] create a `status` webhook
+  - [ ] if status if 'success', then get commit message and branch
+  - [ ] list prs and filter by states and branch name
+  - [ ] matching commit message to pr body, eg, "closes #1"
+  - [ ] if matched, check additions and deletions to points
+  - [ ] if not, closes pr
+  - [ ] merge pull request (merge button)
+  - [ ] create a close issue exception
+
+- todo pay
+  - [ ] create `pull request` webhook
+  - [ ] check for authorized closes by correct user
+  - [ ] start on the paypal api...
