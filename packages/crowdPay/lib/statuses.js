@@ -6,8 +6,8 @@ const deleteBranch = async (head) => {
     `/repos/iot-course/org/git/refs/heads/${head}`,
     'delete',
   )
-  data && console.log({ data })
-  err && console.log({ err })
+  data && console.log({ data }, '-----data')
+  err && console.log({ err }, '---err')
 }
 
 
@@ -51,7 +51,7 @@ exports.handler = async (e, _, cb) => {
 
   console.log({ state, message })
 
-  if (state === 'success') {
+  if (state === 'success' && message.startWith("Merge branch")) {
     const pullNumber = await getPullNumber(head, message)
     pullNumber && mergePR(pullNumber, head)
   }
