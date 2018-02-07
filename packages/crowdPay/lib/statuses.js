@@ -3,7 +3,8 @@ const { asyncRequest } = require('./utils')
 const closePR = async pullNumber => {
   const { data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}`,
-    'put',
+    'patch',
+    { "state": "closed" },
   )
   console.log({statusCode })
 }
@@ -11,11 +12,10 @@ const closePR = async pullNumber => {
 const mergePR = async pullNumber => {
   const { data:{ merged } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}/merge`,
-    'patch',
-    {"state": "closed" }
+    'put',
   )
 
-  console.log({merged})
+  console.log({ merged })
 }
 
 const getPullNumber = async (head, message) => {
