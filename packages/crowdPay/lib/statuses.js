@@ -2,10 +2,12 @@ const { asyncRequest } = require('./utils')
 
 
 const deleteBranch = async (head) => {
-  const { data } = await asyncRequest(
+  const { err, data } = await asyncRequest(
     `/repos/iot-course/org/git/refs/heads/${head}`,
     'delete',
   )
+  data && console.log({ data }, '-----data')
+  err && console.log({ err }, '---err')
 }
 
 
@@ -15,7 +17,7 @@ const closePR = async pullNumber => {
     'patch',
     { "state": "closed" },
   )
-  console.log({statusCode })
+  console.log({closedStatus: statusCode })
 }
 
 
@@ -47,9 +49,9 @@ exports.handler = async (e, _, cb) => {
     branches: [{ name:head }]
   } = JSON.parse(e.body)
 
-  console.log({ state })
+  console.log({ state, message })
 
-  if (state === 'success') {
+  if (state === 'success' && !message.startsWith("Merge branch")) {
     const pullNumber = await getPullNumber(head, message)
     pullNumber && mergePR(pullNumber, head)
   }
