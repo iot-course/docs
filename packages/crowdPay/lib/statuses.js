@@ -1,12 +1,13 @@
+
 exports.handler = (e, _, cb) => {
 
   const {
     state,
-    commit:{ message },
-    branches
+    commit:{ commit:{ message } },
+    branches: [{ name }]
   } = JSON.parse(e.body)
 
-  console.log({ state, branches, message })
+  console.log({ state, name, message })
   // const pullNumber = await getPullNumber()
   // state === 'success' && prClose(pullNumber)
 
