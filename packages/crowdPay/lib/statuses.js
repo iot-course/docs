@@ -17,8 +17,8 @@ const mergePR = async (pullNumber, head) => {
     'put',
     { commit_message: 'This robot has deemed you a worthy humanoid.' }
   )
-
-  statusCode === 200 && closePR(pullNumber)
+  console.log({ statusCode })
+  closePR(pullNumber)
 }
 
 const getPullNumber = async (head, message) => {
@@ -38,7 +38,7 @@ exports.handler = async (e, _, cb) => {
     branches: [{ name:head }]
   } = JSON.parse(e.body)
 
-  console.log({ state, message })
+  console.log({ state })
 
   if (state === 'success' && !message.startsWith("Merge")) {
     const pullNumber = await getPullNumber(head, message)
