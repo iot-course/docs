@@ -50,6 +50,7 @@ exports.handler = async (e, _, cb) => {
   }
 
   if(state === 'failure'){
+    const pullNumber = await getPullNumber(head, message)
     closePR(pullNumber, head)
   }
 
