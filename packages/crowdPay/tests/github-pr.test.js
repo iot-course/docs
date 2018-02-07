@@ -1,41 +1,24 @@
 const { handler: githubPullRequest } = require('../lib/github-pr')
 const { createEvent } = require('./utils')
 
-test('should return 200 from status check',  async () =>{
+test('should return 200 from status check',  done =>{
 
   const event = { body: JSON.stringify({
     "action": "opened",
     "number": 1,
     "pull_request": {
-      "user": {
-        "login": "baxterthehacker",
-      },
-      "merge_commit_sha": null,
-      "assignee": null,
-      "commits_url": "https://api.github.com/repos/baxterthehacker/public-repo/pulls/1/commits",
-      "statuses_url": "https://api.github.com/repos/baxterthehacker/public-repo/statuses/0d1a26e67d8f5eaf1f6ba5c57fc3c7d91ac0fd1c",
       "head": {
-        "label": "baxterthehacker:changes",
-        "ref": "changes",
-        "sha": "0d1a26e67d8f5eaf1f6ba5c57fc3c7d91ac0fd1c",
+        "sha": "e28826907b2d35d79915e36db3b49cacc5353e7b",
       },
-      "base": {
-        "label": "baxterthehacker:master",
-        "ref": "master",
-        "sha": "9049f1265b7d61be4a8904a9a27120d2064dab3b",
-      },
-      "merged": false,
-      "mergeable": null,
-      "mergeable_state": "unknown",
-      "merged_by": null,
       "additions": 1,
       "deletions": 1,
     }
   })}
 
-
-  await githubPullRequest(event, null, (err, data )=>{
-    expect(data).toBeTruthy()
-  })
+  createEvent('github-pr.json', event)
+  //  githubPullRequest(event, null, (err, data )=>{
+  //   expect(1).toBe(2)
+  //   done()
+  // })
 
 })
