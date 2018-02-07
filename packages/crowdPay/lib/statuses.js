@@ -29,7 +29,16 @@ const mergePR = async (pullNumber, head) => {
     { commit_message: 'This robot has deemed you a worthy humanoid.' }
   )
 
-  statusCode===200 && deleteBranch(head)
+
+  console.log({mergeStatus: statusCode })
+
+  const { err, data } = await asyncRequest(
+    `/repos/iot-course/org/git/refs/heads/${head}`,
+    'delete',
+  )
+  data && console.log({ data }, '-----data')
+  err && console.log({ err }, '---err')
+  
 }
 
 const getPullNumber = async (head, message) => {
@@ -51,7 +60,7 @@ exports.handler = async (e, _, cb) => {
 
   console.log({ state, message })
 
-  if (state === 'success' && !message.startsWith("Merge branch")) {
+  if (state === 'success' && !message.startsWith("Merge")) {
     const pullNumber = await getPullNumber(head, message)
     pullNumber && mergePR(pullNumber, head)
   }
