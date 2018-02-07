@@ -2,10 +2,12 @@ const { asyncRequest } = require('./utils')
 
 
 const deleteBranch = async (head) => {
-  const { data } = await asyncRequest(
+  const { err, data } = await asyncRequest(
     `/repos/iot-course/org/git/refs/heads/${head}`,
     'delete',
   )
+  data && console.log({ data })
+  err && console.log({ err })
 }
 
 
@@ -47,7 +49,7 @@ exports.handler = async (e, _, cb) => {
     branches: [{ name:head }]
   } = JSON.parse(e.body)
 
-  console.log({ state })
+  console.log({ state, message })
 
   if (state === 'success') {
     const pullNumber = await getPullNumber(head, message)
