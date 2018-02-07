@@ -8,7 +8,7 @@ const approvedReview = {
 }
 
 const changeReview = {
-  body: 'You sure the tests for this are okay?',
+  body: 'You sure this code implements the feature fully?',
   event: 'REQUEST_CHANGES',
 }
 
@@ -18,7 +18,7 @@ const prReview = async (number, loc, points) => {
   const { data: { statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${number}/reviews`,
     'post',
-    loc * 2 > +points ? approvedReview : changeReview
+    loc + 5 >= +points ? approvedReview : changeReview
   )
 
   statusCode !== 200 && console.log({ prReviewCode: statusCode })
@@ -57,5 +57,9 @@ exports.handler = async (e, _, cb) => {
 
 }
 
-// {"title":"Some breaking feature","head":"check-changes-of-commit",
+// r{"title":"Some breaking feature","head":"check-changes-of-commit",
+// "base":"master", "body":"close #1"}
+// r{"title":"Some breaking feature","head":"check-changes-of-commit",
+// "base":"master", "body":"close #1"}// r{"title":"Some breaking feature","head":"check-changes-of-commit",
+// "base":"master", "body":"close #1"}// r{"title":"Some breaking feature","head":"check-changes-of-commit",
 // "base":"master", "body":"close #1"}
