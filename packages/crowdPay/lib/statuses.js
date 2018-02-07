@@ -1,11 +1,15 @@
 exports.handler = (e, _, cb) => {
 
-/* eslint-disable camelcase */
   const {
-    state
+    state,
+    commit:{ message },
+    branches
   } = JSON.parse(e.body)
-/* eslint-enable */
 
-  console.log('state', state)
+  console.log({ state, branches, message })
+  // const pullNumber = await getPullNumber()
+  // state === 'success' && prClose(pullNumber)
+
   cb(null, { statusCode: 200 })
+
 }
