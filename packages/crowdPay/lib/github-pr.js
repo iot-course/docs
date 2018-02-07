@@ -1,5 +1,3 @@
-const { asyncRequest } = require('./utils')
-
 exports.handler = (e, _, cb) => {
 
 /* eslint-disable camelcase */
@@ -15,7 +13,7 @@ exports.handler = (e, _, cb) => {
   } = JSON.parse(e.body)
 /* eslint-enable */
 
-
+  console.log('actions', action)
   cb(null, {statusCode: 200})
 }
 
