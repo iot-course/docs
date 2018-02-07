@@ -57,5 +57,5 @@ exports.handler = async (e, _, cb) => {
 
 }
 
-// {"title":"Some breaking feature","head":"check-changes-of-commit",
+// r{"title":"Some breaking feature","head":"check-changes-of-commit",
 // "base":"master", "body":"close #1"}
