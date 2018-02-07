@@ -54,7 +54,12 @@ const undoLabelChange = async (number, cb) => {
 }
 
 const undoClose = async (number, cb) => {
-
+  
+  const { err, data:{ statusCode } } = await asyncRequest(
+    `/repos/iot-course/org/issues/${number}`,
+    'patch',
+     { labels },
+  )
   const { err, data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/issues/${number}`,
     'patch',
