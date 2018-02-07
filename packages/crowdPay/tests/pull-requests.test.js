@@ -1,4 +1,4 @@
-const { handler: githubPullRequest } = require('../lib/github-pr')
+const { handler: githubPullRequest } = require('../lib/pull-requests')
 const { createEvent } = require('./utils')
 
 test('should return 200 from status check',  () =>{
