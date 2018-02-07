@@ -64,35 +64,3 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
-
-/*
-Name	Type	Description
-sha	type	Required. The SHA1 value to set this reference to
-force	boolean	Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to false will make sure you're not overwriting work. Default: false
-Input
-{
-  "sha": "aa218f56b14c9653891f9e74264a383fa43fefbd",
-  "force": true
-}
-Response
-Status: 200 OK
-{
-  "ref": "refs/heads/featureA",
-  "url": "https://api.github.com/repos/octocat/Hello-World/git/refs/heads/featureA",
-  "object": {
-    "type": "commit",
-    "sha": "aa218f56b14c9653891f9e74264a383fa43fefbd",
-    "url": "https://api.github.com/repos/octocat/Hello-World/git/commits/aa218f56b14c9653891f9e74264a383fa43fefbd"
-  }
-}
-Delete a Reference
-DELETE /repos/:owner/:repo/git/refs/:ref
-Example: Deleting a branch:
-
-DELETE /repos/octocat/Hello-World/git/refs/heads/feature-a
-Example: Deleting a tag:
-
-DELETE /repos/octocat/Hello-World/git/refs/tags/v1.0
-Response
-
-*/
