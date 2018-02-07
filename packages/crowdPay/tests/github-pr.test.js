@@ -35,7 +35,7 @@ test('should return 200 from status check',  async () =>{
 
 
   await githubPullRequest(event, null, (err, data )=>{
-    expect(data).toBeTruthy()
+    expect(1).toBeTruthy(2)
   })
 
 })
