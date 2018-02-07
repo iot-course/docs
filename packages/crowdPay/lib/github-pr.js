@@ -14,12 +14,12 @@ exports.handler = (e, _, cb) => {
     }
   } = JSON.parse(e.body)
 /* eslint-enable */
-
-
-  setTimeOut(async ()=>{
-    const {err, data} await asyncRequest(`/repos/iot-course/org/statuses/${sha}`)
+  const getStatus = async cb => {
+    const {err, data} = await asyncRequest(`/repos/iot-course/org/statuses/${sha}`)
     data ? cb(null, data ) : cb(err)
-  }, 2000)
+  }
+
+  setTimeOut( getStatus(cb), 2000)
 
   cb(null, { statusCode : 200 })
 }
