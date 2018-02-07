@@ -1,39 +1,114 @@
 
-## `http ⇒ λ authorize ⇒ request`
+## `http ⇒ λ github-issue ⇒ request`
 
 
-Authorizes github point/label changes and reverts back if unauthorized
+Receives an issue event object from github and reverts/allows labels changes and issue closings
 
 
-**Callback / External Call:**
+**Callback / External Calls:**
 
 ```js
-request(options(ghAccessToken, number, id),...)
+labelAction
+  ? authLabelChange
+    ? saveIssue(Item, cb)
+    : undoLabelChange(number, cb)
+  : closeAction && undoClose(number, cb)
 ```
 
 arg / param | type | path
 --- | --- | ---
-`action` | `String` | ` JSON.parse(event.body)`
-`login` | `String` | ` JSON.parse(event.body).sender`
+`Item` | `Object` | ` JSON.parse(event.body)`
 `number` | `Number` | ` JSON.parse(event.body).issue`
-`id` | `Number` | ` JSON.parse(event.body).issue`
-`labels` | `Array` | ` JSON.parse(event.body).issue`
-`ghAccessToken` | `Array` | ` process.env`
-<br/> 
+<br/>
 
-## `http ⇒ λ pay ⇒ request`
+## `undefined`
 
 
-Pays developer per points in closed feature
+
 
 
 **Callback / External Call:**
 
 ```js
-request(payPalAccessToken, ghEmail)
+undefined
 ```
 
 arg / param | type | path
 --- | --- | ---
-`body` | `string` | `JSON.parse(event.body)`
-<br/> 
+
+<br/>
+
+## `undefined`
+
+
+exports.asyncRequest = (path, method = 'get', writeBody) => new Promise( (resolve, reject) => {
+
+
+
+const options = {
+
+headers:{
+
+'User-Agent': 'crowdpay',
+
+auth: `TA-Bot:${ghAccessToken}`,
+
+Authorization: `token ${ghAccessToken}`
+
+},
+
+hostname: 'api.github.com',
+
+method,
+
+path,
+
+}
+
+
+
+const req = request(options, res => {
+
+if (method === 'get') {
+
+let readBody = ''
+
+res.on('data', d => readBody += d)
+
+res.on('end', () => resolve(JSON.parse(readBody) ) )
+
+res.on('error', err => reject(err) )
+
+} else {
+
+resolve(res)
+
+}
+
+})
+
+method !== 'get' && req.write(JSON.stringify(writeBody))
+
+req.on('error', err => reject(err) )
+
+req.end()
+
+
+
+})
+
+.then( data => ({ err:null, data }))
+
+.catch( err => ({ err, data: null }))
+
+
+**Callback / External Call:**
+
+```js
+undefined
+```
+
+arg / param | type | path
+--- | --- | ---
+
+<br/>

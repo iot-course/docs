@@ -3,6 +3,15 @@
 
 > A system for automating payments based on agile points.
 
+- Wrokflow: `yarn submit` ⇒ creates pr ⇒ checks status ⇒ checks code
+
+    ✅ &nbsp; ⇒ merges pr ⇒ authorizes payment ⇒ closes issue
+
+    ❌ &nbsp; ⇒ closes pr  
+
+
+
 - todo
-  - [ ] add circle ci
-  - [ ] get 
+  - [ ] authorize closing via api only
+  - [ ]  `yarn submit` to issue a pr
+  - [ ] hook for close
