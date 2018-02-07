@@ -7,5 +7,5 @@ exports.handler = (e, _, cb) => {
 /* eslint-enable */
 
   console.log('state', state)
-  cb(null, {statusCode: 200})
+  cb(null, { statusCode: 200 })
 }
