@@ -8,7 +8,7 @@ const approvedReview = {
 }
 
 const changeReview = {
-  body: 'You sure the tests for this are okay?',
+  body: 'You sure this code implements the feature fully?',
   event: 'REQUEST_CHANGES',
 }
 
@@ -58,4 +58,8 @@ exports.handler = async (e, _, cb) => {
 }
 
 // r{"title":"Some breaking feature","head":"check-changes-of-commit",
+// "base":"master", "body":"close #1"}
+// r{"title":"Some breaking feature","head":"check-changes-of-commit",
+// "base":"master", "body":"close #1"}// r{"title":"Some breaking feature","head":"check-changes-of-commit",
+// "base":"master", "body":"close #1"}// r{"title":"Some breaking feature","head":"check-changes-of-commit",
 // "base":"master", "body":"close #1"}
