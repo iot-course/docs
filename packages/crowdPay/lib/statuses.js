@@ -22,14 +22,13 @@ const closePR = async pullNumber => {
 
 const mergePR = async (pullNumber, head) => {
 
-  const { data } = await asyncRequest(
+  const { data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}/merge`,
     'put',
     { commit_message: 'This robot has deemed you a worthy humanoid.' }
   )
-  console.log({ data })
 
-  // merged && deleteBranch(head)
+  statusCode===200 && deleteBranch(head)
 }
 
 const getPullNumber = async (head, message) => {
