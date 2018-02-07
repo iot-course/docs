@@ -19,4 +19,4 @@ exports.handler = (e, _, cb) => {
 
 
 
-//{"title":"Some breaking feature","head":"check-changes-of-commit","base":"master", "body":"close #1"}
+//{rap"title":"Some breaking feature","head":"check-changes-of-commit","base":"master", "body":"close #1"}
