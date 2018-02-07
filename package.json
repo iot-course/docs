@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"push": "git add -A && git commit -m \"$msg\" && git push origin $( $feature || 'master'  )",
+		"push": "git add -A && git commit -m \"$msg\" && git push origin $(git rev-parse --abbrev-ref HEAD)",
 		"bootstrap": "lerna bootstrap",
 		"test": "lerna run test"
 	},

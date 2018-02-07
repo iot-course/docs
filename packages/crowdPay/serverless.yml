@@ -12,6 +12,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs6.10
+  timeout: 10
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -27,18 +28,39 @@ provider:
           - Arn
 
 functions:
-  github-issue:
-    handler: lib/github-issue.handler
-    package:
-      include:
-        - lib/github-issue.js
+
+  issues:
+    handler: lib/issues.handler
     environment:
       ghAccessToken: ${file(.env.json):ghAccessToken}
     events:
      - http:
-         path: github-issue
+         path: issues
          method: any
          cors: true
+
+  pull-requests:
+    handler: lib/pull-requests.handler
+    environment:
+      ghAccessToken: ${file(.env.json):ghAccessToken}
+    events:
+     - http:
+         path: pull-requests
+         method: any
+         cors: true
+
+  statuses:
+    handler: lib/statuses.handler
+    environment:
+      ghAccessToken: ${file(.env.json):ghAccessToken}
+    events:
+     - http:
+         path: statuses
+         method: any
+         cors: true
+
+
+
 resources:
   Resources:
     # DyanmoDB
