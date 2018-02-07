@@ -8,7 +8,7 @@ describe(
 
 
   test.skip(`Unauthorized user changes label and
-    a few seconds later the change is reverted`, done =>{
+    a few seconds later the change is reverted`, ()  =>{
 
 
     const event = { body: JSON.stringify({
@@ -17,14 +17,16 @@ describe(
       action:'labeled'
     })}
 
-    githubIssueEvent(event, null, (err, {statusCode}) =>{
-      expect(statusCode).toBe(200)
+    githubIssueEvent(event, null, (err, data) =>{
+      console.log(err, data)
+      expect(statusCode).toBe(200);
+
     })
-    done()
+
 
   })
 
-  test(`Save authorized label changes`, done =>{
+  test(`Save authorized label changes`, () =>{
 
       const event = { body: JSON.stringify({
         sender:{ login: 'TA-Bot' },
@@ -32,10 +34,9 @@ describe(
         action:'labeled'
       })}
 
-      githubIssueEvent(event, null, (err, {statusCode}) =>
+      githubIssueEvent(event, null, (err, {statusCode}) =>{
         expect(statusCode).toBe(200)
-      )
-      done()
+      })
 
     })
 

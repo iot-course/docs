@@ -3,21 +3,9 @@ exports.handler = (e, _, cb) => {
 /* eslint-disable camelcase */
   const {
     action,
-    number,
     pull_request:{
-      title,
-      user:{ login },
-      merge_commit_sha,
-      assignee,
-      milestone,
-      commits_url,
+      body,
       statuses_url,
-      head:{ label:headlabel, ref:headref, sha:headsha },
-      base: { label:baselabel, ref:baseref, sha:basesha },
-      merged,
-      mergeable,
-      mergeable_state,
-      merged_by,
       additions,
       deletions
     }
@@ -26,26 +14,17 @@ exports.handler = (e, _, cb) => {
 
   const data = {
     action,
-    number,
     pull_request:{
-      title,
-      user:{ login },
-      merge_commit_sha,
-      assignee,
-      milestone,
-      commits_url,
+      body,
       statuses_url,
-      head:{ headlabel, headref, headsha },
-      base: { baselabel, baseref, basesha },
-      merged,
-      mergeable,
-      mergeable_state,
-      merged_by,
       additions,
       deletions
     }
   }
-  console.log(data)
-  cb(null, data)
+  console.log('data:',data )
 
+  cb(null, { statusCode : 200 })
 }
+
+
+// {"title":"Some breaking feature","head":"check-changes-of-commit","base":"master", "body":"close #1"}

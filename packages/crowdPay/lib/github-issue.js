@@ -27,12 +27,13 @@ const docClient = new DocumentClient(
 
 // main funcs
 const saveIssue = (Item, cb) => docClient.put({
-    TableName: 'issue-crowdpay-dev',
-    ReturnValues: 'ALL_OLD',
-    Item
-  }).promise()
-  .then( data => cb(null, data))
-  .catch(err => cb(err))
+  TableName: 'issue-crowdpay-dev',
+  ReturnValues: 'ALL_OLD',
+  Item
+}).promise()
+.then( () => cb(null, { statusCode: 200 }))
+.catch( err => cb(err))
+
 
 const undoLabelChange = async (number, cb) => {
 
@@ -47,6 +48,7 @@ const undoLabelChange = async (number, cb) => {
     'patch',
      { labels },
   )
+
   statusCode ? cb(null, { statusCode }) : cb(err)
 
 }
@@ -68,8 +70,7 @@ exports.handler = (e, _, cb) => {
   const { sender: { login }, issue: { number, labels }, action } = JSON.parse(e.body)
   const Item = { number, action, issue: { number, labels }, sender: { login } }
 
-
-  const labelAction = (action === 'labeled' || action === 'unlabeled' || action === 'edited' )
+  const labelAction = action === 'labeled' || action === 'unlabeled' || action === 'edited'
   const authLabelChange = labels.length === 1 && login === PM
   const closeAction = action === 'closed'
 

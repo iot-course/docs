@@ -1,7 +1,7 @@
 service: crowdpay
 
 package:
-  # individually: true   # comment out during developemnt
+  individually: true   # comment out during developemnt
   exclude:
     - ./**
 

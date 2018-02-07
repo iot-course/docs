@@ -1,7 +1,7 @@
 const { handler: githubPullRequest } = require('../lib/github-pr')
 const { createEvent } = require('./utils')
 
-test('should return 200 from status check',  done =>{
+test('should return 200 from status check',  async () =>{
 
   const event = { body: JSON.stringify({
     "action": "opened",
@@ -34,9 +34,8 @@ test('should return 200 from status check',  done =>{
   })}
 
 
-  githubPullRequest(event, null, (err, { statusCode } )=>{
-    expect(statusCode).toBe(200)
-    done()
+  await githubPullRequest(event, null, (err, data )=>{
+    expect(data).toBeTruthy()
   })
 
 })
