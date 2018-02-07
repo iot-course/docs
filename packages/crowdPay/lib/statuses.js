@@ -1,5 +1,15 @@
 const { asyncRequest } = require('./utils')
 
+
+const deleteBranch = async (head) => {
+  const { data } = await asyncRequest(
+    `/repos/iot-course/org/git/refs/heads/${head}`,
+  )
+  console.log({ data })
+}
+
+
+
 const closePR = async pullNumber => {
   const { data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}`,
@@ -9,13 +19,17 @@ const closePR = async pullNumber => {
   console.log({statusCode })
 }
 
-const mergePR = async pullNumber => {
-  const { data } = await asyncRequest(
+
+const mergePR = async (pullNumber, head) => {
+
+  const { data: { merged } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}/merge`,
     'put',
     { commit_message: 'This robot has deemed you a worthy humanoid.' }
   )
-  console.log({ data })
+  console.log({ merged })
+
+  merged && deleteBranch(head)
 }
 
 const getPullNumber = async (head, message) => {
@@ -35,11 +49,11 @@ exports.handler = async (e, _, cb) => {
     branches: [{ name:head }]
   } = JSON.parse(e.body)
 
-  console.log({state})
-  
+
+
   if (state === 'success') {
     const pullNumber = await getPullNumber(head, message)
-    pullNumber && mergePR(pullNumber)
+    pullNumber && mergePR(pullNumber, head)
   }
 
   if(state === 'failure'){
