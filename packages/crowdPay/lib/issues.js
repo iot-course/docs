@@ -1,10 +1,11 @@
 const { asyncRequest } = require('./utils')
 
 
-const getStatus = async ref =>{
-  const {err, data} = await asyncRequest(`/repos/iot-course/org/statuses/${ref}`)
-  err && console.log({ err })
-  data && console.log({ data })
+const getStatus = async (ref, assignee) =>{
+  const { data:statuses } = await asyncRequest(`/repos/iot-course/org/statuses/${ref}`)
+  const { creator:{ login } } = (pulls.filter( ({ state }) => state === 'success' )[0] || {})
+  console.log({ assignee })
+  return login===assignee
 }
 
 
@@ -12,10 +13,13 @@ exports.handler = async (e, _, cb) => {
   const {
     action ,
     sender: { login },
-    issue: { number, labels, title:ref },
+    issue: { number, labels, title:ref, assignee },
   } = JSON.parse(e.body)
 
+
+
   const status =  await getStatus(ref)
+  console.log({ status })
   cb(null, { statusCode: 200 })
 
 }
