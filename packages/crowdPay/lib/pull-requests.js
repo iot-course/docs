@@ -18,7 +18,7 @@ const prReview = async (number, loc, points) => {
   const { data: { statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${number}/reviews`,
     'post',
-    loc * 2 > points ? approvedReview : changeReview
+    loc * 2 > +points ? approvedReview : changeReview
   )
 
   statusCode !== 200 && console.log({ prReviewCode: statusCode })
@@ -36,24 +36,22 @@ const getIssuePoints = async issueNumber => {
 
 exports.handler = async (e, _, cb) => {
 
-
   const {
     action,
     number,
-    body,
     pull_request:{
       // head:{ sha },
+      body,
       additions,
       deletions
     }
   } = JSON.parse(e.body)
 
-  console.log({body})
 
-  // const points = await getIssuePoints(body.replace(/^\D+/, ''))
-  // const loc = additions + deletions
-  //
-  // action === 'opened' && prReview(number, loc, points)
+  const points = await getIssuePoints(body.replace(/^\D+/, ''))
+  const loc = additions + deletions
+
+  action === 'opened' && prReview(number, loc, points)
 
   cb(null, { statusCode: 200 })
 
