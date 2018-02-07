@@ -18,7 +18,7 @@ const prReview = async (number, loc, points) => {
   const { data: { statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${number}/reviews`,
     'post',
-    loc * 2 > +points ? approvedReview : changeReview
+    loc + 5 >= +points ? approvedReview : changeReview
   )
 
   statusCode !== 200 && console.log({ prReviewCode: statusCode })
