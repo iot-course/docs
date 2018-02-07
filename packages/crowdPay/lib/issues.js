@@ -88,7 +88,7 @@ exports.handler = async (e, _, cb) => {
 
   const labelAction = action === 'labeled' || action === 'unlabeled' || action === 'edited'
   const labelAuth = labels.length === 1 && login === PM
-  const closeAction = action === 'closed' 
+  const closeAction = action === 'closed'
 
 
   labelAction
@@ -97,24 +97,6 @@ exports.handler = async (e, _, cb) => {
       : undoLabelChange(number)
     : closeAction && !(await getStatus(ref, assignee))  && undoClose(number)
 
-  // if(action === 'labeled' || action === 'unlabeled' || action === 'edited'){
-  //
-  //   if(labels.length === 1 && login === PM){
-  //     saveIssue(Item)
-  //   } else {
-  //     undoLabelChange(number)
-  //   }
-  //
-  // }else if (action === 'closed'){
-  //     const successfulStatus = await getStatus(ref, assignee)
-  //     if(!successfulStatus){
-  //       undoClose(number)
-  //     }
-  // }
-
-
-  // labelAction && labelAuth ? saveIssue(Item) : undoLabelChange(number)
-  // closeAction && !successfulStatus && undoClose(number)
 
   cb(null, { statusCode: 200 })
 
