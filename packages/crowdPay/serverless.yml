@@ -28,35 +28,37 @@ provider:
 
 functions:
 
-  github-issue:
-    handler: lib/github-issue.handler
+  issues:
+    handler: lib/issues.handler
     environment:
       ghAccessToken: ${file(.env.json):ghAccessToken}
     events:
      - http:
-         path: github-issue
+         path: issues
          method: any
          cors: true
 
-  github-pr:
-    handler: lib/github-pr.handler
+  prs:
+    handler: lib/prs.handler
     environment:
       ghAccessToken: ${file(.env.json):ghAccessToken}
     events:
      - http:
-         path: github-pr
+         path: prs
          method: any
          cors: true
 
-  pr-review:
-    handler: lib/pr-review.handler
+  statuses:
+    handler: lib/statuses.handler
     environment:
       ghAccessToken: ${file(.env.json):ghAccessToken}
     events:
      - http:
-         path: pr-review
+         path: statuses
          method: any
          cors: true
+
+
 
 resources:
   Resources:

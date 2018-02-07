@@ -10,6 +10,12 @@
     ❌ &nbsp; ⇒ closes pr  
 
 
+
+```js
+yarn submit => pr open => pr review
+                => status succcess  => pr close =>  merge => pay
+
+```
 - todo
   - [ ] `review requested` action on pr webhook
   - [ ] `success` action check on status webhook
