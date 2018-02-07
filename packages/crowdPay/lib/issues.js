@@ -95,8 +95,7 @@ exports.handler = async (e, _, cb) => {
     ? labelAuth
       ? saveIssue(Item)
       : undoLabelChange(number)
-    : closeAction && !(await getStatus(ref, assignee))  && undoClose(number)
-
+    : closeAction && undoClose(number)
 
   cb(null, { statusCode: 200 })
 
