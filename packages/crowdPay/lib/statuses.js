@@ -8,7 +8,7 @@ const closePR = async (pullNumber, success) => {
     'patch',
     {
       state: "closed",
-      title: success
+      message: success
         ? 'Crispy Lettuce 💵 😎 '
         : 'This Robot has deemed you unworthy 🤖 💥 😭'
     }
