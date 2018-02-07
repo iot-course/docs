@@ -10,12 +10,12 @@ const closePR = async pullNumber => {
 }
 
 const mergePR = async pullNumber => {
-  const { data:{ merged } } = await asyncRequest(
+  const { err, data } = await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}/merge`,
     'put',
   )
 
-  console.log({ merged })
+  console.log({ err, data })
 }
 
 const getPullNumber = async (head, message) => {
