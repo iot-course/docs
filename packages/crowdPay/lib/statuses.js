@@ -3,10 +3,10 @@ const { asyncRequest } = require('./utils')
 
 const getPullNumber = async (head, message) => {
   const { err, data } = await asyncRequest(`/repos/org/iot/course/pulls?state=open?head=${head}`)
-  console.log({err: err.message, data: Boolean(data)})  
+  console.log({ err: err.message, data: Boolean(data) })  
 }
 
-exports.handler = (e, _, cb) => {
+exports.handler = async (e, _, cb) => {
 
   const {
     state,
