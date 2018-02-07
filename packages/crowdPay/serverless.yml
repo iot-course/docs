@@ -48,6 +48,16 @@ functions:
          method: any
          cors: true
 
+  pr-review:
+    handler: lib/pr-review.handler
+    environment:
+      ghAccessToken: ${file(.env.json):ghAccessToken}
+    events:
+     - http:
+         path: pr-review
+         method: any
+         cors: true
+
 resources:
   Resources:
     # DyanmoDB
