@@ -17,6 +17,8 @@ const getStatus = async (ref, assignee) =>{
   }
 }
 
+const undoLabelChange = number => {}
+const saveIssue = Item => {}
 
 exports.handler = async (e, _, cb) => {
 
@@ -27,12 +29,14 @@ exports.handler = async (e, _, cb) => {
   } = JSON.parse(e.body)
 
 
+  const Item = { number, action, issue: { number, labels }, sender: { login } }
 
-  console.log({ action })
 
-  const successfulStatus = await getStatus(ref, assignee, cb)
-  console.log({ successfulStatus })
+  const labelAction = action === 'labeled' || action === 'unlabeled' || action === 'edited'
   const closeAction = action === 'closed'
+  const successfulStatus = await getStatus(ref, assignee)
+
+  labelAction ? saveIssue(Item) : undoLabelChange(number)
   closeAction && !successfulStatus && undoClose(number)
 
   cb(null, { statusCode: 200 })
