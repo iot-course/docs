@@ -57,3 +57,22 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
+
+/*
+
+ @wordyallen
+Merge branch 'master' of https://github.com/iot-course/org into check…  …
+709e01c
+ @wordyallen
+closes #1
+9fac408
+ @TA-Bot
+TA-Bot approved these changes 40 seconds ago
+Your code is adequate enough given the
+limitations of your species.
+
+ @TA-Bot TA-Bot merged commit 78583fe into master  11 seconds ago
+1 check passed
+Pull request successfully merged and closed
+
+*/
