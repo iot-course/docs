@@ -1,8 +1,11 @@
 const { asyncRequest } = require('./utils')
 
 const getPullNumber = async (head, message) => {
-  const { err, data:[{ number, body }] } = await asyncRequest(`/repos/iot-course/org/pulls?state=open&head=${head}`)
-  return message === body
+  const { err, data:pulls } = await asyncRequest(`/repos/iot-course/org/pulls?state=open&head=${head}`)
+
+  const { number } = (pulls.filter( ({body}) => message === body )[0] || {})
+
+  return number
     ? number
     : console.error('could not match pr body to commit msg');
 }
