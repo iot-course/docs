@@ -18,7 +18,7 @@ const getStatus = async (ref, assignee) =>{
 }
 
 const undoLabelChange = number => {}
-saveIssue
+const saveIssue = Item => {}
 
 exports.handler = async (e, _, cb) => {
 
