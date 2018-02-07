@@ -15,13 +15,8 @@ exports.handler = (e, _, cb) => {
   } = JSON.parse(e.body)
 /* eslint-enable */
 
-  const getStatus = async ()  => {
-    const {err, data} = await asyncRequest(`/repos/iot-course/org/statuses/${sha}`)
-      console.log( data[0]['state'], '---should be later')
-      data ? cb(null, { statusCode: 200 } ) : cb(err)
-  }
 
-  setTimeout( getStatus , 9000)
+  cb(null, {statusCode: 200})
 }
 
 
