@@ -1,8 +1,25 @@
 const { asyncRequest } = require('./utils')
 
-const getPullNumber = async (head, message) => {
-  const { err, data:pulls } = await asyncRequest(`/repos/iot-course/org/pulls?state=open&head=${head}`)
+const closePR = async pullNumber => {
+  const { data:{ merged} } = await asyncRequest(
+    `/repos/iot-course/org/pulls/${pullNumber}`,
+    'put',
+  )
 
+  console.log({merged})
+}
+
+const mergePR = async pullNumber => {
+  const { data } = await asyncRequest(
+    `/repos/iot-course/org/pulls/${pullNumber}/merge`,
+    'patch',
+    {"state": "closed" }
+  )
+
+}
+
+const getPullNumber = async (head, message) => {
+  const { data:pulls } = await asyncRequest(`/repos/iot-course/org/pulls?state=open&head=${head}`)
   const { number } = (pulls.filter( ({body}) => message === body )[0] || {})
 
   return number
@@ -18,10 +35,11 @@ exports.handler = async (e, _, cb) => {
     branches: [{ name:head }]
   } = JSON.parse(e.body)
 
-  const pullNumber = await getPullNumber(head, message)
-  console.log({ pullNumber })
-  // state === 'success' && pullNumber && prClose(pullNumber)
+  console.log({state})
 
+  const pullNumber = await getPullNumber(head, message)
+  state === 'success' && pullNumber && mergePR(pullNumber)
+  state === 'failure' && closePR(pullNumber)
   cb(null, { statusCode: 200 })
 
 }
