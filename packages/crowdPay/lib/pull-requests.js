@@ -48,12 +48,13 @@ exports.handler = async (e, _, cb) => {
     }
   } = JSON.parse(e.body)
 
+  console.log({body})
 
-  const points = await getIssuePoints(body.replace(/^\D+/, ''))
-  const loc = additions + deletions
+  // const points = await getIssuePoints(body.replace(/^\D+/, ''))
+  // const loc = additions + deletions
+  //
+  // action === 'opened' && prReview(number, loc, points)
 
-  action === 'opened' && prReview(number, loc, points)
-  
   cb(null, { statusCode: 200 })
 
 }
