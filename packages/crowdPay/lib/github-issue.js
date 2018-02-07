@@ -1,23 +1,20 @@
 /**
-* Authorizes github point/label changes and reverts back if unauthorized
- * @summary http ⇒ λ authorize ⇒ request
- * @external authLabelClose ? pay(assignee, cb) : reopen(cb)
- * @external authLabelChange ? saveIssue(Item, cb) : patchIssue(number, cb)
- * @param { String }  assignee -  JSON.parse(event.body).issue
+* Receives gh issue, then reverts or allows labels changes and issue closings based on auth
+ * @summary http ⇒ λ github-issue ⇒ request
+ * @external labelAction ? authLabelChange(number, cb) : closeAction && undoClose(number, cb)
  * @param { Object }  Item -  JSON.parse(event.body)
  * @param { Number }  number -  JSON.parse(event.body).issue
- */
+*/
 
 
 // deps
-const { request } = require('https')
 const { DynamoDB: { DocumentClient } } = require('aws-sdk')
+const { asyncRequest } = require('./utils')
 
 
 // consts
-const { NODE_ENV, ghAccessToken } = process.env
+const { NODE_ENV } = process.env
 const PM = 'TA-Bot'
-// const DOLLARS_PER_POINT = 0.01
 
 
 // db Config
@@ -28,93 +25,59 @@ const docClient = new DocumentClient(
 )
 
 
-// helpers
-const asyncRequest = (path, method = 'get', writeBody) => new Promise( (resolve, reject) => {
-
-  const options = {
-    headers:{
-      'User-Agent': 'Crowd Pay',
-      Authorization: `token ${ghAccessToken}`
-    },
-    hostname: 'api.github.com',
-    method,
-    path,
-  }
-
-  const req = request(options, res => {
-    if (method === 'get') {
-      let readBody = ''
-      res.on('data', d => readBody += d)
-      res.on('end', () => resolve(JSON.parse(readBody) ) )
-      res.on('error', err => reject(err) )
-    } else {
-      resolve(res)
-    }
-  })
-  method !== 'get' && req.write(JSON.stringify(writeBody))
-  req.on('error', err => reject(err) )
-  req.end()
-
-})
-.then( data => [null, data])
-.catch( err => [err])
-
 // main funcs
-const saveIssue = (Item, cb) => {
-  // console.log('--saving')
-    docClient.put({
-    TableName: 'issue-crowdpay-dev',
-    ReturnValues: 'ALL_OLD',
-    Item
-  }).promise()
-  .then( () => cb(null, { statusCode: 200 }))
-  .catch(err => cb(err))
-}
+const saveIssue = (Item, cb) => docClient.put({
+  TableName: 'issue-crowdpay-dev',
+  ReturnValues: 'ALL_OLD',
+  Item
+}).promise()
+.then( () => cb(null, { statusCode: 200 }))
+.catch( err => cb(err))
 
-const patchIssue = async (number, cb) => {
 
+const undoLabelChange = async (number, cb) => {
 
   const { Item: { issue: { labels } } } = await docClient.get({
     TableName: 'issue-crowdpay-dev',
     Key: { number },
   }).promise()
 
-  const [err, { statusCode }] = await asyncRequest(`/repos/iot-course/org/issues/${number}`, 'patch', { labels })
+
+  const { err, data:{ statusCode } } = await asyncRequest(
+    `/repos/iot-course/org/issues/${number}`,
+    'patch',
+     { labels },
+  )
 
   statusCode ? cb(null, { statusCode }) : cb(err)
 
 }
 
-const reopen = cb => {
-  // console.log('reopen-----')
-  cb()
+const undoClose = async (number, cb) => {
+
+  const { err, data:{ statusCode } } = await asyncRequest(
+    `/repos/iot-course/org/issues/${number}`,
+    'patch',
+     { state:'open' },
+  )
+
+  statusCode ? cb(null, { statusCode }) : cb(err)
 }
 
 
-const pay = async (assignee, cb) => {
+exports.handler = (e, _, cb) => {
 
-  const [err, { email, statusCode }] = await asyncRequest(`/users/${assignee}`)
-  email ? cb(null, { statusCode }) : cb(err)
-
-}
-
-exports.handler = async (e, _, cb) => {
-
-  const { sender: { login }, issue: { number, labels, assignee }, action } = JSON.parse(e.body)
+  const { sender: { login }, issue: { number, labels }, action } = JSON.parse(e.body)
   const Item = { number, action, issue: { number, labels }, sender: { login } }
 
-  const labelChange = (action === 'labeled' || action === 'unlabeled' || action === 'edited' )
+  const labelAction = action === 'labeled' || action === 'unlabeled' || action === 'edited'
   const authLabelChange = labels.length === 1 && login === PM
-  const authLabelClose = action === 'closed' && assignee === login
+  const closeAction = action === 'closed'
 
-
-  labelChange
+  labelAction
     ? authLabelChange
       ? saveIssue(Item, cb)
-      : patchIssue(number, cb)
-    : authLabelClose
-      ? pay(assignee, cb)
-      : reopen(cb)
-
+      : undoLabelChange(number, cb)
+    : closeAction && undoClose(number, cb)
 
 }
