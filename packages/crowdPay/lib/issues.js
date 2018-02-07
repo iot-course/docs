@@ -1,25 +1,40 @@
 const { asyncRequest } = require('./utils')
 
+const undoClose = async (number, cb) => {
+  const { data:{ statusCode } } = await asyncRequest(
+    `/repos/iot-course/org/issues/${number}`,
+    'patch',
+     { state:'open' },
+  )
+}
+
 
 const getStatus = async (ref, assignee) =>{
-  const { data:statuses } = await asyncRequest(`/repos/iot-course/org/statuses/${ref}`)
-  const { creator:{ login } } = (pulls.filter( ({ state }) => state === 'success' )[0] || {})
-  console.log({ assignee })
-  return login===assignee
+  const { data } = await asyncRequest(`/repos/iot-course/org/statuses/${ref}`)
+  if (!data.message){
+    console.log({ states: data.map( ({state}) => state) })
+    return data[0]['state']==='success' && data[0]['creator']['login'] === assignee
+  }
 }
 
 
 exports.handler = async (e, _, cb) => {
+
   const {
     action ,
     sender: { login },
-    issue: { number, labels, title:ref, assignee },
+    issue: { number, labels, title:ref, assignee:{ login:assignee } },
   } = JSON.parse(e.body)
 
 
 
-  const status =  await getStatus(ref)
-  console.log({ status })
+  console.log({ action })
+
+  const successfulStatus = await getStatus(ref, assignee, cb)
+  console.log({ successfulStatus })
+  const closeAction = action === 'closed'
+  closeAction && !successfulStatus && undoClose(number)
+
   cb(null, { statusCode: 200 })
 
 }
