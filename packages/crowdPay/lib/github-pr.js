@@ -1,6 +1,6 @@
 const { asyncRequest } = require('./utils')
 
-exports.handler = async (e, _, cb) => {
+exports.handler =  (e, _, cb) => {
 
 /* eslint-disable camelcase */
   const {
@@ -15,11 +15,11 @@ exports.handler = async (e, _, cb) => {
   } = JSON.parse(e.body)
 /* eslint-enable */
 
-const getStatus = async ()  => {
-  const {err, data} = await asyncRequest(`/repos/iot-course/org/statuses/${sha}`)
-    console.log(data[0]['state'])
-    data ? cb1(null, {state: data[0]['state']} ) : cb1(err)
-}
+  const getStatus = async ()  => {
+    const {err, data} = await asyncRequest(`/repos/iot-course/org/statuses/${sha}`)
+      console.log(data: data[0]['state'])
+      data ? cb(null, {state: data[0]['state'] } ) : cb(err)
+  }
 
   setTimeout( getStatus , 2000)
 }
