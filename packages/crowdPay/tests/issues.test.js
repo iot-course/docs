@@ -1,4 +1,4 @@
-const { handler: githubIssueEvent } = require('../lib/github-issue')
+const { handler: githubIssueEvent } = require('../lib/issues')
 
 
 
