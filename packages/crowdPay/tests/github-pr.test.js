@@ -15,6 +15,6 @@ test('should return 200 from status check',  () =>{
     }
   })}
 
-  expect(10).toBe(10)
+  expect(10).toBe(1)
 
 })
