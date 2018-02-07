@@ -1,6 +1,6 @@
 const { asyncRequest } = require('./utils')
 
-exports.handler = (e, _, cb) => {
+exports.handler = async (e, _, cb) => {
 
 /* eslint-disable camelcase */
   const {
@@ -14,15 +14,16 @@ exports.handler = (e, _, cb) => {
     }
   } = JSON.parse(e.body)
 /* eslint-enable */
-  const getStatus = async cb => {
-    const {err, data} = await asyncRequest(`/repos/iot-course/org/statuses/${sha}`)
-    data ? cb(null, data ) : cb(err)
-  }
 
-  setTimeOut( getStatus(cb), 2000)
-
-  cb(null, { statusCode : 200 })
+const getStatus = async ()  => {
+  const {err, data} = await asyncRequest(`/repos/iot-course/org/statuses/${sha}`)
+    console.log(data[0]['state'])
+    data ? cb1(null, {state: data[0]['state']} ) : cb1(err)
 }
+
+  setTimeout( getStatus , 2000)
+}
+
 
 
 //{"title":"Some breaking feature","head":"check-changes-of-commit","base":"master", "body":"close #1"}
