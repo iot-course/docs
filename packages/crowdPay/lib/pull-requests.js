@@ -1,13 +1,15 @@
 const { asyncRequest } = require('./utils')
 
-const closePR = async (number, body) => await asyncRequest(
-  `/repos/iot-course/org/pulls/${number}`,
-  'patch',
-  {
-    state: "closed",
-    body: `${body} \n\n> This robot has deemed you unworthy 🤖 💥 😭 `
-  }
-)
+const closePR = async (number, body) => {
+  const { data:{ statusCode } } = await asyncRequest(
+    `/repos/iot-course/org/pulls/${number}`,
+    'patch',
+    {
+      state: "closed",
+      body: `${body} \n\n> This robot has deemed you unworthy 🤖 💥 😭 `
+    }
+  )
+}
 
 
 const prReview = async (number, test) => {
