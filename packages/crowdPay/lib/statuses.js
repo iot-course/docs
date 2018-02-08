@@ -1,7 +1,9 @@
+const { Lambda } = require('aws-sdk')
 const { asyncRequest } = require('./utils')
 
-const closePR = async (pullNumber, message, success) => {
+const { invoke } = new Lambda()
 
+const closePR = async (pullNumber, message, success) => {
    await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}`,
     'patch',
@@ -50,10 +52,16 @@ exports.handler = async (e, _, cb) => {
   console.log({ state, message })
   /* eslint-enable */
 
+  const params = {
+    FunctionName: 'crowdpay-dev-pay',
+    InvocationType: 'Event',
+  }
+
   if (state === 'success' && !message.startsWith('Merge')) {
     const { number, body } = await getPullNumber(branch)
     await mergePR(number, branch)
-    closePR(number, body, true)
+    await closePR(number, body, true)
+    invoke(params).promise
   }
 
   if (state === 'failure') {
