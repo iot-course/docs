@@ -11,15 +11,6 @@ const closePR = async (number, body) => {
   )
 }
 
-
-const reopenIssue = async issueNumber => {
-  await asyncRequest(
-    `/repos/iot-course/org/issues/${issueNumber}`,
-    'patch',
-    { state: "open" }
-  )
-}
-
 const prReview = async (number, test) => {
 
   const approvedReview = {
@@ -67,7 +58,6 @@ exports.handler = async (e, _, cb) => {
     const points = await getIssuePoints(body.replace(/^\D+/, ''))
     const test = (additions + 5 >= points) && (additions <= points * 50)
     await prReview(number, test)
-    test && await reopenIssue(body.replace(/^\D+/, ''))
     !test && closePR(number, body)
   }
 

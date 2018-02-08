@@ -1,7 +1,18 @@
 const { asyncRequest } = require('./utils')
 
 
-const closePR = async (pullNumber, head, success) => {
+const deleteBranch = async ref => {
+  const { data:{ statusCode } } = await asyncRequest(
+    `/repos/iot-course/org/git/refs/${ref}`,
+    'delete',
+  )
+
+  statusCode && console.log({ deleteBranchCode: statusCode })
+  return statusCode===200
+}
+
+
+const closePR = async (pullNumber, message) => {
 
   const { data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}`,
@@ -9,11 +20,14 @@ const closePR = async (pullNumber, head, success) => {
     {
       state: "closed",
       body: success
-        ? `${head} \n\n> Crispy Lettuce 💵 😎  (added automagically)`
-        : `${head} \n\n> This robot has deemed you unworthy 🤖 💥 😭 `
+        ? `${message} \n\n> Crispy Lettuce 💵 😎  (added automagically)`
+        : `${message} \n\n> This robot has deemed you unworthy 🤖 💥 😭 `
     }
   )
+
+  return statusCode===200
 }
+
 
 const mergePR = async (pullNumber, head) => {
 
@@ -23,8 +37,9 @@ const mergePR = async (pullNumber, head) => {
     {commit_message: 'all gravy'}
   )
 
-  statusCode === 200 && closePR(pullNumber, head, true )
+  return statusCode===200
 }
+
 
 const getPullNumber = async head => {
   const { data:pulls } = await asyncRequest(`/repos/iot-course/org/pulls?state=open&head=${head}`)
@@ -32,7 +47,8 @@ const getPullNumber = async head => {
 
   return number
     ? number
-    : console.log('could not find this feature in among the PRs');
+    : console.log('could not find this feature in among the PRs')
+
 }
 
 exports.handler = async (e, _, cb) => {
@@ -40,51 +56,27 @@ exports.handler = async (e, _, cb) => {
   const {
     state,
     commit:{ commit:{ message } },
-    branches: [{ name:head }]
+    branches: [{ name:branch }]
   } = JSON.parse(e.body)
 
 
-  const pullNumber = await getPullNumber(head)
 
   if (state === 'success' && !message.startsWith("Merges")) {
-    pullNumber && mergePR(pullNumber, head)
+    const pullNumber = await getPullNumber(branch);
+
+    await mergePR(pullNumber, head) &&
+    await closePR(pullNumber, message) &&
+    await deleteBranch(branch) &&
+    console.log('merge successful')
+
   }
 
   if(state === 'failure'){
-    closePR(pullNumber, head)
+    const pullNumber = await getPullNumber(head)
+    closePR(pullNumber, message, head)
   }
 
 
   cb(null, { statusCode: 200 })
 
 }
-
-/*
-"review_comment": {
-  "href": "https://api.github.com/repos/iot-course/org/pulls/comments{/number}"
-},
-"commits": {
-  "href": "https://api.github.com/repos/iot-course/org/pulls/103/commits"
-},
-"statuses": {
-  "href": "https://api.github.com/repos/iot-course/org/statuses/550654399ab331b6fa878b2d9ae9d86768b9acff"
-}
-},
-"author_association": "OWNER",
-"merged": false,
-"mergeable": null,
-"rebaseable": null,
-"mergeable_state": "unknown",
-"merged_by": null,
-"comments": 0,
-"review_comments": 0,
-"maintainer_can_modify": false,
-"commits": 3,
-"additions": 3,
-"deletions": 1,
-"changed_files": 2
-}
-
-~/Build/iot-course/org/packages/crowdPay Signup-and-Login
-❯
-*/
