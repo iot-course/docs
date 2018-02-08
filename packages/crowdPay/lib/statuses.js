@@ -61,9 +61,9 @@ exports.handler = async (e, _, cb) => {
 
   console.log({ state, message})
 
-  if (state === 'success' && message.startsWith('Merge')) {
+  if (state === 'success' && !message.startsWith('Merge')) {
     const pullNumber = await getPullNumber(branch)
-    await mergePR(pullNumber, branch) &&
+    await mergePR(pullNumber, branch)
     await closePR(pullNumber, message)
 
     const res = await deleteBranch(branch)
@@ -81,3 +81,36 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
+
+/*
+/issues/111/comments"
+    },
+    "review_comments": {
+      "href": "https://api.github.com/repos/iot-course/org/pulls/111/comments"
+    },
+    "review_comment": {
+      "href": "https://api.github.com/repos/iot-course/org/pulls/comments{/number}"
+    },
+    "commits": {
+      "href": "https://api.github.com/repos/iot-course/org/pulls/111/commits"
+    },
+    "statuses": {
+      "href": "https://api.github.com/repos/iot-course/org/statuses/5a5121dd275878fd3fb4fa01672f2683545804c5"
+    }
+  },
+  "author_association": "OWNER",
+  "merged": false,
+  "mergeable": null,
+  "rebaseable": null,
+  "mergeable_state": "unknown",
+  "merged_by": null,
+  "comments": 0,
+  "review_comments": 0,
+  "maintainer_can_modify": false,
+  "commits": 1,
+  "additions": 3,
+  "deletions": 37,
+  "changed_files": 1
+}
+
+*/
