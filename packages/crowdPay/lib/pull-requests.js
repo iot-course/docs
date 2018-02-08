@@ -1,21 +1,36 @@
 const { asyncRequest } = require('./utils')
 
 
-const approvedReview = {
-  body: `Your code is adequate enough given the
-           limitations of your species.`,
-  event: 'APPROVE',
+
+const closePR = async number => {
+
+  const { data:{ statusCode } } = await asyncRequest(
+    `/repos/iot-course/org/pulls/${number}`,
+    'patch',
+    {
+      state: "closed",
+      body: `${head} \n\n> This robot has deemed you unworthy 🤖 💥 😭 `
+    }
+  )
+
+  statusCode && console.log({ closePR: statusCode })
 }
 
-const changeReview = {
-  body: 'You sure this code implements the feature fully?',
-  event: 'REQUEST_CHANGES',
-}
 
 
-const prReview = async (number, additions, points) => {
 
-  const test = (additions + 5 >= points) && (additions <= points * 50)
+const prReview = async (number, test) => {
+
+  const approvedReview = {
+    body: `Your code is adequate enough given the
+             limitations of your species.`,
+    event: 'APPROVE',
+  }
+
+  const changeReview = {
+    body: 'You sure this code implements the feature fully?',
+    event: 'REQUEST_CHANGES',
+  }
 
   const { data: { statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${number}/reviews`,
@@ -43,14 +58,16 @@ exports.handler = async (e, _, cb) => {
     pull_request:{
       body,
       additions,
-      deletions
     }
   } = JSON.parse(e.body)
 
 
+
   if (action === 'opened') {
     const points = await getIssuePoints(body.replace(/^\D+/, ''))
-    prReview(number, additions, points)
+    const test = (additions + 5 >= points) && (additions <= points * 50)
+    prReview(number, test)
+    test && closePR(number)
   }
 
 
