@@ -61,10 +61,9 @@ exports.handler = async (e, _, cb) => {
 
   console.log({ state, message})
 
-  if (state === 'success' && !message.startsWith('Merges')) {
-    const pullNumber = await getPullNumber(branch);
-
-    await mergePR(pullNumber, branch) &&
+  if (state === 'success' && !message.startsWith('Merge')) {
+    const pullNumber = await getPullNumber(branch)
+    await mergePR(pullNumber, branch)
     await closePR(pullNumber, message)
 
     const res = await deleteBranch(branch)
@@ -73,7 +72,7 @@ exports.handler = async (e, _, cb) => {
 
   }
 
-  if(state === 'failure'  && message.startsWith('closes')){
+  if(state === 'failure'){
     const pullNumber = await getPullNumber(branch)
     closePR(pullNumber, message)
   }
@@ -84,34 +83,34 @@ exports.handler = async (e, _, cb) => {
 }
 
 /*
-..............
-Serverless: Stack update finished...
-Service Information
-service: crowdpay
-stage: dev
-region: us-east-1
-stack: crowdpay-dev
-api keys:
-  None
-endpoints:
-  ANY - https://ff99j1lzsi.execute-api.us-east-1.amazonaws.com/dev/issues
-  ANY - https://ff99j1lzsi.execute-api.us-east-1.amazonaws.com/dev/pull-requests
-  ANY - https://ff99j1lzsi.execute-api.us-east-1.amazonaws.com/dev/statuses
-functions:
-  issues: crowdpay-dev-issues
-  pull-requests: crowdpay-dev-pull-requests
-  statuses: crowdpay-dev-statuses
-Serverless: Removing old service versions...
+/issues/111/comments"
+    },
+    "review_comments": {
+      "href": "https://api.github.com/repos/iot-course/org/pulls/111/comments"
+    },
+    "review_comment": {
+      "href": "https://api.github.com/repos/iot-course/org/pulls/comments{/number}"
+    },
+    "commits": {
+      "href": "https://api.github.com/repos/iot-course/org/pulls/111/commits"
+    },
+    "statuses": {
+      "href": "https://api.github.com/repos/iot-course/org/statuses/5a5121dd275878fd3fb4fa01672f2683545804c5"
+    }
+  },
+  "author_association": "OWNER",
+  "merged": false,
+  "mergeable": null,
+  "rebaseable": null,
+  "mergeable_state": "unknown",
+  "merged_by": null,
+  "comments": 0,
+  "review_comments": 0,
+  "maintainer_can_modify": false,
+  "commits": 1,
+  "additions": 3,
+  "deletions": 37,
+  "changed_files": 1
+}
 
-~/Build/iot-course/org/packages/crowdPay Signup-and-Login 29s
-❯ msg='setting up' yarn push
-yarn run v1.3.2
-warning ../../package.json: No license field
-$ git add -A && git commit -m "$msg" && git push origin $(git rev-parse --abbrev-ref HEAD)
-On branch Signup-and-Login
-nothing to commit, working tree clean
-error Command failed with exit code 1.
-info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
-
-~/Build/iot-course/org/packages/crowdPay Signup-and-Login
 */
