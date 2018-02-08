@@ -13,12 +13,14 @@ const changeReview = {
 }
 
 
-const prReview = async (number, loc, points) => {
+const prReview = async (number, additions, points) => {
 
-  const { err, data: { statusCode } } = await asyncRequest(
+  const { data: { statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${number}/reviews`,
     'post',
-    loc + 5 >= +points ? approvedReview : changeReview
+    (additions + 5 >= points) && (additions*50 <= points)
+      ? approvedReview
+      : changeReview
   )
   statusCode && console.log({ prReviewCode: statusCode })
 }
@@ -28,7 +30,7 @@ const getIssuePoints = async issueNumber => {
     `/repos/iot-course/org/issues/${issueNumber}`
   )
   err && console.log({ getIssuePointsErr: err.message })
-  return points
+  return +points
 }
 
 exports.handler = async (e, _, cb) => {
@@ -45,9 +47,8 @@ exports.handler = async (e, _, cb) => {
 
 
   if (action === 'opened') {
-    const loc = additions + deletions
     const points = await getIssuePoints(body.replace(/^\D+/, ''))
-    prReview(number, loc, points)
+    prReview(number, additions, points)
   }
 
 

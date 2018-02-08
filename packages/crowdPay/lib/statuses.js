@@ -26,26 +26,26 @@ const mergePR = async (pullNumber, head) => {
   statusCode === 200 && closePR(pullNumber, head, true )
 }
 
-const getPullNumber = async (head, message) => {
+const getPullNumber = async head => {
   const { data:pulls } = await asyncRequest(`/repos/iot-course/org/pulls?state=open&head=${head}`)
-  const { number } = (pulls.filter( ({body}) => message === body )[0] || {})
+  console.log({pulls})
+  const [{ number }] = pulls.length === 1 ? pulls[0] : null
 
   return number
     ? number
-    : console.log('could not match pr body to commit msg');
+    : console.log('could not find this feature in among the PRs');
 }
 
 exports.handler = async (e, _, cb) => {
 
   const {
     state,
-    commit:{ commit:{ message } },
     branches: [{ name:head }]
   } = JSON.parse(e.body)
 
 
-  if (state === 'success' && !message.startsWith("Merge")) {
-    const pullNumber = await getPullNumber(head, message)
+  if (state === 'success') {
+    const pullNumber = await getPullNumber(head)
     pullNumber && mergePR(pullNumber, head)
   }
 

@@ -21,14 +21,24 @@ const docClient = new DocumentClient(
 )
 
 
-const undoClose = async (number, cb) => {
+const undoClose = async number => {
+  console.log('undoing close!')
   const { data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/issues/${number}`,
     'patch',
      { state:'open' },
   )
-  statusCode && console.log({ undoCloseCode:statusCode})
 }
+
+
+// const getStatus = async (ref, assignee) =>{
+//   console.log('getting statuses')
+//   const { data } = await asyncRequest(`/repos/iot-course/org/statuses/${ref}`)
+//   if (!data.message){
+//     console.log({ states: data.map( ({state}) => state) })
+//     return data[0]['state']==='success' && data[0]['creator']['login'] === assignee
+//   }
+// }
 
 const saveIssue = async Item => {
   const data = await docClient.put({
@@ -81,7 +91,7 @@ exports.handler = async (e, _, cb) => {
   const closeAction = action === 'closed' && login !==  PM
 
 
-  labelAction
+  labelActionx
     ? labelAuth
       ? saveIssue(Item)
       : undoLabelChange(number)
