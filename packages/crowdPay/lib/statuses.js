@@ -48,7 +48,7 @@ exports.handler = async (e, _, cb) => {
 
   if (state === 'success' && !message.startsWith('Merge')) {
     const {number, body } = await getPullNumber(branch)
-    await mergePR(pullNumber, branch)
+    await mergePR(number, branch)
     closePR(number, body, true)
   }
 
@@ -61,3 +61,30 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
+
+/*
+Serverless: Uploading CloudFormation file to S3...
+Serverless: Uploading artifacts...
+Serverless: Validating template...
+Serverless: Updating Stack...
+Serverless: Checking Stack update progress...
+..................
+Serverless: Stack update finished...
+Service Information
+service: crowdpay
+stage: dev
+region: us-east-1
+stack: crowdpay-dev
+api keys:
+  None
+endpoints:
+  ANY - https://ff99j1lzsi.execute-api.us-east-1.amazonaws.com/dev/issues
+  ANY - https://ff99j1lzsi.execute-api.us-east-1.amazonaws.com/dev/pull-requests
+  ANY - https://ff99j1lzsi.execute-api.us-east-1.amazonaws.com/dev/statuses
+functions:
+  issues: crowdpay-dev-issues
+  pull-requests: crowdpay-dev-pull-requests
+  statuses: crowdpay-dev-statuses
+Serverless: Removing old service versions...
+
+*/
