@@ -1,6 +1,6 @@
 /**
 * Receives gh issue, then reverts or allows labels changes and issue closings based on auth
- * @summary http ⇒ λ github-issue ⇒ request
+ * @summary github ⇒ λ github-issue ⇒ request
  * @external labelAction ? authLabelChange(number, cb) : closeAction && undoClose(number, cb)
  * @param { Object }  Item -  JSON.parse(event.body)
  * @param { Number }  number -  JSON.parse(event.body).issue

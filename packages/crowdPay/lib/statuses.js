@@ -70,34 +70,3 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
-
-
-/*
-},
-"review_comment": {
-  "href": "https://api.github.com/repos/iot-course/org/pulls/comments{/number}"
-},
-"commits": {
-  "href": "https://api.github.com/repos/iot-course/org/pulls/144/commits"
-},
-"statuses": {
-  "href": "https://api.github.com/repos/iot-course/org/statuses/5f69e1b2f6a09a2d328bd08368a704a149ebfc50"
-}
-},
-"author_association": "OWNER",
-"merged": false,
-"mergeable": null,
-"rebaseable": null,
-"mergeable_state": "unknown",
-"merged_by": null,
-"comments": 0,
-"review_comments": 0,
-"maintainer_can_modify": false,
-"commits": 3,
-"additions": 1,
-"deletions": 1,
-"changed_files": 1
-}
-✨  Done in 3.00s.
-
-*/
