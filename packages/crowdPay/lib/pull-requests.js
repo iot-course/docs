@@ -1,36 +1,36 @@
 const { asyncRequest } = require('./utils')
 
 
-const closePR = async (pullNumber, head, success) => {
+
+const closePR = async number => {
 
   const { data:{ statusCode } } = await asyncRequest(
-    `/repos/iot-course/org/pulls/${pullNumber}`,
+    `/repos/iot-course/org/pulls/${number}`,
     'patch',
     {
       state: "closed",
-      body: success
-        ? `${head} \n\n> Crispy Lettuce 💵 😎  \n\n- added automagically`
-        : `${head} \n\n> This Robot has deemed you unworthy 🤖 💥 😭 \n\n- added automagically`
+      body: `${head} \n\n> This robot has deemed you unworthy 🤖 💥 😭 `
     }
   )
+
+  statusCode && console.log({ closePR: statusCode })
 }
 
 
-const approvedReview = {
-  body: `Your code is adequate enough given the
-           limitations of your species.`,
-  event: 'APPROVE',
-}
-
-const changeReview = {
-  body: 'You sure this code implements the feature fully?',
-  event: 'REQUEST_CHANGES',
-}
 
 
-const prReview = async (number, additions, points) => {
+const prReview = async (number, test) => {
 
-  const test = (additions + 5 >= points) && (additions <= points*50)
+  const approvedReview = {
+    body: `Your code is adequate enough given the
+             limitations of your species.`,
+    event: 'APPROVE',
+  }
+
+  const changeReview = {
+    body: 'You sure this code implements the feature fully?',
+    event: 'REQUEST_CHANGES',
+  }
 
   const { data: { statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${number}/reviews`,
@@ -38,11 +38,9 @@ const prReview = async (number, additions, points) => {
     test ? approvedReview : changeReview
   )
   statusCode && console.log({ prReviewCode: statusCode })
-
-  test && closePR()
 }
 
-
+// yo
 
 const getIssuePoints = async issueNumber => {
   const { err, data:{ labels:[{ name:points }] } } = await asyncRequest(
@@ -60,14 +58,16 @@ exports.handler = async (e, _, cb) => {
     pull_request:{
       body,
       additions,
-      deletions
     }
   } = JSON.parse(e.body)
 
 
+
   if (action === 'opened') {
     const points = await getIssuePoints(body.replace(/^\D+/, ''))
-    prReview(number, additions, points)
+    const test = (additions + 5 >= points) && (additions <= points * 50)
+    prReview(number, test)
+    test && closePR(number)
   }
 
 
