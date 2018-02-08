@@ -31,15 +31,6 @@ const undoClose = async number => {
 }
 
 
-// const getStatus = async (ref, assignee) =>{
-//   console.log('getting statuses')
-//   const { data } = await asyncRequest(`/repos/iot-course/org/statuses/${ref}`)
-//   if (!data.message){
-//     console.log({ states: data.map( ({state}) => state) })
-//     return data[0]['state']==='success' && data[0]['creator']['login'] === assignee
-//   }
-// }
-
 const saveIssue = async Item => {
   const data = await docClient.put({
     TableName: 'issue-crowdpay-dev',
