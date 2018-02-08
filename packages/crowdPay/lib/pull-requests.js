@@ -22,7 +22,7 @@ const prReview = async (number, loc, points) => {
   )
   statusCode && console.log({ prReviewCode: statusCode })
 }
-
+// reap
 
 const getIssuePoints = async issueNumber => {
   const { err, data:{ labels:[{ name:points }] } } = await asyncRequest(
