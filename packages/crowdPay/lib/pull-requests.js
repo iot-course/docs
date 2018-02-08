@@ -40,7 +40,7 @@ const prReview = async (number, test) => {
   statusCode && console.log({ prReviewCode: statusCode })
 }
 
-// yo
+// y
 
 const getIssuePoints = async issueNumber => {
   const { err, data:{ labels:[{ name:points }] } } = await asyncRequest(
