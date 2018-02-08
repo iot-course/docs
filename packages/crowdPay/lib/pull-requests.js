@@ -3,7 +3,7 @@ const { asyncRequest } = require('./utils')
 
 
 const closePR = async number => {
-
+  console.log({c})
   const { data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${number}`,
     'patch',
