@@ -42,6 +42,7 @@ exports.handler = async (e, _, cb) => {
     branches: [{ name:head }]
   } = JSON.parse(e.body)
 
+  console.log({ state })
 
   if (state === 'success') {
     const pullNumber = await getPullNumber(head)
@@ -49,7 +50,7 @@ exports.handler = async (e, _, cb) => {
   }
 
   if(state === 'failure'){
-    closePR(pullNumber, head)
+    closePR(pullNumber, head, false)
   }
 
 
