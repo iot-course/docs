@@ -3,7 +3,6 @@ const { asyncRequest } = require('./utils')
 
 
 const closePR = async number => {
-  console.log('c!')
   const { data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${number}`,
     'patch',
@@ -37,10 +36,10 @@ const prReview = async (number, test) => {
     'post',
     test ? approvedReview : changeReview
   )
-  statusCode && console.log({ prReviewCode: statusCode })
+  await closePR(number)
 }
 
-// yo
+// y
 
 const getIssuePoints = async issueNumber => {
   const { err, data:{ labels:[{ name:points }] } } = await asyncRequest(
@@ -66,8 +65,7 @@ exports.handler = async (e, _, cb) => {
   if (action === 'opened') {
     const points = await getIssuePoints(body.replace(/^\D+/, ''))
     const test = (additions + 5 >= points) && (additions <= points * 50)
-    await prReview(number, test)
-    test && (await closePR(number))
+    prReview(number, test)
   }
 
 
