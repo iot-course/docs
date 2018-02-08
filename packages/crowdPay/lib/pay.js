@@ -7,6 +7,6 @@
 */
 
 exports.handler = (e, _, cb) => {
-  console.log('pay has been called')
+  console.log(`pay this person ${e.body}`)
   cb(null, e)
 }
