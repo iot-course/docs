@@ -57,14 +57,13 @@ exports.handler = async (e, _, cb) => {
 
   if (state === 'success' && !message.startsWith('Merge')) {
     const { number, body } = await getPullNumber(branch)
-    if (number) {
-      await mergePR(number, branch)
-      await closePR(number, body, true)
+      console.log({params, invoke})
       invoke(params, (err, data)=> err
         ? console.log({err})
         : console.log({data})
       )
-    }
+      await mergePR(number, branch)
+      await closePR(number, body, true)
 
   }
 
@@ -76,3 +75,21 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
+
+
+/*
+dsfd
+fsd
+fsd
+fsd
+fds
+fsd
+fs
+d
+fsd
+fsd
+fsd
+fsd
+fsd
+fsd
+*/
