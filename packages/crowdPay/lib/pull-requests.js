@@ -68,3 +68,42 @@ exports.handler = async (e, _, cb) => {
 }
 
 /*
+
+},
+"html": {
+  "href": "https://github.com/iot-course/org/pull/135"
+},
+"issue": {
+  "href": "https://api.github.com/repos/iot-course/org/issues/135"
+},
+"comments": {
+  "href": "https://api.github.com/repos/iot-course/org/issues/135/comments"
+},
+"review_comments": {
+  "href": "https://api.github.com/repos/iot-course/org/pulls/135/comments"
+},
+"review_comment": {
+  "href": "https://api.github.com/repos/iot-course/org/pulls/comments{/number}"
+},
+"commits": {
+  "href": "https://api.github.com/repos/iot-course/org/pulls/135/commits"
+},
+"statuses": {
+  "href": "https://api.github.com/repos/iot-course/org/statuses/fd56af496de043c777b5673b940fa01d6b34a0ae"
+}
+},
+"author_association": "OWNER",
+"merged": false,
+"mergeable": null,
+"rebaseable": null,
+"mergeable_state": "unknown",
+"merged_by": null,
+"comments": 0,
+"review_comments": 0,
+"maintainer_can_modify": false,
+"commits": 15,
+"additions": 5923,
+"deletions": 18,
+"changed_files": 6
+}
+*/
