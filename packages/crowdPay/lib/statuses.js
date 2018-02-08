@@ -54,7 +54,7 @@ exports.handler = async (e, _, cb) => {
     Payload: email,
   }
 
-  if (state === 'success' && !message.startsWith('Merge') && message.startsWith('closes') ) {
+  if (state === 'success' && !message.startsWith('Merge') ) {
     const { number, body } = await getPullNumber(branch)
       await mergePR(number, branch)
       await closePR(number, body, true)
