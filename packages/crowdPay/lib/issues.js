@@ -22,22 +22,12 @@ const docClient = new DocumentClient(
 
 
 const undoClose = async (number, cb) => {
-  console.log('undoing close!')
   const { data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/issues/${number}`,
     'patch',
      { state:'open' },
   )
-}
-
-
-const getStatus = async (ref, assignee) =>{
-  console.log('getting statuses')
-  const { data } = await asyncRequest(`/repos/iot-course/org/statuses/${ref}`)
-  if (!data.message){
-    console.log({ states: data.map( ({state}) => state) })
-    return data[0]['state']==='success' && data[0]['creator']['login'] === assignee
-  }
+  statusCode && console.log({ undoCloseCode:statusCode})
 }
 
 const saveIssue = async Item => {
