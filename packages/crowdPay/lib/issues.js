@@ -22,8 +22,7 @@ const docClient = new DocumentClient(
 
 
 const undoClose = async number => {
-  console.log('undoing close!')
-  const { data:{ statusCode } } = await asyncRequest(
+  await asyncRequest(
     `/repos/iot-course/org/issues/${number}`,
     'patch',
      { state:'open' },
@@ -32,16 +31,12 @@ const undoClose = async number => {
 
 
 const saveIssue = async Item => {
-  const data = await docClient.put({
+  await docClient.put({
     TableName: 'issue-crowdpay-dev',
     ReturnValues: 'ALL_OLD',
     Item
   }).promise()
-
-  data && console.log('successful save')
 }
-
-
 
 
 const undoLabelChange = async number => {
@@ -50,27 +45,24 @@ const undoLabelChange = async number => {
     TableName: 'issue-crowdpay-dev',
     Key: { number },
   }).promise()
-  .catch(err => console.log(err.message))
 
-  const { data:{ statusCode } } = await asyncRequest(
+  await asyncRequest(
     `/repos/iot-course/org/issues/${number}`,
     'patch',
      { labels },
   )
-  console.log({ labelChangeCode: statusCode })
+
 }
 
 
 exports.handler = async (e, _, cb) => {
 
   const {
-    action ,
+    action,
     sender: { login },
     issue: {
       number,
       labels,
-      title:ref,
-      assignee:{ login:assignee }
     },
   } = JSON.parse(e.body)
 
@@ -79,7 +71,7 @@ exports.handler = async (e, _, cb) => {
 
   const labelAction = action === 'labeled' || action === 'unlabeled' || action === 'edited'
   const labelAuth = labels.length === 1 && login === PM
-  const closeAction = action === 'closed' && login !==  PM
+  const closeAction = action === 'closed' && login !== PM
 
 
   labelAction

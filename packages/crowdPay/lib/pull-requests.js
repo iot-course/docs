@@ -5,7 +5,7 @@ const closePR = async (number, body) => {
     `/repos/iot-course/org/pulls/${number}`,
     'patch',
     {
-      state: "closed",
+      state: 'closed',
       body: `${body} \n\n> This robot has deemed you unworthy 🤖 💥 😭 `
     }
   )
@@ -24,7 +24,7 @@ const prReview = async (number, test) => {
     event: 'REQUEST_CHANGES',
   }
 
-  const { data: { statusCode } } = await asyncRequest(
+  await asyncRequest(
     `/repos/iot-course/org/pulls/${number}/reviews`,
     'post',
     test ? approvedReview : changeReview
@@ -33,10 +33,9 @@ const prReview = async (number, test) => {
 }
 
 const getIssuePoints = async issueNumber => {
-  const { err, data:{ labels:[{ name:points }] } } = await asyncRequest(
+  const { data:{ labels:[{ name:points }] } } = await asyncRequest(
     `/repos/iot-course/org/issues/${issueNumber}`
   )
-  err && console.log({ getIssuePointsErr: err.message })
   return +points
 }
 
@@ -47,11 +46,9 @@ exports.handler = async (e, _, cb) => {
     number,
     pull_request:{
       body,
-      additions,
-      title,
+      additions
     }
   } = JSON.parse(e.body)
-
 
 
   if (action === 'opened') {

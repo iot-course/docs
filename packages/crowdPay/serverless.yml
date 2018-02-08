@@ -16,6 +16,11 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
+        - lambda:InvokeFunction
+      Resource: "*"
+         
+    - Effect: Allow
+      Action:
         - dynamodb:Query
         - dynamodb:Scan
         - dynamodb:GetItem
@@ -56,6 +61,14 @@ functions:
     events:
      - http:
          path: statuses
+         method: any
+         cors: true
+
+  pay:
+    handler: lib/pay.handler
+    events:
+     - http:
+         path: pay
          method: any
          cors: true
 
