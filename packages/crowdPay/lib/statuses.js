@@ -60,7 +60,7 @@ exports.handler = async (e, _, cb) => {
     if (number) {
       await mergePR(number, branch)
       await closePR(number, body, true)
-      invoke(params).promise()
+      await invoke(params).promise()
     }
 
   }
@@ -73,3 +73,43 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
+
+/*
+dsdsf
+dsdsfdf
+df
+ds
+d
+fs
+dfs
+dsdsffds
+dsdsffdsdfs
+
+d
+dsdsffdsdfsfds
+dsdsffdsdfsdsdsf
+dsdsfdf
+df
+ds
+d
+fs
+dfs
+dsdsffds
+dsdsffdsdfs
+
+d
+dsdsffdsdfsfds
+dsdsffdsdfsdsdsf
+dsdsfdf
+df
+ds
+d
+fs
+dfs
+dsdsffds
+dsdsffdsdfs
+
+d
+dsdsffdsdfsfds
+dsdsffdsdfs
+*/
