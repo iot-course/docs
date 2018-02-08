@@ -70,3 +70,30 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
+
+/*
+functions:
+  issues: crowdpay-dev-issues
+  pull-requests: crowdpay-dev-pull-requests
+  statuses: crowdpay-dev-statuses
+  pay: crowdpay-dev-pay
+Serverless: Removing old service versions...
+
+~/Build/iot-course/org/packages/crowdPay Signup-and-Login* 24s
+❯ msg='setting up' yarn push
+yarn run v1.3.2
+warning ../../package.json: No license field
+$ git add -A && git commit -m "$msg" && git push origin $(git rev-parse --abbrev-ref HEAD)
+[Signup-and-Login 7095c57] setting up
+ 2 files changed, 4 insertions(+), 6 deletions(-)
+Counting objects: 7, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (7/7), 645 bytes | 645.00 KiB/s, done.
+Total 7 (delta 6), reused 0 (delta 0)
+remote: Resolving deltas: 100% (6/6), completed with 6 local objects.
+To https://github.com/iot-course/org
+   37dba7c..7095c57  Signup-and-Login -> Signup-and-Login
+✨  Done in 2.11s.
+
+*/
