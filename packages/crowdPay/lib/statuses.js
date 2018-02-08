@@ -9,8 +9,8 @@ const closePR = async (pullNumber, head, success) => {
     {
       state: "closed",
       body: success
-        ? `${head} \n\n> Crispy Lettuce 💵 😎  \n\n- added automagically`
-        : `${head} \n\n> This Robot has deemed you unworthy 🤖 💥 😭 \n\n- added automagically`
+        ? `${head} \n\n> Crispy Lettuce 💵 😎  (added automagically)`
+        : `${head} \n\n> This robot has deemed you unworthy 🤖 💥 😭 `
     }
   )
 }
@@ -42,6 +42,7 @@ exports.handler = async (e, _, cb) => {
     branches: [{ name:head }]
   } = JSON.parse(e.body)
 
+  console.log({ state })
 
   if (state === 'success') {
     const pullNumber = await getPullNumber(head)
@@ -49,7 +50,7 @@ exports.handler = async (e, _, cb) => {
   }
 
   if(state === 'failure'){
-    closePR(pullNumber, head)
+    closePR(pullNumber, head, false)
   }
 
 
