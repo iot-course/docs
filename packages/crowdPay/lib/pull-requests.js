@@ -57,6 +57,7 @@ exports.handler = async (e, _, cb) => {
     pull_request:{
       body,
       additions,
+      title,
     }
   } = JSON.parse(e.body)
 
@@ -66,7 +67,6 @@ exports.handler = async (e, _, cb) => {
     const points = await getIssuePoints(body.replace(/^\D+/, ''))
     const test = (additions + 5 >= points) && (additions <= points * 50)
     await prReview(number, test)
-    test && await reopenIssue(body.replace(/^\D+/, ''))
     !test && closePR(number, body)
   }
 
@@ -74,3 +74,33 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
+
+
+/*
+Serverless: Uploading CloudFormation file to S3...
+Serverless: Uploading artifacts...
+Serverless: Validating template...
+Serverless: Updating Stack...
+Serverless: Checking Stack update progress...
+..................
+Serverless: Stack update finished...
+Service Information
+service: crowdpay
+stage: dev
+region: us-east-1
+stack: crowdpay-dev
+api keys:
+  None
+endpoints:
+  ANY - https://ff99j1lzsi.execute-api.us-east-1.amazonaws.com/dev/issues
+  ANY - https://ff99j1lzsi.execute-api.us-east-1.amazonaws.com/dev/pull-requests
+  ANY - https://ff99j1lzsi.execute-api.us-east-1.amazonaws.com/dev/statuses
+functions:
+  issues: crowdpay-dev-issues
+  pull-requests: crowdpay-dev-pull-requests
+  statuses: crowdpay-dev-statuses
+Serverless: Removing old service versions...
+
+~/Build/iot-course/org/packages/crowdPay Signup-and-Login* 24s
+❯
+*/
