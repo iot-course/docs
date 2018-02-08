@@ -59,8 +59,9 @@ exports.handler = async (e, _, cb) => {
     branches: [{ name:branch }]
   } = JSON.parse(e.body)
 
+  console.log({ state, message})
 
-  if (state === 'success' && message.startsWith('closes')) {
+  if (state === 'success' && !message.startsWith('Merges')) {
     const pullNumber = await getPullNumber(branch);
 
     await mergePR(pullNumber, branch) &&
@@ -72,7 +73,7 @@ exports.handler = async (e, _, cb) => {
 
   }
 
-  if(state === 'failure'){
+  if(state === 'failure'  && message.startsWith('closes')){
     const pullNumber = await getPullNumber(branch)
     closePR(pullNumber, message)
   }
