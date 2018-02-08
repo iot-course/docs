@@ -70,35 +70,3 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
-
-/*
-"maintainer_can_modify": false,
-"commits": 3,
-"additions": 5,
-"deletions": 7,
-"changed_files": 2
-}
-✨  Done in 11.10s.
-
-~/Build/iot-course/org/packages/crowdPay Signup-and-Login 11s
-❯ body='closes #1' yarn submit
-yarn run v1.3.2
-warning ../../package.json: No license field
-$ curl -u $(git config user.name) -d '{ "title": "'$(git rev-parse --abbrev-ref HEAD)'", "head": "'$(git rev-parse --abbrev-ref HEAD)'", "base": "master", "body":"'"$body"'"}' https://api.github.com/repos/iot-course/org/pulls
-Enter host password for user 'wordyallen':
-{
-"message": "Validation Failed",
-"errors": [
-  {
-    "resource": "PullRequest",
-    "code": "custom",
-    "message": "No commits between master and Signup-and-Login"
-  }
-],
-"documentation_url": "https://developer.github.com/v3/pulls/#create-a-pull-request"
-}
-✨  Done in 3.22s.
-
-~/Build/iot-course/org/packages/crowdPay Signup-and-Login*
-❯
-*/
