@@ -2,13 +2,12 @@ const { asyncRequest } = require('./utils')
 
 
 const deleteBranch = async ref => {
-  const { data:{ statusCode } } = await asyncRequest(
+  const { err, data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/git/refs/${ref}`,
     'delete',
   )
 
-  statusCode && console.log({ deleteBranchCode: statusCode })
-  return statusCode===200
+  return {err, statusCode}
 }
 
 
@@ -61,13 +60,15 @@ exports.handler = async (e, _, cb) => {
   } = JSON.parse(e.body)
 
 
-  if (state === 'success' && !message.startsWith("Merges")) {
+  if (state === 'success' && message.startsWith('closes')) {
     const pullNumber = await getPullNumber(branch);
 
     await mergePR(pullNumber, branch) &&
-    await closePR(pullNumber, message) &&
-    await deleteBranch(branch) &&
-    console.log('merge successful')
+    await closePR(pullNumber, message)
+
+    const res = await deleteBranch(branch)
+
+    console.log({ deleteBranchRes: res })
 
   }
 
@@ -80,32 +81,3 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
-
-/*
-Serverless: Uploading CloudFormation file to S3...
-Serverless: Uploading artifacts...
-Serverless: Validating template...
-Serverless: Updating Stack...
-Serverless: Checking Stack update progress...
-..............
-Serverless: Stack update finished...
-Service Information
-service: crowdpay
-stage: dev
-region: us-east-1
-stack: crowdpay-dev
-api keys:
-  None
-endpoints:
-  ANY - https://ff99j1lzsi.execute-api.us-east-1.amazonaws.com/dev/issues
-  ANY - https://ff99j1lzsi.execute-api.us-east-1.amazonaws.com/dev/pull-requests
-  ANY - https://ff99j1lzsi.execute-api.us-east-1.amazonaws.com/dev/statuses
-functions:
-  issues: crowdpay-dev-issues
-  pull-requests: crowdpay-dev-pull-requests
-  statuses: crowdpay-dev-statuses
-Serverless: Removing old service versions...
-
-~/Build/iot-course/org/packages/crowdPay Signup-and-Login 29s
-❯
-*/
