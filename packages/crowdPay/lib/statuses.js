@@ -44,8 +44,9 @@ exports.handler = async (e, _, cb) => {
   } = JSON.parse(e.body)
 
 
+  const pullNumber = await getPullNumber(head)
+
   if (state === 'success' && message.startsWith("closes")) {
-    const pullNumber = await getPullNumber(head)
     pullNumber && mergePR(pullNumber, head)
   }
 
