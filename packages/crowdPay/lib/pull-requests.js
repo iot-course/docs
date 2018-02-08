@@ -3,7 +3,7 @@ const { asyncRequest } = require('./utils')
 
 
 const closePR = async number => {
-
+  console.log({c})
   const { data:{ statusCode } } = await asyncRequest(
     `/repos/iot-course/org/pulls/${number}`,
     'patch',
@@ -40,7 +40,7 @@ const prReview = async (number, test) => {
   statusCode && console.log({ prReviewCode: statusCode })
 }
 
-// y
+// yo
 
 const getIssuePoints = async issueNumber => {
   const { err, data:{ labels:[{ name:points }] } } = await asyncRequest(
