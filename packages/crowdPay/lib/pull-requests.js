@@ -50,15 +50,21 @@ exports.handler = async (e, _, cb) => {
     }
   } = JSON.parse(e.body)
 
+  console.log({ body })
 
   if (action === 'opened') {
-    const points = await getIssuePoints(body.replace(/^\D+/, ''))
-    const test = (additions + 5 >= points) && (additions <= points * 50)
-    await prReview(number, test)
-    !test && closePR(number, body)
+    if (body.replace(/^\D+/, '')) {
+      const points = await getIssuePoints()
+      const test = (additions + 5 >= points) && (additions <= points * 50)
+      await prReview(number, test)
+      !test && closePR(number, body)
+    }
+
   }
 
 
   cb(null, { statusCode: 200 })
 
 }
+
+/*
