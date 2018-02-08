@@ -1,7 +1,7 @@
 const { Lambda } = require('aws-sdk')
 const { asyncRequest } = require('./utils')
 
-const { invoke } = new Lambda()
+const lambda = new Lambda()
 
 const closePR = async (pullNumber, message, success) => {
    await asyncRequest(
@@ -57,13 +57,10 @@ exports.handler = async (e, _, cb) => {
 
   if (state === 'success' && !message.startsWith('Merge')) {
     const { number, body } = await getPullNumber(branch)
-      console.log({params, invoke})
-      invoke(params, (err, data)=> err
-        ? console.log({err})
-        : console.log({data})
-      )
+
       await mergePR(number, branch)
       await closePR(number, body, true)
+      lambda.invoke(params).promise()
 
   }
 
@@ -75,21 +72,3 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
-
-
-/*
-dsfd
-fsd
-fsd
-fsd
-fds
-fsd
-fs
-d
-fsd
-fsd
-fsd
-fsd
-fsd
-fsd
-*/
