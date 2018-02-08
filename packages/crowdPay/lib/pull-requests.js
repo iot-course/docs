@@ -57,6 +57,7 @@ exports.handler = async (e, _, cb) => {
     pull_request:{
       body,
       additions,
+      title,
     }
   } = JSON.parse(e.body)
 
