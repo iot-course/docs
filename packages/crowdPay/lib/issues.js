@@ -91,7 +91,7 @@ exports.handler = async (e, _, cb) => {
   const closeAction = action === 'closed' && login !==  PM
 
 
-  labelActionx
+  labelAction
     ? labelAuth
       ? saveIssue(Item)
       : undoLabelChange(number)
