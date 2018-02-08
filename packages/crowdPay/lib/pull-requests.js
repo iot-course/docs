@@ -50,9 +50,11 @@ exports.handler = async (e, _, cb) => {
     }
   } = JSON.parse(e.body)
 
+  console.log({ body })
 
   if (action === 'opened') {
     const points = await getIssuePoints(body.replace(/^\D+/, ''))
+    console.log({ points })
     const test = (additions + 5 >= points) && (additions <= points * 50)
     await prReview(number, test)
     !test && closePR(number, body)
