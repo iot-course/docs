@@ -7,7 +7,7 @@
     "test": "NODE_ENV=local node -r ./tests/utils.js node_modules/.bin/jest",
     "docs": "lambda-docs-2md ./lib",
     "push": "git add -A && git commit -m \"$msg\" && git push origin $(git rev-parse --abbrev-ref HEAD)",
-    "submit": "branch=$(git rev-parse --abbrev-ref HEAD) curl -i -u  $(git config user.name) -d '{ \"title\": \"\"$branch\"\", \"head\": \"\"$branch\"\", \"base\": \"master\", \"body\":\"$body\"}' https://api.github.com/repos/iot-course/org/pulls"
+    "submit": "branch=$(git rev-parse --abbrev-ref HEAD) curl -i -u  $(git config user.name) -d '{ \"title\": \"\"\"$branch\"\"\", \"head\": \"Signup-and-Login\", \"base\": \"master\", \"body\":\"$body\"}' https://api.github.com/repos/iot-course/org/pulls"
   },
   "devDependencies": {
     "aws-sdk": "^2.188.0",
