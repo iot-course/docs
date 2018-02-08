@@ -22,7 +22,6 @@ const prReview = async (number, loc, points) => {
   )
   statusCode && console.log({ prReviewCode: statusCode })
 }
-// reap
 
 const getIssuePoints = async issueNumber => {
   const { err, data:{ labels:[{ name:points }] } } = await asyncRequest(
@@ -44,12 +43,13 @@ exports.handler = async (e, _, cb) => {
     }
   } = JSON.parse(e.body)
 
-  console.log({ action, body})
 
-  const points = await getIssuePoints(body.replace(/^\D+/, ''))
-  const loc = additions + deletions
+  if (action === 'opened') {
+    const loc = additions + deletions
+    const points = await getIssuePoints(body.replace(/^\D+/, ''))
+    prReview(number, loc, points)
+  }
 
-  action === 'opened' && prReview(number, loc, points)
 
   cb(null, { statusCode: 200 })
 
