@@ -3,7 +3,7 @@
 
 > A system for automating payments based on agile points.
 
-- Wrokflow: `yarn submit` ⇒ creates pr ⇒ checks code ⇒ checks status 
+- Wrokflow: `yarn submit` ⇒ creates pr ⇒ checks code ⇒ checks status
 
     ✅ &nbsp; ⇒ merges pr ⇒  closes issue ⇒  authorizes payment
 
@@ -19,11 +19,4 @@ yarn submit => pr open => pr review
 
 
 todo:
-- [ ] `open` action on a `pr` event, create a pr-review POST
-- [ ] `success`  action on a `status` event
-  - get pull number
-    - list all prs and filter by head and state
-    - check for body that matches commit message
-  - merge a pull request
-    - watch `issue` event to create close exception
-- [ ] this will create a `closed` action on `pr` and start on paypal api
+- [ ] `make sure` opening apr with the title as the feature name creates a `reopen` action on the issue
