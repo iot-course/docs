@@ -36,7 +36,7 @@ const prReview = async (number, test) => {
     'post',
     test ? approvedReview : changeReview
   )
-  await closePR(number)
+  !test && await closePR(number)
 }
 
 // y
