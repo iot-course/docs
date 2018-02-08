@@ -30,14 +30,12 @@ const mergePR = async pullNumber => {
 
 const getPullNumber = async head => {
   const { data:pulls } = await asyncRequest(`/repos/iot-course/org/pulls?state=open&head=${head}`)
-  /* eslint-disable no-shadow */
   const { number, body } = (pulls.filter( ({ body }) => body.startsWith('closes') )[0] || {})
-  /* eslint-enable */
+
   return number && body
     ? { number, body }
-    /* eslint-disable no-console */
     : console.log('could not find this feature in among the PRs')
-    /* eslint-enable */
+
 }
 
 exports.handler = async (e, _, cb) => {
@@ -59,9 +57,12 @@ exports.handler = async (e, _, cb) => {
 
   if (state === 'success' && !message.startsWith('Merge')) {
     const { number, body } = await getPullNumber(branch)
-    await mergePR(number, branch)
-    await closePR(number, body, true)
-    invoke(params).promise
+    if (number) {
+      await mergePR(number, branch)
+      await closePR(number, body, true)
+      invoke(params).promise()
+    }
+
   }
 
   if (state === 'failure') {
