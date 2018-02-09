@@ -58,9 +58,9 @@ exports.handler = async (e, _, cb) => {
 
   if (state === 'success' && !message.startsWith('Merge') ) {
     const { number, body } = await getPullNumber(branch)
-      await mergePR(number, branch)
-      await closePR(number, body, true)
       await lambda.invoke(params).promise()
+      await mergePR(number, branch)
+      closePR(number, body, true)
   }
 
   if (state === 'failure') {
