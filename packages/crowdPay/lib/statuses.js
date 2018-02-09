@@ -1,6 +1,8 @@
 const { Lambda } = require('aws-sdk')
 const { asyncRequest } = require('./utils')
 
+const lamba = new Lambda()
+
 const closePR = async (pullNumber, message, success) => {
    await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}`,
@@ -40,7 +42,7 @@ exports.handler = async (e, _, cb) => {
 
   const {
     state,
-    commit:{ commit:{ message, author:{ email } } },
+    commit:{ commit:{ message, commit:{ author:{ email } } } },
     branches: [{ name:branch }]
   } = JSON.parse(e.body)
 
@@ -51,14 +53,14 @@ exports.handler = async (e, _, cb) => {
   const params = {
     FunctionName: 'crowdpay-dev-pay',
     InvocationType: 'Event',
-    // Payload: email,
+    Payload: email,
   }
 
   if (state === 'success' && !message.startsWith('Merge') ) {
     const { number, body } = await getPullNumber(branch)
       await mergePR(number, branch)
       await closePR(number, body, true)
-      new Lambda().invoke(params).promise()
+      lambda.invoke(params).promise()
 
   }
 
@@ -73,6 +75,46 @@ exports.handler = async (e, _, cb) => {
 
 /*
 s
+df
+sd
+f
+d
+dsf
+sd
+s
+f
+fds
+sd
+fsd
+sdf
+sdf
+s
+df
+sd
+f
+d
+dsf
+sd
+s
+f
+fds
+sd
+fsd
+sdf
+sdfs
+df
+sd
+f
+d
+dsf
+sd
+s
+f
+fds
+sd
+fsd
+sdf
+sdfs
 df
 sd
 f
