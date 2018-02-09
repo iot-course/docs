@@ -52,7 +52,7 @@ exports.handler = async (e, _, cb) => {
 
   const params = {
     FunctionName: 'crowdpay-dev-pay',
-    InvocationType: 'Event',
+    InvocationType: 'RequestResponse',
     Payload: JSON.stringify({email}),
   }
 
@@ -73,36 +73,18 @@ exports.handler = async (e, _, cb) => {
 }
 
 /*
-dsddfdfsfds
-dsddfdfsfdsfdsfdfsfd
-dsddfdfsfdsfdsfdsfds
+dssd
+f
+dfds
+fds
+
+d
+ds
+dfdsfds
+dfdsfdsds
 ds
 ds
-dsddfdfsfdsfdsfdsfdsfs
-dsddfdfsfdsfdsfdfsfdfds
-dsddfdfsfdsfdsfdfsfdsd
-dsddfdfsfds
-dsddfdfsfds
-dsddfdfsfdsfdsfdfsfd
-dsddfdfsfdsfdsfdsfds
 ds
 ds
-dsddfdfsfds
-dsddfdfsfdsfdsfdfsfd
-dsddfdfsfdsfdsfdsfds
-ds
-ds
-dsddfdfsfdsfdsfdsfdsfs
-dsddfdfsfdsfdsfdfsfdfds
-dsddfdfsfdsfdsfdfsfdsd
-dsddfdfsfds
-dsddfdfsfds
-dsddfdfsfdsfdsfdfsfd
-dsddfdfsfdsfdsfdsfds
-ds
-ds
-dsddfdfsfdsfdsfdsfdsfs
-dsddfdfsfdsfdsfdfsfdfds
-dsddfdfsfdsfdsfdfsfdsd
-dsddfdfsfds
+
 */
