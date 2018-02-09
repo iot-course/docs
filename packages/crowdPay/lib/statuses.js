@@ -52,7 +52,7 @@ exports.handler = async (e, _, cb) => {
 
   const params = {
     FunctionName: 'crowdpay-dev-pay',
-    InvocationType: 'Event',
+    InvocationType: 'RequestResponse',
     Payload: 'test',
   }
 
@@ -60,8 +60,7 @@ exports.handler = async (e, _, cb) => {
     const { number, body } = await getPullNumber(branch)
       await mergePR(number, branch)
       await closePR(number, body, true)
-      lambda.invoke(params).promise()
-
+      await lambda.invoke(params).promise()
   }
 
   if (state === 'failure') {
@@ -73,19 +72,48 @@ exports.handler = async (e, _, cb) => {
 
 }
 
+
 /*
-dsd
-fsdf
-ds
-dfsd
+saasdsd
+disableasdds
+saasdsdads
+saasdsdadsa
+sad
 d
-sds
-
+saasdsdadsd
+disableasddsadsdas
+a
 ds
-sdd
-sfd
+disableasddsadsdas
+saasdsd
+disableasdds
+saasdsdads
+saasdsdadsa
+sad
 d
-sd
-sds
-
+saasdsdadsd
+disableasddsadsdas
+a
+ds
+disableasddsadsdassaasdsd
+disableasdds
+saasdsdads
+saasdsdadsa
+sad
+d
+saasdsdadsd
+disableasddsadsdas
+a
+ds
+disableasddsadsdassaasdsd
+disableasdds
+saasdsdads
+saasdsdadsa
+sad
+d
+saasdsdadsd
+disableasddsadsdas
+a
+ds
+disableasddsadsdas
 */
