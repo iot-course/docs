@@ -53,14 +53,14 @@ exports.handler = async (e, _, cb) => {
   const params = {
     FunctionName: 'crowdpay-dev-pay',
     InvocationType: 'Event',
-    Payload: 'test',
+    Payload: JSON.stringify({email}),
   }
 
   if (state === 'success' && !message.startsWith('Merge') ) {
     const { number, body } = await getPullNumber(branch)
-      await mergePR(number, branch)
-      await closePR(number, body, true)
-      await lambda.invoke(params).promise()
+    await mergePR(number, branch)
+    await lambda.invoke(params).promise()
+    closePR(number, body, true)
   }
 
   if (state === 'failure') {
@@ -73,6 +73,29 @@ exports.handler = async (e, _, cb) => {
 }
 
 /*
+dsddfdfsfds
+dsddfdfsfdsfdsfdfsfd
+dsddfdfsfdsfdsfdsfds
+ds
+ds
+dsddfdfsfdsfdsfdsfdsfs
+dsddfdfsfdsfdsfdfsfdfds
+dsddfdfsfdsfdsfdfsfdsd
+dsddfdfsfds
+dsddfdfsfds
+dsddfdfsfdsfdsfdfsfd
+dsddfdfsfdsfdsfdsfds
+ds
+ds
+dsddfdfsfds
+dsddfdfsfdsfdsfdfsfd
+dsddfdfsfdsfdsfdsfds
+ds
+ds
+dsddfdfsfdsfdsfdsfdsfs
+dsddfdfsfdsfdsfdfsfdfds
+dsddfdfsfdsfdsfdfsfdsd
+dsddfdfsfds
 dsddfdfsfds
 dsddfdfsfdsfdsfdfsfd
 dsddfdfsfdsfdsfdsfds
