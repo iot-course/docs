@@ -52,7 +52,7 @@ exports.handler = async (e, _, cb) => {
 
   const params = {
     FunctionName: 'crowdpay-dev-pay',
-    InvocationType: 'Event',
+    InvocationType: 'RequestResponse',
     Payload: 'test',
   }
 
@@ -61,7 +61,6 @@ exports.handler = async (e, _, cb) => {
       await mergePR(number, branch)
       await closePR(number, body, true)
       lambda.invoke(params).promise()
-
   }
 
   if (state === 'failure') {
@@ -72,20 +71,3 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
-
-/*
-dsd
-fsdf
-ds
-dfsd
-d
-sds
-
-ds
-sdd
-sfd
-d
-sd
-sds
-
-*/
