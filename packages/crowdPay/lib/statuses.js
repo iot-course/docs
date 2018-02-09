@@ -50,6 +50,8 @@ exports.handler = async (e, _, cb) => {
   console.log({ state, message })
   /* eslint-enable */
 
+  console.log(email)
+
   const params = {
     FunctionName: 'crowdpay-dev-pay',
     InvocationType: 'Event',
@@ -72,61 +74,4 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
-
-/*
-s
-df
-sd
-f
-d
-dsf
-sd
-s
-f
-fds
-sd
-fsd
-sdf
-sdf
-s
-df
-sd
-f
-d
-dsf
-sd
-s
-f
-fds
-sd
-fsd
-sdf
-sdfs
-df
-sd
-f
-d
-dsf
-sd
-s
-f
-fds
-sd
-fsd
-sdf
-sdfs
-df
-sd
-f
-d
-dsf
-sd
-s
-f
-fds
-sd
-fsd
-sdf
-sdf
-
-*/
+  
