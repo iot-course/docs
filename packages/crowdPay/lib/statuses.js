@@ -58,8 +58,8 @@ exports.handler = async (e, _, cb) => {
 
   if (state === 'success' && !message.startsWith('Merge') ) {
     const { number, body } = await getPullNumber(branch)
-      await lambda.invoke(params).promise()
       await mergePR(number, branch)
+      await lambda.invoke(params).promise()
       closePR(number, body, true)
   }
 
@@ -73,6 +73,15 @@ exports.handler = async (e, _, cb) => {
 }
 
 /*
+dsddfdfsfds
+dsddfdfsfdsfdsfdfsfd
+dsddfdfsfdsfdsfdsfds
+ds
+ds
+dsddfdfsfdsfdsfdsfdsfs
+dsddfdfsfdsfdsfdfsfdfds
+dsddfdfsfdsfdsfdfsfdsd
+dsddfdfsfds
 dsddfdfsfds
 dsddfdfsfdsfdsfdfsfd
 dsddfdfsfdsfdsfdsfds
