@@ -52,7 +52,7 @@ exports.handler = async (e, _, cb) => {
 
   const params = {
     FunctionName: 'crowdpay-dev-pay',
-    InvocationType: 'RequestResponse',
+    InvocationType: 'Event',
     Payload: 'test',
   }
 
@@ -71,71 +71,3 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
-
-
-/*
-saasdsd
-disableasdds
-saasdsdads
-saasdsdadsa
-sad
-d
-saasdsdadsd
-disableasddsadsdas
-a
-ds
-disableasddsadsdas
-saasdsd
-disableasdds
-saasdsdads
-saasdsdadsa
-sad
-d
-saasdsdadsd
-disableasddsadsdas
-a
-ds
-disableasddsad
-saasdsd
-disableasdds
-saasdsdads
-saasdsdadsa
-sad
-d
-saasdsdadsd
-disableasddsadsdas
-a
-ds
-disableasddsadsdas
-saasdsd
-disableasdds
-saasdsdads
-saasdsdadsa
-sad
-d
-saasdsdadsd
-disableasddsadsdas
-a
-ds
-disableasddsadsdassaasdsd
-disableasdds
-saasdsdads
-saasdsdadsa
-sad
-d
-saasdsdadsd
-disableasddsadsdas
-a
-ds
-disableasddsadsdassaasdsd
-disableasdds
-saasdsdads
-saasdsdadsa
-sad
-d
-saasdsdadsd
-disableasddsadsdas
-a
-ds
-disableasddsadsdas
-*/
