@@ -72,13 +72,3 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
-
-/*
-dfsdfdD
-df
-dfsdfdDd
-df
-df
-fds
-df
-*/
