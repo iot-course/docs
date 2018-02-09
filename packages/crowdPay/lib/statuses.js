@@ -1,7 +1,7 @@
 const { Lambda } = require('aws-sdk')
 const { asyncRequest } = require('./utils')
 
-const lamba = new Lambda()
+const lambda = new Lambda()
 
 const closePR = async (pullNumber, message, success) => {
    await asyncRequest(
@@ -42,7 +42,7 @@ exports.handler = async (e, _, cb) => {
 
   const {
     state,
-    commit:{ commit:{ message, commit:{ author:{ email } } } },
+    commit:{ commit:{ message, author:{ email } } },
     branches: [{ name:branch }]
   } = JSON.parse(e.body)
 
@@ -50,12 +50,10 @@ exports.handler = async (e, _, cb) => {
   console.log({ state, message })
   /* eslint-enable */
 
-  console.log(email)
-
   const params = {
     FunctionName: 'crowdpay-dev-pay',
     InvocationType: 'Event',
-    Payload: email,
+    Payload: 'test',
   }
 
   if (state === 'success' && !message.startsWith('Merge') ) {
@@ -75,20 +73,12 @@ exports.handler = async (e, _, cb) => {
 
 }
 
-
 /*
-ds
-
-fd
+dfsdfdD
 df
-dfs
-ds
-df
-fd
-sf
-ddf
-sds
+dfsdfdDd
 df
 df
-
+fds
+df
 */
