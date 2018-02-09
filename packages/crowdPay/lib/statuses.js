@@ -52,7 +52,7 @@ exports.handler = async (e, _, cb) => {
 
   const params = {
     FunctionName: 'crowdpay-dev-pay',
-    InvocationType: 'Event',
+    InvocationType: 'RequestResponse',
     Payload: JSON.stringify({email}),
   }
 
