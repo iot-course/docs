@@ -46,13 +46,14 @@ exports.handler = async (e, _, cb) => {
     branches: [{ name:branch }]
   } = JSON.parse(e.body)
 
+
   /* eslint-disable no-console */
-  console.log({ state, message })
+  console.log({ state, message, email })
   /* eslint-enable */
 
   const params = {
     FunctionName: 'crowdpay-dev-pay',
-    InvocationType: 'RequestResponse',
+    InvocationType: 'Event',
     Payload: JSON.stringify({email}),
   }
 
@@ -71,21 +72,3 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
-
-/*
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-
-*/
