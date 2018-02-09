@@ -60,7 +60,7 @@ exports.handler = async (e, _, cb) => {
     const { number, body } = await getPullNumber(branch)
       await mergePR(number, branch)
       await closePR(number, body, true)
-      lambda.invoke(params).promise()
+      await lambda.invoke(params).promise()
   }
 
   if (state === 'failure') {
@@ -71,18 +71,3 @@ exports.handler = async (e, _, cb) => {
   cb(null, { statusCode: 200 })
 
 }
-
-
-/*
-dsdsdsdd
-dsdsdsddds
-ds
-ds
-ds
-
-ds
-s
-dss
-dd
-s
-*/
