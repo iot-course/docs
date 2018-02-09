@@ -4,6 +4,6 @@
 */
 
 exports.handler = (e, _, cb) => {
-  console.log(`pay this person ${e.body}`)
+  console.log(e,'-----event')
   cb(null, e)
 }
