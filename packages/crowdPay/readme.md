@@ -3,8 +3,8 @@
 
 > A system for automating payments based on agile points.
 
-- `yarn submit` ⇒ creates pr ⇒ checks code ⇒ checks status
+`yarn submit` ⇒ creates pr ⇒ checks code ⇒ checks tests ?
 
-    ✅ &nbsp; ⇒ merges pr ⇒  closes issue ⇒  authorizes instant payment through stripe connect
+  - ✅ &nbsp; ⇒ merges pr ⇒  closes issue ⇒  authorizes instant payment through stripe connect
 
-    ❌ &nbsp; ⇒ closes pr  
+  -  ❌ &nbsp; ⇒ closes pr  
