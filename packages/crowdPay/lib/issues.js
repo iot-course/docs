@@ -1,18 +1,14 @@
 /**
 * Receives gh issue, then reverts or allows labels changes and issue closings based on auth
- * @summary http ⇒ λ github-issue ⇒ request
+ * @summary github ⇒ λ github-issue ⇒ request
  * @external labelAction ? authLabelChange(number, cb) : closeAction && undoClose(number, cb)
  * @param { Object }  Item -  JSON.parse(event.body)
  * @param { Number }  number -  JSON.parse(event.body).issue
 */
 
-
-// deps
-const { DynamoDB: { DocumentClient } } = require('aws-sdk')
 const { asyncRequest } = require('./utils')
+const { DynamoDB: { DocumentClient } } = require('aws-sdk')
 
-
-// consts
 const { NODE_ENV } = process.env
 const PM = 'TA-Bot'
 
@@ -25,59 +21,65 @@ const docClient = new DocumentClient(
 )
 
 
-// main funcs
-const saveIssue = (Item, cb) => docClient.put({
-  TableName: 'issue-crowdpay-dev',
-  ReturnValues: 'ALL_OLD',
-  Item
-}).promise()
-.then( () => cb(null, { statusCode: 200 }))
-.catch( err => cb(err))
+const undoClose = async number => {
+  await asyncRequest(
+    `/repos/iot-course/org/issues/${number}`,
+    'patch',
+     { state:'open' },
+  )
+}
 
 
-const undoLabelChange = async (number, cb) => {
+const saveIssue = async Item => {
+  await docClient.put({
+    TableName: 'issue-crowdpay-dev',
+    ReturnValues: 'ALL_OLD',
+    Item
+  }).promise()
+}
+
+
+const undoLabelChange = async number => {
 
   const { Item: { issue: { labels } } } = await docClient.get({
     TableName: 'issue-crowdpay-dev',
     Key: { number },
   }).promise()
 
-
-  const { err, data:{ statusCode } } = await asyncRequest(
+  await asyncRequest(
     `/repos/iot-course/org/issues/${number}`,
     'patch',
      { labels },
   )
 
-  statusCode ? cb(null, { statusCode }) : cb(err)
-
-}
-
-const undoClose = async (number, cb) => {
-
-  const { err, data:{ statusCode } } = await asyncRequest(
-    `/repos/iot-course/org/issues/${number}`,
-    'patch',
-     { state:'open' },
-  )
-
-  statusCode ? cb(null, { statusCode }) : cb(err)
 }
 
 
-exports.handler = (e, _, cb) => {
+exports.handler = async (e, _, cb) => {
 
-  const { sender: { login }, issue: { number, labels }, action } = JSON.parse(e.body)
-  const Item = { number, action, issue: { number, labels }, sender: { login } }
+  const {
+    action,
+    sender: { login },
+    issue: {
+      number,
+      labels,
+    },
+  } = JSON.parse(e.body)
+
+
+  const Item = { number, issue: { labels } }
 
   const labelAction = action === 'labeled' || action === 'unlabeled' || action === 'edited'
-  const authLabelChange = labels.length === 1 && login === PM
-  const closeAction = action === 'closed'
+  const labelAuth = labels.length === 1 && login === PM
+  const closeAction = action === 'closed' && login !== PM
+
 
   labelAction
-    ? authLabelChange
-      ? saveIssue(Item, cb)
-      : undoLabelChange(number, cb)
-    : closeAction && undoClose(number, cb)
+    ? labelAuth
+      ? saveIssue(Item)
+      : undoLabelChange(number)
+    : closeAction && undoClose(number)
+
+  cb(null, { statusCode: 200 })
 
 }

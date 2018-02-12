@@ -1,37 +1,42 @@
 const { asyncRequest } = require('./utils')
 
-
-const approvedReview = {
-  body: `Your code is adequate enough given the
-           limitations of your species.`,
-  event: 'APPROVE',
+const closePR = async (number, body) => {
+  await asyncRequest(
+    `/repos/iot-course/org/pulls/${number}`,
+    'patch',
+    {
+      state: 'closed',
+      body: `${body} \n\n> This robot has deemed you unworthy 🤖 💥 😭 `
+    }
+  )
 }
 
-const changeReview = {
-  body: 'You sure this code implements the feature fully?',
-  event: 'REQUEST_CHANGES',
-}
+const prReview = async (number, test) => {
 
+  const approvedReview = {
+    body: `Your code is adequate enough given the
+             limitations of your species.`,
+    event: 'APPROVE',
+  }
 
-const prReview = async (number, loc, points) => {
+  const changeReview = {
+    body: 'You sure this code implements the feature fully?',
+    event: 'REQUEST_CHANGES',
+  }
 
-  const { data: { statusCode } } = await asyncRequest(
+  await asyncRequest(
     `/repos/iot-course/org/pulls/${number}/reviews`,
     'post',
-    loc + 5 >= +points ? approvedReview : changeReview
+    test ? approvedReview : changeReview
   )
-
-  statusCode !== 200 && console.log({ prReviewCode: statusCode })
 
 }
 
-
 const getIssuePoints = async issueNumber => {
-  const { err, data:{ labels:[{ name:points }] } } = await asyncRequest(
+  const { data:{ labels:[{ name:points }] } } = await asyncRequest(
     `/repos/iot-course/org/issues/${issueNumber}`
   )
-  err && console.log({ getIssuePointsErr: err.message })
-  return points
+  return +points
 }
 
 exports.handler = async (e, _, cb) => {
@@ -40,18 +45,22 @@ exports.handler = async (e, _, cb) => {
     action,
     number,
     pull_request:{
-      // head:{ sha },
       body,
-      additions,
-      deletions
+      additions
     }
   } = JSON.parse(e.body)
 
+  console.log({ body })
 
-  const points = await getIssuePoints(body.replace(/^\D+/, ''))
-  const loc = additions + deletions
+  if (action === 'opened') {
+    //TODO: if you get a diff body on a pr this will fail. make fail gracefully
+    const points = await getIssuePoints(body.replace(/^\D+/, ''))
+    console.log({ points })
+    const test = (additions + 5 >= points) && (additions <= points * 50)
+    await prReview(number, test)
+    !test && await closePR(number, body)
+  }
 
-  action === 'opened' && prReview(number, loc, points)
 
   cb(null, { statusCode: 200 })
 

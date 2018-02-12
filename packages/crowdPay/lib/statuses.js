@@ -1,58 +1,73 @@
+const { Lambda } = require('aws-sdk')
 const { asyncRequest } = require('./utils')
 
+const lambda = new Lambda()
 
-const closePR = async (pullNumber, head, success) => {
-
-  const { data:{ statusCode } } = await asyncRequest(
+const closePR = async (pullNumber, message, success) => {
+   await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}`,
     'patch',
     {
-      state: "closed",
+      state: 'closed',
       body: success
-        ? `${head} \n\n> Crispy Lettuce 💵 😎  \n\n- added automagically`
-        : `${head} \n\n> This Robot has deemed you unworthy 🤖 💥 😭 \n\n- added automagically`
+        ? `${message} \n\n> Crispy Lettuce 💵 😎  (added automagically)`
+        : `${message} \n\n> This robot has deemed you unworthy 🤖 💥 😭 `
     }
   )
 }
 
-const mergePR = async (pullNumber, head) => {
 
-  const { data:{ statusCode } } = await asyncRequest(
+const mergePR = async pullNumber => {
+
+  await asyncRequest(
     `/repos/iot-course/org/pulls/${pullNumber}/merge`,
     'put',
-    {commit_message: 'all gravy'}
+    { commit_message: 'all gravy' }
   )
 
-  statusCode === 200 && closePR(pullNumber, head, true )
 }
 
-const getPullNumber = async (head, message) => {
-  const { data:pulls } = await asyncRequest(`/repos/iot-course/org/pulls?state=open&head=${head}`)
-  const { number } = (pulls.filter( ({body}) => message === body )[0] || {})
 
-  return number
-    ? number
-    : console.log('could not match pr body to commit msg');
+const getPullNumber = async head => {
+  const { data:pulls } = await asyncRequest(`/repos/iot-course/org/pulls?state=open&head=${head}`)
+  const { number, body } = (pulls.filter( ({ body }) => body.startsWith('closes') )[0] || {})
+
+  return number && body
+    ? { number, body }
+    : console.log('could not find this feature in among the PRs')
+
 }
 
 exports.handler = async (e, _, cb) => {
 
   const {
     state,
-    commit:{ commit:{ message } },
-    branches: [{ name:head }]
+    commit:{ commit:{ message, author:{ email } } },
+    branches: [{ name:branch }]
   } = JSON.parse(e.body)
 
 
-  if (state === 'success' && !message.startsWith("Merge")) {
-    const pullNumber = await getPullNumber(head, message)
-    pullNumber && mergePR(pullNumber, head)
+  /* eslint-disable no-console */
+  console.log({ state, message, email })
+  /* eslint-enable */
+
+  const params = {
+    FunctionName: 'crowdpay-dev-pay',
+    InvocationType: 'Event',
+    Payload: JSON.stringify({email}),
   }
 
-  if(state === 'failure'){
-    closePR(pullNumber, head)
+  if (state === 'success' && !message.startsWith('Merge') ) {
+    const { number, body } = await getPullNumber(branch)
+    await mergePR(number, branch)
+    await lambda.invoke(params).promise()
+    closePR(number, body, true)
   }
 
+  if (state === 'failure') {
+    const { number, body } = await getPullNumber(branch)
+    closePR(number, body)
+  }
 
   cb(null, { statusCode: 200 })
 
