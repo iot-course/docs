@@ -1,7 +1,7 @@
 <br/>
 <br/>
 
-<div align='center'> <img src='https://goo.gl/UxnfW1' /></div>
+# <div align='center'> <img src='https://goo.gl/UxnfW1' /></div>
 
 <br/>
 <br/>
