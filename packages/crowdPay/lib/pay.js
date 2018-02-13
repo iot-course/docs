@@ -3,25 +3,15 @@
  * @summary λ statuses ⇒ λ pay ⇒ paypal
 */
 
-exports.handler = (e, _, cb) => {
-  console.log(e,'-----event')
+exports.handler = ({ email}, _, cb) => {
+  console.log(email,'-----event')
   cb(null, e)
 }
 
+
 /*
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
-dewwreeewewewerew
+
+
+
 
 */
