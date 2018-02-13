@@ -21,28 +21,28 @@ Explore
  Sign out
 1
 0 0 iot-course/org
- Code  Issues 2  Pull requests 0  Projects 1  Wiki  Insights  Settings
-Features
+ Code  Issues 1  Pull requests 0  Projects 1  Wiki  Insights  Settings
 
-Updated 11 minutes ago
+is:pr is:open
+LabelsMilestones
 
-Filter cards
- Fullscreen
-  0 To Do Press enter to move this column
-Automated as To do
-  2 In progress Press enter to move this column
 
-Signup-and-Login
-#1 opened by wordyallen
-Press enter to move this card
+There aren’t any open pull requests.
+Use the links above to find what you’re looking for, or try a new search query. The Filters menu is also super helpful for quickly finding issues most relevant to you.
 
-Wifi Onboarding
-#2 opened by wordyallen
-Press enter to move this card
-Automated as In progress
-  0 Done Press enter to move this column
-Automated as Done
- Add column
+ ProTip! Bookmark issues and pull requests to revisit later.
+© 2018 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+API
+Training
+Shop
+Blog
+About
 
 
 */
