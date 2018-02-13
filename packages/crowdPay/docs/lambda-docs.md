@@ -4,7 +4,6 @@
 # <div align='center'> <img src='https://goo.gl/UxnfW1' /></div>
 
 <br/>
-<br/>
 
 ## `github ⇒ λ github-issue ⇒ request`
 
