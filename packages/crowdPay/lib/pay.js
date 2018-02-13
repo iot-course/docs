@@ -10,51 +10,79 @@ exports.handler = ({ email}, _, cb) => {
 
 
 /*
-"href": "https://api.github.com/repos/iot-course/org/issues/174"
-},
-"comments": {
-"href": "https://api.github.com/repos/iot-course/org/issues/174/comments"
-},
-"review_comments": {
-"href": "https://api.github.com/repos/iot-course/org/pulls/174/comments"
-},
-"review_comment": {
-"href": "https://api.github.com/repos/iot-course/org/pulls/comments{/number}"
-},
-"commits": {
-"href": "https://api.github.com/repos/iot-course/org/pulls/174/commits"
-},
-"statuses": {
-"href": "https://api.github.com/repos/iot-course/org/statuses/f9f45251141128a7ccd8c0d31d6066a2a7b9feac"
-}
-},
-"author_association": "OWNER",
-"merged": false,
-"mergeable": null,
-"rebaseable": null,
-"mergeable_state": "unknown",
-"merged_by": null,
-"comments": 0,
-"review_comments": 0,
-"maintainer_can_modify": false,
-"commits": 4,
-"additions": 49,
-"deletions": 212,
-"changed_files": 1
-}
-✨  Done in 3.11s.
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Marketplace
+Explore
+ @wordyallen
+ Sign out
+1
+0 0 iot-course/org
+ Code  Issues 2  Pull requests 1  Projects 1  Wiki  Insights  Settings
+Signup-and-Login #175
+ Closed	wordyallen  wants to merge 2 commits into master from Signup-and-Login
++26 −29
+ Conversation 1   Commits 2   Files changed 1
+Conversation
+ Reviewers
+ @TA-Bot TA-Bot
 
-~/Build/iot-course/org/packages/crowdPay Signup-and-Login
-❯ git pull origin master
-remote: Counting objects: 1, done.
-remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
-Unpacking objects: 100% (1/1), done.
-From https://github.com/iot-course/org
-* branch            master     -> FETCH_HEAD
-8d6a314..a216017  master     -> origin/master
-Already up-to-date!
-Merge made by the 'recursive' strategy.
+ Assignees
+No one—
+ Labels
+None yet
+ Projects
+None yet
+ Milestone
+No milestone
+Notifications
+You’re receiving notifications because you modified the open/close state.
+2 participants
+@wordyallen @TA-Bot
+ Lock conversation
+ @wordyallen
+ Owner
+wordyallen commented 30 seconds ago
+closes #1
 
-~/Build/iot-course/org/packages/crowdPay Signup-and-Login
-❯ msg='closes #1' yarn submit
+wordyallen added some commits 5 minutes ago
+ @wordyallen
+Merge branch 'master' of https://github.com/iot-course/org into Signu…  …
+15e39ef
+ @wordyallen
+setting up
+729fb36
+ @TA-Bot
+TA-Bot approved these changes 29 seconds ago
+Your code is adequate enough given the
+limitations of your species.
+
+ @wordyallen wordyallen closed this just now
+Closed with unmerged commits
+This pull request is closed, but the Signup-and-Login branch has unmerged commits.
+
+@wordyallen
+
+
+
+
+
+Leave a comment
+Attach files by dragging & dropping, , or pasting from the clipboard.  Styling with Markdown is supported
+ ProTip! Add .patch or .diff to the end of URLs for Git’s plaintext views.
+© 2018 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+API
+Training
+Shop
+Blog
+About
 */
