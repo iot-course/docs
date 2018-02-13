@@ -32,4 +32,4 @@ arg / param | type | path
 
 ## `λ github-status ⇒ λ pay ⇒ stripe`
 
-`λ pay` gets called by a github status lambda  that approves payment based on merge status. `λ pay` then authorizes payment based on github email of the assignee/pull requester of the feature.  
+`λ pay` gets called by a github status lambda  that approves payment based on merge status. `λ pay` then authorizes payment based on github email (of the assignee of the feature) and point amount.  
