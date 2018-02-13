@@ -10,42 +10,22 @@ exports.handler = ({ email}, _, cb) => {
 
 
 /*
-
-"forks_count": 0,
-  "mirror_url": null,
-  "archived": false,
-  "open_issues_count": 3,
-  "license": null,
-  "forks": 0,
-  "open_issues": 3,
-  "watchers": 0,
-  "default_branch": "master"
-}
-},
-"_links": {
-"self": {
-  "href": "https://api.github.com/repos/iot-course/org/pulls/173"
-},
-"html": {
-  "href": "https://github.com/iot-course/org/pull/173"
-},
-"issue": {
-  "href": "https://api.github.com/repos/iot-course/org/issues/173"
+"href": "https://api.github.com/repos/iot-course/org/issues/174"
 },
 "comments": {
-  "href": "https://api.github.com/repos/iot-course/org/issues/173/comments"
+"href": "https://api.github.com/repos/iot-course/org/issues/174/comments"
 },
 "review_comments": {
-  "href": "https://api.github.com/repos/iot-course/org/pulls/173/comments"
+"href": "https://api.github.com/repos/iot-course/org/pulls/174/comments"
 },
 "review_comment": {
-  "href": "https://api.github.com/repos/iot-course/org/pulls/comments{/number}"
+"href": "https://api.github.com/repos/iot-course/org/pulls/comments{/number}"
 },
 "commits": {
-  "href": "https://api.github.com/repos/iot-course/org/pulls/173/commits"
+"href": "https://api.github.com/repos/iot-course/org/pulls/174/commits"
 },
 "statuses": {
-  "href": "https://api.github.com/repos/iot-course/org/statuses/7828c268b9610e116438e4e471096dd4fa06a8c8"
+"href": "https://api.github.com/repos/iot-course/org/statuses/f9f45251141128a7ccd8c0d31d6066a2a7b9feac"
 }
 },
 "author_association": "OWNER",
@@ -57,7 +37,24 @@ exports.handler = ({ email}, _, cb) => {
 "comments": 0,
 "review_comments": 0,
 "maintainer_can_modify": false,
-"commits": 2,
-"additions": 0,
-"deletions": 217,
+"commits": 4,
+"additions": 49,
+"deletions": 212,
+"changed_files": 1
+}
+✨  Done in 3.11s.
+
+~/Build/iot-course/org/packages/crowdPay Signup-and-Login
+❯ git pull origin master
+remote: Counting objects: 1, done.
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (1/1), done.
+From https://github.com/iot-course/org
+* branch            master     -> FETCH_HEAD
+8d6a314..a216017  master     -> origin/master
+Already up-to-date!
+Merge made by the 'recursive' strategy.
+
+~/Build/iot-course/org/packages/crowdPay Signup-and-Login
+❯ msg='closes #1' yarn submit
 */
