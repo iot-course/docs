@@ -21,68 +21,28 @@ Explore
  Sign out
 1
 0 0 iot-course/org
- Code  Issues 2  Pull requests 1  Projects 1  Wiki  Insights  Settings
-Signup-and-Login #175
- Closed	wordyallen  wants to merge 2 commits into master from Signup-and-Login
-+26 −29
- Conversation 1   Commits 2   Files changed 1
-Conversation
- Reviewers
- @TA-Bot TA-Bot
+ Code  Issues 2  Pull requests 0  Projects 1  Wiki  Insights  Settings
+Features
 
- Assignees
-No one—
- Labels
-None yet
- Projects
-None yet
- Milestone
-No milestone
-Notifications
-You’re receiving notifications because you modified the open/close state.
-2 participants
-@wordyallen @TA-Bot
- Lock conversation
- @wordyallen
- Owner
-wordyallen commented 30 seconds ago
-closes #1
+Updated 11 minutes ago
 
-wordyallen added some commits 5 minutes ago
- @wordyallen
-Merge branch 'master' of https://github.com/iot-course/org into Signu…  …
-15e39ef
- @wordyallen
-setting up
-729fb36
- @TA-Bot
-TA-Bot approved these changes 29 seconds ago
-Your code is adequate enough given the
-limitations of your species.
+Filter cards
+ Fullscreen
+  0 To Do Press enter to move this column
+Automated as To do
+  2 In progress Press enter to move this column
 
- @wordyallen wordyallen closed this just now
-Closed with unmerged commits
-This pull request is closed, but the Signup-and-Login branch has unmerged commits.
+Signup-and-Login
+#1 opened by wordyallen
+Press enter to move this card
 
-@wordyallen
+Wifi Onboarding
+#2 opened by wordyallen
+Press enter to move this card
+Automated as In progress
+  0 Done Press enter to move this column
+Automated as Done
+ Add column
 
 
-
-
-
-Leave a comment
-Attach files by dragging & dropping, , or pasting from the clipboard.  Styling with Markdown is supported
- ProTip! Add .patch or .diff to the end of URLs for Git’s plaintext views.
-© 2018 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-API
-Training
-Shop
-Blog
-About
 */
