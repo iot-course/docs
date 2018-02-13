@@ -10,7 +10,7 @@ exports.handler = ({ email}, _, cb) => {
 
 
 /*
-Skip to content
+dSkip to content
 This repository
 Search
 Pull requests
@@ -24,7 +24,7 @@ Explore
  Code  Issues 2  Pull requests 0  Projects 1  Wiki  Insights  Settings
 Features
 
-Updated 11 minutes ago
+Updated 8 minutes ago
 
 Filter cards
  Fullscreen
