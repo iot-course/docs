@@ -10,16 +10,16 @@
 ## `github ⇒ λ github-issue ⇒ request`
 
 
-Receives an issue event object from github and reverts/allows labels changes and issue closings
+Receives an issue event object from github based on a label change (which is how points are tracked) or close action. Then based on who is creating the action authorizes the point change or the issue closing.
 
 
 **Callback / External Calls:**
 
 ```js
 labelAction
-  ? authLabelChange
-    ? saveIssue(Item, cb)
-    : undoLabelChange(number, cb)
+  ? authPointChange
+    ? savePointChange(Item, cb)
+    : undoPointChange(number, cb)
   : closeAction && undoClose(number, cb)
 ```
 
