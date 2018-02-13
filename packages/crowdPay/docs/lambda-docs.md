@@ -1,5 +1,7 @@
+<div align='center'> <img src='https://goo.gl/UxnfW1' /></div>
+<br/>
 
-## `http ⇒ λ github-issue ⇒ request`
+## `github ⇒ λ github-issue ⇒ request`
 
 
 Receives an issue event object from github and reverts/allows labels changes and issue closings
@@ -21,94 +23,7 @@ arg / param | type | path
 `number` | `Number` | ` JSON.parse(event.body).issue`
 <br/>
 
-## `undefined`
 
+## `λ github-status ⇒ λ pay ⇒ stripe`
 
-
-
-
-**Callback / External Call:**
-
-```js
-undefined
-```
-
-arg / param | type | path
---- | --- | ---
-
-<br/>
-
-## `undefined`
-
-
-exports.asyncRequest = (path, method = 'get', writeBody) => new Promise( (resolve, reject) => {
-
-
-
-const options = {
-
-headers:{
-
-'User-Agent': 'crowdpay',
-
-auth: `TA-Bot:${ghAccessToken}`,
-
-Authorization: `token ${ghAccessToken}`
-
-},
-
-hostname: 'api.github.com',
-
-method,
-
-path,
-
-}
-
-
-
-const req = request(options, res => {
-
-if (method === 'get') {
-
-let readBody = ''
-
-res.on('data', d => readBody += d)
-
-res.on('end', () => resolve(JSON.parse(readBody) ) )
-
-res.on('error', err => reject(err) )
-
-} else {
-
-resolve(res)
-
-}
-
-})
-
-method !== 'get' && req.write(JSON.stringify(writeBody))
-
-req.on('error', err => reject(err) )
-
-req.end()
-
-
-
-})
-
-.then( data => ({ err:null, data }))
-
-.catch( err => ({ err, data: null }))
-
-
-**Callback / External Call:**
-
-```js
-undefined
-```
-
-arg / param | type | path
---- | --- | ---
-
-<br/>
+`λ pay` gets called by a github status lambda  that approves payment based on merge status. `λ pay` then authorizes payment based on github email of the assignee/pull requester of the feature.  
