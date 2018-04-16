@@ -1,5 +1,6 @@
 
 {
+    "parser": "babel-eslint",
     "emitWarning": true,
     "useEslintrc": false,
     "envs": ["browser", "jest", "node"],
