@@ -17,6 +17,7 @@
   			"error",
   			"as-needed"
   		],
+      "import/prefer-default-export": "off",
       "no-unused-expressions": "off",
       "no-nested-ternary": "off",
       "indent": "off",
