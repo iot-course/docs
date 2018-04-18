@@ -19,6 +19,7 @@
   			"as-needed"
   		],
       "import/prefer-default-export": "off",
+      "react/no-multi-comp": "off",
       "no-confusing-arrow": "off",
       "no-unused-expressions": "off",
       "no-nested-ternary": "off",
